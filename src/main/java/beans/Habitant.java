@@ -44,6 +44,11 @@ public class Habitant {
 		this.dateDeNaissance = dateDeNaissance;
 		this.metier = metier;
 	}
+	
+	
+	public Habitant() {
+		// TODO Auto-generated constructor stub
+	}
 	// les getters et les setters
 	public int getId() {
 		return id;
