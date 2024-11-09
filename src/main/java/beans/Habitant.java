@@ -1,6 +1,7 @@
 package beans;
 
-import java.time.LocalDate;
+import java.sql.Date;
+
 
 public class Habitant {
 	// les attributs d'un habitant
@@ -12,12 +13,12 @@ public class Habitant {
 	private String password;
 	private String cin;
 	private String addresse;
-	private LocalDate dateDeNaissance;
+	private Date dateDeNaissance;
 	private String metier;
 	// les constructeurs
 	//constructeur avec la donnée de tous les champs
 	public Habitant(int id, String username, String nom, String prenom, String email, String password, String cin,
-			String addresse, LocalDate dateDeNaissance, String metier) {
+			String addresse, Date dateDeNaissance, String metier) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -32,7 +33,7 @@ public class Habitant {
 	}
 	//constructeur avec la donnée de tous les champs sans l'id
 	public Habitant(String username, String nom, String prenom, String email, String password, String cin,
-			String addresse, LocalDate dateDeNaissance, String metier) {
+			String addresse, Date dateDeNaissance, String metier) {
 		super();
 		this.username = username;
 		this.nom = nom;
@@ -98,11 +99,11 @@ public class Habitant {
 	public void setAddresse(String addresse) {
 		this.addresse = addresse;
 	}
-	public LocalDate getDateDeNaissance() {
+	public Date getDateDeNaissance() {
 		return dateDeNaissance;
 	}
-	public void setDateDeNaissance(LocalDate dateDeNaissance) {
-		this.dateDeNaissance = dateDeNaissance;
+	public void setDateDeNaissance(Date dateDeNaissance2) {
+		this.dateDeNaissance = dateDeNaissance2;
 	}
 	public String getMetier() {
 		return metier;
