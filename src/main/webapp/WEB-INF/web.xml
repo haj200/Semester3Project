@@ -10,6 +10,15 @@
   <servlet-name>HabitantServlet</servlet-name>
   <url-pattern>/habitants</url-pattern>
   </servlet-mapping>
+  <servlet>
+  <servlet-name>DomaineServlet</servlet-name>
+  <servlet-class>servlets.DomaineServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>DomaineServlet</servlet-name>
+  <url-pattern>/domaines</url-pattern>
+  </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.jsp</welcome-file>

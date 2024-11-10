@@ -75,5 +75,11 @@ public class DAOFactory {
      public HabitantDao getHabitantDao() {
     	 return new HabitantDaoImp(this);
      }
+     public DomaineDao getDomaineDao() {
+    	 return new DomaineDaoImp(this);
+     }
+     public ProjetDao getProjetDao() {
+    	 return new ProjetDaoImp(this);
+     }
      
 }

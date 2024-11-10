@@ -27,25 +27,19 @@ public class HabitantServlet extends HttpServlet {
 	        this.habitantDao =daoFactory.getHabitantDao();
 	    }
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+    
     public HabitantServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("habitants", habitantDao.habitants());
 		this.getServletContext().getRequestDispatcher("/habitants.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String username = request.getParameter("username");

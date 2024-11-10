@@ -7,6 +7,10 @@ public class Domaine {
 		private String description;
 		private String criteres;
 		// les constructeurs
+		//Par defaut
+		public Domaine() {
+			super();
+		}
 		//constructeur avec la donnée de tous les champs
 		public Domaine(int id, String nom, String description, String criteres) {
 			super();
@@ -15,6 +19,7 @@ public class Domaine {
 			this.description = description;
 			this.criteres = criteres;
 		}
+		
 		//constructeur avec la donnée de tous les champs sans l'id
 		public Domaine(String nom, String description, String criteres) {
 			super();
