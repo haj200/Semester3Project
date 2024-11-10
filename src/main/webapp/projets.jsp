@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>projets</title>
 </head>
 <body>
 <h1>Liste des Projets</h1>
