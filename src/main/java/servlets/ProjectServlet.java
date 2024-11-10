@@ -7,32 +7,34 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Servlet implementation class ProjectServlet
- */
-@WebServlet("/ProjectServlet")
+import dao.DAOFactory;
+import dao.HabitantDao;
+import dao.ProjetDao;
+
+
+
 public class ProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+	private ProjetDao projetDao;
+
+	 public void init() throws ServletException {
+	        DAOFactory daoFactory = DAOFactory.getInstance();
+	        this.projetDao =daoFactory.getProjetDao();
+	    }
+    
     public ProjectServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.setAttribute("projets", projetDao.projets());
+		this.getServletContext().getRequestDispatcher("/projets.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

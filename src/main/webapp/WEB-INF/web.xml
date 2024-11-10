@@ -11,6 +11,16 @@
   <url-pattern>/habitants</url-pattern>
   </servlet-mapping>
   <servlet>
+   
+  <servlet-name>ProjectServlet</servlet-name>
+  <servlet-class>servlets.ProjectServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>ProjectServlet</servlet-name>
+  <url-pattern>/projects</url-pattern>
+  </servlet-mapping>
+  <servlet>
   <servlet-name>DomaineServlet</servlet-name>
   <servlet-class>servlets.DomaineServlet</servlet-class>
   </servlet>
