@@ -9,7 +9,7 @@
 </head>
 <body>
 hello
-<a href="habitantAdd.jsp">Ajouter Un Habitant</a>
+
 
     <h1>  list habitants </h1>
     <c:forEach var="habitant" items="${habitants}">
