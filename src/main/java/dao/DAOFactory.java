@@ -86,9 +86,7 @@ public class DAOFactory {
     	 return new ReclamationDaoImp(this);
      }
 
-     public FeedbackDao getFeedbackDao() {
-    	 return new FeedbackDaoImp(this);
-     }
+     
 
 	
      
