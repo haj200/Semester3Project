@@ -1,6 +1,7 @@
 package dao;
 
 import java.io.IOException;
+
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -81,5 +82,15 @@ public class DAOFactory {
      public ProjetDao getProjetDao() {
     	 return new ProjetDaoImp(this);
      }
+     public ReclamationDao getReclamationDao() {
+    	 return new ReclamationDaoImp(this);
+     }
+
+     public FeedbackDao getFeedbackDao() {
+    	 return new FeedbackDaoImp(this);
+     }
+
+	
+     
      
 }
