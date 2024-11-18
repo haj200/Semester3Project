@@ -1,4 +1,4 @@
-package dao;
+package dao.daoFeedback;
 
 import java.util.List;
 

@@ -1,19 +1,22 @@
-package servlets;
+package servlets.servletsGerant;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import utils.DateUtils;
+
 import java.io.IOException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.List;
 
 import beans.Habitant;
 import dao.DAOFactory;
-import dao.HabitantDao;
+import dao.daoHabitant.HabitantDao;
 
 
 
@@ -36,7 +39,7 @@ public class HabitantServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("habitants", habitantDao.habitants());
-		this.getServletContext().getRequestDispatcher("/habitants.jsp").forward(request, response);
+		this.getServletContext().getRequestDispatcher("/habitantJsp/habitants.jsp").forward(request, response);
 	}
 
 	
@@ -52,12 +55,14 @@ public class HabitantServlet extends HttpServlet {
         String metier = request.getParameter("metier");
         String email = request.getParameter("email");
      // Parse date
-        Date dateDeNaissance = null;
+        LocalDate dateDeNaissance = null;
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            dateDeNaissance = (Date) dateFormat.parse(dateString);
-        } catch (ParseException e) {
+            dateDeNaissance = DateUtils.convertStringToDate(dateString);
+            
+        } catch (Exception e) {
             e.printStackTrace();
+            response.sendRedirect("signIn.jsp?error=invalid_date");
+            return;
         }
 
        

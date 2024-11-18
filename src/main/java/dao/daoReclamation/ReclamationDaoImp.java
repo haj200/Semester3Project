@@ -1,6 +1,5 @@
-package dao;
+package dao.daoReclamation;
 
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import beans.Habitant;
 import beans.Reclamation;
+import dao.DAOFactory;
 
 public class ReclamationDaoImp implements ReclamationDao {
     private DAOFactory daoFactory;

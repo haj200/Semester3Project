@@ -1,4 +1,4 @@
-package dao;
+package dao.daoProjet;
 
 
 import java.sql.Blob;
@@ -12,6 +12,7 @@ import java.util.List;
 import beans.Domaine;
 import beans.Habitant;
 import beans.Projet;
+import dao.DAOFactory;
 
 public class ProjetDaoImp implements ProjetDao {
 	private DAOFactory daoFactory;

@@ -1,4 +1,4 @@
-package dao;
+package dao.daoHabitant;
 
 import java.util.List;
 
@@ -14,6 +14,7 @@ public interface HabitantDao {
 	void  updateHabitant(Habitant u);
 	
 	 void deleteHabitant(int id );
+	 Habitant getHabitantById(int id);
 
 
 }

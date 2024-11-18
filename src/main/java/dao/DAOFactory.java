@@ -8,6 +8,15 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import dao.daoDomaine.DomaineDao;
+import dao.daoDomaine.DomaineDaoImp;
+import dao.daoHabitant.HabitantDao;
+import dao.daoHabitant.HabitantDaoImp;
+import dao.daoProjet.ProjetDao;
+import dao.daoProjet.ProjetDaoImp;
+import dao.daoReclamation.ReclamationDao;
+import dao.daoReclamation.ReclamationDaoImp;
+
 public class DAOFactory {
 
     private static final String FICHIER_PROPERTIES       = "dao/dao.properties";
@@ -65,7 +74,7 @@ public class DAOFactory {
     }
 
     /* Méthode chargée de fournir une connexion à la base de données */
-     /* package */ Connection getConnection() throws SQLException {
+     /* package */ public Connection getConnection() throws SQLException {
         return DriverManager.getConnection( url, username, password );
     }
 
@@ -84,6 +93,9 @@ public class DAOFactory {
      }
      public ReclamationDao getReclamationDao() {
     	 return new ReclamationDaoImp(this);
+     }
+     public DAOAuth getAuthDao() {
+    	 return new DAOAuth(this);
      }
 
      

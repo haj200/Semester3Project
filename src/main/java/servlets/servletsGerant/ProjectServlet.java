@@ -1,4 +1,4 @@
-package servlets;
+package servlets.servletsGerant;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,21 +8,21 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import dao.DAOFactory;
-import dao.DomaineDao;
-import dao.HabitantDao;
+import dao.daoHabitant.HabitantDao;
+import dao.daoProjet.ProjetDao;
 
 
 
-public class DomaineServlet extends HttpServlet {
+public class ProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private DomaineDao domaineDao;
+	private ProjetDao projetDao;
 
 	 public void init() throws ServletException {
 	        DAOFactory daoFactory = DAOFactory.getInstance();
-	        this.domaineDao =daoFactory.getDomaineDao();
-	    }  
+	        this.projetDao =daoFactory.getProjetDao();
+	    }
     
-    public DomaineServlet() {
+    public ProjectServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,8 +30,8 @@ public class DomaineServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.setAttribute("domaines", domaineDao.domaines());
-		this.getServletContext().getRequestDispatcher("/domaines.jsp").forward(request, response);
+		request.setAttribute("projets", projetDao.projets());
+		this.getServletContext().getRequestDispatcher("/projetJsp/projets.jsp").forward(request, response);
 	}
 
 	

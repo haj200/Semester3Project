@@ -1,4 +1,4 @@
-package servlets;
+package servlets.servletsGerant;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -7,32 +7,34 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Servlet implementation class FeedbackServlet
- */
-@WebServlet("/FeedbackServlet")
-public class FeedbackServlet extends HttpServlet {
+import dao.DAOFactory;
+import dao.daoDomaine.DomaineDao;
+import dao.daoHabitant.HabitantDao;
+
+
+
+public class DomaineServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public FeedbackServlet() {
+	private DomaineDao domaineDao;
+
+	 public void init() throws ServletException {
+	        DAOFactory daoFactory = DAOFactory.getInstance();
+	        this.domaineDao =daoFactory.getDomaineDao();
+	    }  
+    
+    public DomaineServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.setAttribute("domaines", domaineDao.domaines());
+		this.getServletContext().getRequestDispatcher("/domaineJsp/domaines.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

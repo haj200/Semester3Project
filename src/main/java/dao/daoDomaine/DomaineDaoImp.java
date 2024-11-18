@@ -1,4 +1,4 @@
-package dao;
+package dao.daoDomaine;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import beans.Domaine;
+import dao.DAOFactory;
 
 public class DomaineDaoImp implements DomaineDao {
 	private DAOFactory daoFactory;

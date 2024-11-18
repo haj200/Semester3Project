@@ -1,4 +1,4 @@
-package dao;
+package dao.daoFeedback;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -10,6 +10,7 @@ import java.util.List;
 import beans.Feedback;
 import beans.Habitant;
 import beans.Projet;
+import dao.DAOFactory;
 
 public class FeedbackDaoImp {
 
