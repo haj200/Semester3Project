@@ -11,6 +11,7 @@ public interface ReclamationDao {
 		List<Reclamation> reclamations();
 		void updateReclamation(Reclamation r);
 		void deleteReclamation(int id);
+		Reclamation getReclamationById(int id);
 		
 		
 	}
