@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,14 +12,14 @@
 
 
 
-<form action="ReclamationServlet?action=modifier&id=${reclamation.id}" method="post">
+<form action="ReclamationServlet?action=save&id=${reclamation.id}" method="post">
     <label for="message">Message :</label>
     <input type="text" id="message" name="message" value="${reclamation.message}" required><br><br>
 
     <label for="habitant_id">Habitant :</label>
-    <select id="habitant_id" name="habitant_id" required>
+    <select id="habitants" name="habitants" required>
         <c:forEach var="habitant" items="${habitants}">
-            <option value="${habitant.id}" <c:if test="${habitant.id == reclamation.habitant.id}">selected</c:if>>${habitant.nom} ${habitant.prenom}</option>
+            <option value="${habitant.id}">${habitant.nom} ${habitant.prenom}</option>
         </c:forEach>
     </select><br><br>
 

@@ -1,10 +1,5 @@
 package servlets.servletsGerant;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
@@ -13,6 +8,11 @@ import beans.Reclamation;
 import dao.DAOFactory;
 import dao.daoHabitant.HabitantDao;
 import dao.daoReclamation.ReclamationDao;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/ReclamationServlet")
 public class ReclamationServlet extends HttpServlet {
@@ -60,9 +60,7 @@ public class ReclamationServlet extends HttpServlet {
     }
 
     protected void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	List<Habitant> habitants = habitantDao.habitants(); // Assurez-vous que cette méthode existe dans le DAO
-        
-        // Ajouter la liste des habitants à l'attribut de la requête
+        List<Habitant> habitants = habitantDao.habitants();
         request.setAttribute("habitants", habitants);
         request.getRequestDispatcher("/reclamationJsp/reclamationAdd.jsp").forward(request, response);
     }
@@ -89,28 +87,47 @@ public class ReclamationServlet extends HttpServlet {
         }
     }
 
+    // Méthode refactorisée pour gérer la sauvegarde de la réclamation
     private void saveReclamation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
         String message = request.getParameter("message");
-        String reponse = request.getParameter("reponse"); // Only for admin to fill later
-        int habitantId = Integer.parseInt(request.getParameter("id_habitant"));
-
-        Habitant habitant = habitantDao.getHabitantById(habitantId);
+        String habitantId = request.getParameter("habitants");
 
         Reclamation reclamation = new Reclamation();
+        Habitant habitant = getHabitant(habitantId);  // Récupère l'habitant de manière séparée
+
+        // Définir les propriétés de la réclamation
         reclamation.setMessage(message);
-        reclamation.setReponse(reponse); // Only for admin to fill later
         reclamation.setHabitant(habitant);
 
-        if (id == null || id.isEmpty()) {
-            reclamationDao.createReclamation(reclamation);
+        // Si l'ID est présent, on met à jour la réclamation, sinon on crée une nouvelle réclamation
+        if (id != null && !id.isEmpty()) {
+            updateReclamation(id, reclamation);
         } else {
-            reclamation.setId(Integer.parseInt(id));
-            reclamationDao.updateReclamation(reclamation);
+            createReclamation(reclamation);
         }
 
+        // Redirection après l'enregistrement de la réclamation
         response.sendRedirect(request.getContextPath() + "/ReclamationServlet");
     }
+
+    // Méthode pour récupérer l'habitant à partir de son ID
+    private Habitant getHabitant(String habitantId) {
+        if (habitantId != null && !habitantId.isEmpty()) {
+            int habitantIntId = Integer.parseInt(habitantId);
+            return habitantDao.getHabitantById(habitantIntId);
+        }
+        return null;  // Si l'ID de l'habitant est nul ou vide, retourne null
+    }
+
+    // Méthode pour mettre à jour une réclamation
+    private void updateReclamation(String id, Reclamation reclamation) {
+        reclamation.setId(Integer.parseInt(id));  // Convertir l'ID pour l'update
+        reclamationDao.updateReclamation(reclamation);  // Mettre à jour la réclamation
+    }
+
+    // Méthode pour créer une nouvelle réclamation
+    private void createReclamation(Reclamation reclamation) {
+        reclamationDao.createReclamation(reclamation);  // Créer la réclamation
+    }
 }
-
-

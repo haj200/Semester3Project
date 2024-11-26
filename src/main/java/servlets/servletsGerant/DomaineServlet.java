@@ -79,27 +79,34 @@ public class DomaineServlet extends HttpServlet {
         String action = request.getParameter("action");
         if (action != null && action.equals("save")) {
             savedomaine(request, response);
+            System.out.println("save");
         }
     }
 
     private void savedomaine(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String id = request.getParameter("id");
+    	System.out.println("hjr");
+    	String id = request.getParameter("id");
+        
         String nom = request.getParameter("nom");
         String description = request.getParameter("description");
         String criteres = request.getParameter("criteres");
         Domaine domaine = new Domaine();
-        
+
         domaine.setNom(nom);
         domaine.setDescription(description);
         domaine.setCriteres(criteres);
-
-        if (id == null || id.isEmpty()) {
-            domaineDao.createDomaine(domaine);
-        } else {
-            domaine.setId(Integer.parseInt(id));
-            domaineDao.updateDomaine(domaine);
+        System.out.println(domaine);
+        if (id != null && !id.isEmpty()) {
+            domaine.setId(Integer.parseInt(id));  // Si l'ID existe, on le définit
         }
 
+        // Si l'ID est null ou vide, il s'agit d'une création de domaine
+        if (id == null || id.isEmpty()) {
+            domaineDao.createDomaine(domaine);  // Créer un nouveau domaine
+        } else {
+            domaineDao.updateDomaine(domaine);  // Mettre à jour un domaine existant
+        }
+        System.out.println("sav");
         response.sendRedirect(request.getContextPath() + "/DomaineServlet");
     }
 }

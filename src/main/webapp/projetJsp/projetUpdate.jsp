@@ -10,7 +10,8 @@
 <body>
     <h1>Modifier un Projet</h1>
 
-<form action="ProjectServlet?action=modifier&id=${projet.id}" method="post">
+<form action="ProjectServlet?action=save&id=${projet.id}" method="post">
+
     <label for="titre">Titre :</label>
     <input type="text" id="titre" name="titre" value="${projet.titre}" required><br><br>
 
@@ -34,7 +35,7 @@
 
     <!-- Sélection de l'Habitant -->
     <label for="habitant_id">Habitant :</label>
-    <select id="habitant_id" name="habitant_id" required>
+    <select id="habitant_id" name="id_habitant" required>
         <c:forEach var="habitant" items="${habitants}">
             <option value="${habitant.id}" <c:if test="${habitant.id == projet.habitant.id}">selected</c:if>>${habitant.nom} ${habitant.prenom}</option>
         </c:forEach>

@@ -9,7 +9,8 @@
 <body>
      <h1>Modifier un Domaine</h1>
 
-<form action="DomaineServlet?action=modifier&id=${domaine.id}" method="post">
+<form action="DomaineServlet?action=save&id=${domaine.id}" method="post">
+<label for="titre">${domaine.id}</label>
     <label for="nom">Nom :</label>
     <input type="text" id="nom" name="nom" value="${domaine.nom}" required><br><br>
 

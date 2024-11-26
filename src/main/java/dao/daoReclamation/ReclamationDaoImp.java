@@ -27,7 +27,7 @@ public class ReclamationDaoImp implements ReclamationDao {
     	    PreparedStatement preparedStatement = null;
     	    try {
     	        connexion = daoFactory.getConnection();
-    	        String sql = "INSERT INTO reclamations(message, reponse, habitant_id) VALUES(?, ?, ?)";
+    	        String sql = "INSERT INTO reclamations(message, reponse, id_habitant) VALUES(?, ?, ?)";
     	        preparedStatement = connexion.prepareStatement(sql);
     	        
     	        preparedStatement.setString(1, r.getMessage());
@@ -123,7 +123,7 @@ public class ReclamationDaoImp implements ReclamationDao {
     	        connexion = daoFactory.getConnection();
     	        
     	        // SQL pour mettre à jour une réclamation existante dans la base de données
-    	        String sql = "UPDATE reclamations SET message = ?, reponse = ?, habitant_id = ? WHERE id = ?";
+    	        String sql = "UPDATE reclamations SET message = ?, reponse = ?, id_habitant= ? WHERE id = ?";
     	        
     	        // Préparer la requête
     	        preparedStatement = connexion.prepareStatement(sql);
@@ -163,13 +163,13 @@ public class ReclamationDaoImp implements ReclamationDao {
     		// Get a connection from the DAOFactory
     		connection = daoFactory.getConnection(); 
     		// Prepare the SQL query 
-    		String sql = "SELECT r.id, r.message, r.reponse, r.habitant_id, h.username, h.nom, h.prenom, h.email, h.password, h.cin, h.addresse, h.dateDeNaissance, h.metier FROM reclamations r JOIN habitants h ON r.habitant_id = h.id WHERE r.id = ?";
+    		String sql = "SELECT r.id, r.message, r.reponse, r.id_habitant, h.username, h.nom, h.prenom, h.email, h.password, h.cin, h.addresse, h.dateDeNaissance, h.metier FROM reclamations r JOIN habitants h ON r.id_habitant = h.id WHERE r.id = ?";
     		preparedStatement = connection.prepareStatement(sql);
     		preparedStatement.setInt(1, id); 
     		// Execute the query 
     		resultSet = preparedStatement.executeQuery();
     		if (resultSet.next()) {
-    			Habitant habitant = new Habitant( resultSet.getInt("habitant_id"), resultSet.getString("username"), 
+    			Habitant habitant = new Habitant( resultSet.getInt("id_habitant"), resultSet.getString("username"), 
     					                          resultSet.getString("nom"), resultSet.getString("prenom"),
     					                          resultSet.getString("email"), resultSet.getString("password"),
     					                          resultSet.getString("cin"), resultSet.getString("addresse"),

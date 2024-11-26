@@ -9,7 +9,7 @@
 </head>
 <body>
     <h1>Ajouter Un Projet</h1>
-<form action="ProjectServlet?action=save" method="POST" enctype="multipart/form-data">
+<form action="ProjectServlet?action=save" method="POST">
     <label for="titre">Titre:</label>
     <input type="text" id="titre" name="titre" required><br><br>
 

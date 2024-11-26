@@ -10,7 +10,7 @@
     
     <h1>Modifier un Habitant</h1>
 
-    <form action="HabitantServlet?action=modifier&id=${habitant.id}" method="post">
+    <form action="HabitantServlet?action=save&id=${habitant.id}" method="post">
         <label for="username">Nom d'utilisateur :</label>
         <input type="text" id="username" name="username" value="${habitant.username}" required><br><br>
 

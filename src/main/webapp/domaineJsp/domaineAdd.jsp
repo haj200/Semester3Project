@@ -9,6 +9,7 @@
 <body>
     <h1>Ajouter Un Domaine</h1>
 <form action="DomaineServlet?action=save" method="POST">
+        
         <label for="nom">Nom:</label>
         <input type="text" id="nom" name="nom" required><br><br>
 

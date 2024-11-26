@@ -107,7 +107,7 @@ public class HabitantServlet extends HttpServlet {
         if (id == null || id.isEmpty()) {
             habitantDao.createHabitant(habitant); // Créer un nouvel habitant
         } else {
-            habitant.setId(Integer.parseInt(id));
+        	habitant.setId(Integer.parseInt(id));
             habitantDao.updateHabitant(habitant); // Mettre à jour l'habitant existant
         }
 
