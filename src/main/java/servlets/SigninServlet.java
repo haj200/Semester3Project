@@ -36,7 +36,7 @@ public class SigninServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		 request.getRequestDispatcher("signIn.jsp").forward(request, response);
+		 request.getRequestDispatcher("signin.jsp").forward(request, response);
 	}
 
 	

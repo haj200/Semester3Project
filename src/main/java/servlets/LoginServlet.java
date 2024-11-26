@@ -67,7 +67,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
         }
     } else {
         // Authentification échouée
-        response.sendRedirect("login.jsp?error=invalid");
+        response.sendRedirect("Sign.jsp?error=invalid");
     }
 	}
 

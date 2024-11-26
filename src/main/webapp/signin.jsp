@@ -29,16 +29,15 @@
   <link href="${pageContext.request.contextPath}/assets/css/main.css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/assets/css/style.css" rel="stylesheet">
 </head>
-<body>
+<body >
 
      
-   
-    <%@ include file="/temos/header.jsp" %> 
+   <%@ include file="/temos/header.jsp" %> 
     
     
     
-    <%@ include file="/signItems/login.jsp" %>  
-   
+    <%@ include file="/signItems/Sign.jsp" %> 
+    
     </body>
     </html>
    
