@@ -11,5 +11,6 @@ public interface FeedbackDao {
 		List<Feedback> feedbacks();
 		void updateFeedback(Feedback f);
 		void deleteFeedback(int id);
+		Feedback getFeedbackById(int id);
 	}
 

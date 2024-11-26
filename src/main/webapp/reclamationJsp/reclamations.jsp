@@ -8,19 +8,28 @@
 <title>Reclamations</title>
 </head>
 <body>
-   <h1>Liste des reclamations</h1>
-   <c:forEach var="reclamation" items="${reclamations}">
-    
-    <!-- Affichage des détails de la réclamation -->
-    <c:out value="${reclamation.id}" />
-    <c:out value="${reclamation.message}" />
-    <c:out value="${reclamation.reponse}" />
-    
-    <!-- Affichage des informations de l'habitant lié à la réclamation -->
-    <c:out value="${reclamation.habitant.nom}" />
-    <c:out value="${reclamation.habitant.prenom}" />
-    
+   <h1>Réclamations :</h1>
+
+<!-- Affichage de la liste des réclamations -->
+<c:forEach var="reclamation" items="${reclamations}">
+    <!-- Affichage des informations sur chaque réclamation -->
+    <p>
+        <strong>ID :</strong> <c:out value="${reclamation.id}" /><br>
+        <strong>Message :</strong> <c:out value="${reclamation.message}" /><br>
+        
+        <strong>Habitant :</strong> <c:out value="${reclamation.habitant.nom} ${reclamation.habitant.prenom}" /><br>
+
+        <!-- Bouton pour modifier la réclamation -->
+        <a href="ReclamationServlet?action=modifier&id=${reclamation.id}" class="button">Modifier</a>
+
+        <!-- Bouton pour supprimer la réclamation -->
+        <a href="ReclamationServlet?action=supprimer&id=${reclamation.id}" class="button" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette réclamation ?');">Supprimer</a>
+    </p>
 </c:forEach>
+
+<!-- Lien vers la page d'ajout d'une réclamation -->
+<a href="ReclamationServlet?action=ajouter" class="button">Ajouter une Réclamation</a>
+
    
 </body>
 </html>

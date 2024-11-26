@@ -135,21 +135,158 @@ public class HabitantDaoImp implements HabitantDao {
 	}
 
 	@Override
-	public void updateHabitant(Habitant u) {
+	public void updateHabitant(Habitant h) {
 		// TODO Auto-generated method stub
+	
+		    Connection connexion = null;
+		    PreparedStatement preparedStatement = null;
+		    try {
+		        // Récupérer la connexion à la base de données
+		        connexion = daoFactory.getConnection();
+		        
+		        // SQL pour mettre à jour un habitant existant dans la base de données
+		        String sql = "UPDATE habitants SET username = ?, nom = ?, prenom = ?, email = ?, password = ?, cin = ?, addresse = ?, dateDeNaissance = ?, metier = ? WHERE id = ?";
+		        
+		        // Préparer la requête
+		        preparedStatement = connexion.prepareStatement(sql);
+		        
+		        // Remplacer les paramètres de la requête préparée
+		        preparedStatement.setString(1, h.getUsername());
+		        preparedStatement.setString(2, h.getNom());
+		        preparedStatement.setString(3, h.getPrenom());
+		        preparedStatement.setString(4, h.getEmail());
+		        preparedStatement.setString(5, h.getPassword());
+		        preparedStatement.setString(6, h.getCin());
+		        preparedStatement.setString(7, h.getAddresse());
+		        preparedStatement.setDate(8, Date.valueOf(h.getDateDeNaissance())); // Convertir LocalDate en Date
+		        preparedStatement.setString(9, h.getMetier());
+		        preparedStatement.setInt(10, h.getId());
+		        
+		        // Exécuter la mise à jour
+		        preparedStatement.executeUpdate();
+		        
+		    } catch (SQLException e) {
+		        e.printStackTrace(); // Gérer l'exception
+		    } finally {
+		        try {
+		            // Fermer le PreparedStatement et la connexion pour éviter les fuites de ressources
+		            if (preparedStatement != null) {
+		                preparedStatement.close();
+		            }
+		            if (connexion != null) {
+		                connexion.close();
+		            }
+		        } catch (SQLException e) {
+		            e.printStackTrace(); // Gérer l'exception pendant la fermeture
+		        }
+		    }
+		}
 
-	}
+	
 
 	@Override
 	public void deleteHabitant(int id) {
 		// TODO Auto-generated method stub
+		
+		    Connection connexion = null;
+		    PreparedStatement preparedStatement = null;
+		    try {
+		        // Récupérer la connexion à la base de données
+		        connexion = daoFactory.getConnection();
+		        
+		        // SQL pour supprimer un habitant existant dans la base de données
+		        String sql = "DELETE FROM habitants WHERE id = ?";
+		        
+		        // Préparer la requête
+		        preparedStatement = connexion.prepareStatement(sql);
+		        
+		        // Remplacer le paramètre de la requête préparée
+		        preparedStatement.setInt(1, id); // Set the habitant ID to identify which habitant to delete
+		        
+		        // Exécuter la suppression
+		        preparedStatement.executeUpdate();
+		        
+		    } catch (SQLException e) {
+		        e.printStackTrace(); // Gérer l'exception
+		    } finally {
+		        try {
+		            // Fermer le PreparedStatement et la connexion pour éviter les fuites de ressources
+		            if (preparedStatement != null) {
+		                preparedStatement.close();
+		            }
+		            if (connexion != null) {
+		                connexion.close();
+		            }
+		        } catch (SQLException e) {
+		            e.printStackTrace(); // Gérer l'exception pendant la fermeture
+		        }
+		    }
+		}
 
-	}
+	
 
 	@Override
 	public Habitant getHabitantById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	    Connection connexion = null;
+	    PreparedStatement preparedStatement = null;
+	    ResultSet resultSet = null;
+	    Habitant habitant = null;
+	    
+	    try {
+	        // Récupérer la connexion à la base de données
+	        connexion = daoFactory.getConnection();
+	        
+	        // SQL pour récupérer un habitant par son ID
+	        String sql = "SELECT * FROM habitants WHERE id = ?";
+	        
+	        // Préparer la requête
+	        preparedStatement = connexion.prepareStatement(sql);
+	        
+	        // Remplacer le paramètre de la requête préparée avec l'ID de l'habitant
+	        preparedStatement.setInt(1, id);
+	        
+	        // Exécuter la requête et récupérer le résultat
+	        resultSet = preparedStatement.executeQuery();
+	        
+	        // Vérifier si un habitant avec cet ID existe
+	        if (resultSet.next()) {
+	            // Récupérer les données de l'habitant depuis le ResultSet
+	            int habitantId = resultSet.getInt("id");
+	            String username = resultSet.getString("username");
+	            String nom = resultSet.getString("nom");
+	            String prenom = resultSet.getString("prenom");
+	            String email = resultSet.getString("email");
+	            String password = resultSet.getString("password");
+	            String cin = resultSet.getString("cin");
+	            String addresse = resultSet.getString("addresse");
+	            LocalDate dateDeNaissance = resultSet.getDate("dateDeNaissance").toLocalDate();
+	            String metier = resultSet.getString("metier");
+	            
+	            // Créer un objet Habitant avec les données récupérées
+	            habitant = new Habitant(habitantId, username, nom, prenom, email, password, cin, addresse, dateDeNaissance, metier);
+	        }
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace(); // Gérer l'exception
+	    } finally {
+	        // Fermer les ressources pour éviter les fuites de mémoire
+	        try {
+	            if (resultSet != null) {
+	                resultSet.close();
+	            }
+	            if (preparedStatement != null) {
+	                preparedStatement.close();
+	            }
+	            if (connexion != null) {
+	                connexion.close();
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace(); // Gérer l'exception pendant la fermeture
+	        }
+	    }
+	    
+	    return habitant;
 	}
+
 
 }

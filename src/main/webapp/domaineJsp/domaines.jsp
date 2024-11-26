@@ -8,16 +8,27 @@
 <title>domaines</title>
 </head>
 <body>
-	<h1> Domaines:</h1>
-	<c:forEach var="domaine" items="${domaines}">
-        
-    <!-- Affichage du domaine -->
-    <c:out value="${domaine.id}" />
-    <c:out value="${domaine.nom}" />
-    <c:out value="${domaine.description}" />
-    <c:out value="${domaine.criteres}" />
+	<h1>Domaines:</h1>
 
+<!-- Affichage de la liste des domaines -->
+<c:forEach var="domaine" items="${domaines}">
+    <!-- Affichage des informations sur chaque domaine -->
+    <p>
+        <strong>ID:</strong> <c:out value="${domaine.id}" /><br>
+        <strong>Nom:</strong> <c:out value="${domaine.nom}" /><br>
+        <strong>Description:</strong> <c:out value="${domaine.description}" /><br>
+        <strong>Critères:</strong> <c:out value="${domaine.criteres}" /><br>
+
+        <!-- Bouton pour modifier le domaine -->
+        <a href="DomaineServlet?action=modifier&id=${domaine.id}" class="button">Modifier</a>
+
+        <!-- Bouton pour supprimer le domaine -->
+        <a href="DomaineServlet?action=supprimer&id=${domaine.id}" class="button" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce domaine ?');">Supprimer</a>
+    </p>
 </c:forEach>
-	
+
+<!-- Lien vers la page d'ajout d'un domaine -->
+<a href="DomaineServlet?action=ajouter" class="button">Ajouter un Domaine</a>
+
 </body>
 </html>

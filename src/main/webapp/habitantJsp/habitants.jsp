@@ -11,22 +11,33 @@
 hello
 
 
-    <h1>  list habitants </h1>
-    <c:forEach var="habitant" items="${habitants}">
-        
-            <!-- Affichage de l'article -->
-            <c:out value="${habitant.id}" />
-			<c:out value="${habitant.username}" />
-			<c:out value="${habitant.nom}" />
-			<c:out value="${habitant.prenom}" />
-			<c:out value="${habitant.password}" />
-			<c:out value="${habitant.cin}" />
-			<c:out value="${habitant.addresse}" />
-			<c:out value="${habitant.dateDeNaissance}" />
-			<c:out value="${habitant.metier}" />
-			<c:out value="${habitant.email}" />
+    <h1>Habitants:</h1>
+
+<!-- Affichage de la liste des habitants -->
+<c:forEach var="habitant" items="${habitants}">
+    <!-- Affichage des informations sur chaque habitant -->
+    <p>
+        <strong>ID:</strong> <c:out value="${habitant.id}" /><br>
+        <strong>Username:</strong> <c:out value="${habitant.username}" /><br>
+        <strong>Nom:</strong> <c:out value="${habitant.nom}" /><br>
+        <strong>Prénom:</strong> <c:out value="${habitant.prenom}" /><br>
+        <strong>Email:</strong> <c:out value="${habitant.email}" /><br>
+        <strong>CIN:</strong> <c:out value="${habitant.cin}" /><br>
+        <strong>Adresse:</strong> <c:out value="${habitant.addresse}" /><br>
+        <strong>Date de Naissance:</strong> <c:out value="${habitant.dateDeNaissance}" /><br>
+        <strong>Métier:</strong> <c:out value="${habitant.metier}" /><br>
+
+        <!-- Bouton pour modifier l'habitant -->
+        <a href="HabitantServlet?action=modifier&id=${habitant.id}" class="button">Modifier</a>
+
+        <!-- Bouton pour supprimer l'habitant -->
+        <a href="HabitantServlet?action=supprimer&id=${habitant.id}" class="button" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet habitant ?');">Supprimer</a>
+    </p>
+</c:forEach>
+
+<!-- Lien vers la page d'ajout d'un habitant -->
+<a href="HabitantServlet?action=ajouter" class="button">Ajouter un Habitant</a>
 
 
-</c:forEach>  
 </body>
 </html>

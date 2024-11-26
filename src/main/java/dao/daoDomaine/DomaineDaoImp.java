@@ -1,6 +1,7 @@
 package dao.daoDomaine;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,12 +19,38 @@ public class DomaineDaoImp implements DomaineDao {
 		this.daoFactory = daoFactory;
 	}
 
+
 	@Override
 	public void createDomaine(Domaine d) {
 		// TODO Auto-generated method stub
-		
-	}
-
+		Connection connexion = null;
+	    PreparedStatement preparedStatement = null;
+	    try {
+		       
+	        connexion = daoFactory.getConnection();
+	        String sql = "INSERT INTO domaines(nom,description,criteres) VALUES(?,?,?)";
+	        preparedStatement =connexion.prepareStatement(sql);
+	        
+	        	preparedStatement.setString(1,d.getNom());
+	        	preparedStatement.setString(2,d.getDescription());
+	        	preparedStatement.setString(3,d.getCriteres());
+	        	
+	    
+	        	preparedStatement.executeUpdate();
+	} catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        
+        try {
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+            if (connexion != null) {
+                connexion.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }}}
 	@Override
 	public List<Domaine> domaines() {
 		List<Domaine> domaines = new ArrayList<Domaine>();
@@ -72,16 +99,138 @@ public class DomaineDaoImp implements DomaineDao {
 	    return domaines;
 	}
 
+
 	@Override
 	public void updateDomaine(Domaine d) {
-		// TODO Auto-generated method stub
-		
+	    // TODO Auto-generated method stub
+	    Connection connexion = null;
+	    PreparedStatement preparedStatement = null;
+	    try {
+	        // Récupérer la connexion à la base de données
+	        connexion = daoFactory.getConnection();
+	        
+	        // SQL pour mettre à jour un domaine existant dans la base de données
+	        String sql = "UPDATE domaines SET nom = ?, description = ?, criteres = ? WHERE id = ?";
+	        
+	        // Préparer la requête
+	        preparedStatement = connexion.prepareStatement(sql);
+	        
+	        // Remplacer les paramètres de la requête préparée
+	        preparedStatement.setString(1, d.getNom());         // Set the domain name
+	        preparedStatement.setString(2, d.getDescription()); // Set the description
+	        preparedStatement.setString(3, d.getCriteres());    // Set the criteria
+	        preparedStatement.setInt(4, d.getId());             // Set the domain ID for identifying which domain to update
+	        
+	        // Exécuter la mise à jour
+	        preparedStatement.executeUpdate();
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace(); // Gérer l'exception
+	    } finally {
+	        try {
+	            // Fermer le PreparedStatement et la connexion pour éviter les fuites de ressources
+	            if (preparedStatement != null) {
+	                preparedStatement.close();
+	            }
+	            if (connexion != null) {
+	                connexion.close();
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace(); // Gérer l'exception pendant la fermeture
+	        }
+	    }
 	}
+
 
 	@Override
 	public void deleteDomaine(int id) {
 		// TODO Auto-generated method stub
 		
+		    Connection connexion = null;
+		    PreparedStatement preparedStatement = null;
+		    try {
+		        // Récupérer la connexion à la base de données
+		        connexion = daoFactory.getConnection();
+		        
+		        // SQL pour supprimer un domaine existant dans la base de données
+		        String sql = "DELETE FROM domaines WHERE id = ?";
+		        
+		        // Préparer la requête
+		        preparedStatement = connexion.prepareStatement(sql);
+		        
+		        // Remplacer le paramètre de la requête préparée
+		        preparedStatement.setInt(1, id); // Set the domain ID to identify which domain to delete
+		        
+		        // Exécuter la suppression
+		        preparedStatement.executeUpdate();
+		        
+		    } catch (SQLException e) {
+		        e.printStackTrace(); // Gérer l'exception
+		    } finally {
+		        try {
+		            // Fermer le PreparedStatement et la connexion pour éviter les fuites de ressources
+		            if (preparedStatement != null) {
+		                preparedStatement.close();
+		            }
+		            if (connexion != null) {
+		                connexion.close();
+		            }
+		        } catch (SQLException e) {
+		            e.printStackTrace(); // Gérer l'exception pendant la fermeture
+		        }
+		    }
+		
+
+	}
+
+
+	@Override
+	
+		// TODO Auto-generated method stub
+		public Domaine getDomaineById(int id) {
+		    Domaine domaine = null;  // Initialisation de l'objet Domaine qui sera retourné
+		    Connection connexion = null;  // Déclaration de la connexion à la base de données
+		    PreparedStatement preparedStatement = null;  // Déclaration de la requête préparée
+		    ResultSet resultSet = null;  // Déclaration de l'objet pour stocker les résultats
+
+		    try {
+		        // Connexion à la base de données
+		        connexion = daoFactory.getConnection();  // Utilisation de votre méthode pour obtenir une connexion à la DB
+
+		        // SQL pour récupérer le domaine par son ID
+		        String sql = "SELECT * FROM domaines WHERE id = ?";  // Requête SQL pour récupérer le domaine par ID
+
+		        // Préparation de la requête SQL
+		        preparedStatement = connexion.prepareStatement(sql);
+		        preparedStatement.setInt(1, id);  // Remplir le paramètre avec l'ID du domaine
+
+		        // Exécution de la requête
+		        resultSet = preparedStatement.executeQuery();
+
+		        // Si un domaine est trouvé dans la base de données
+		        if (resultSet.next()) {
+		            domaine = new Domaine();  // Création d'un nouvel objet Domaine
+		            domaine.setId(resultSet.getInt("id"));  // Récupération de l'ID du domaine
+		            domaine.setNom(resultSet.getString("nom"));  // Récupération du nom du domaine
+		            domaine.setDescription(resultSet.getString("description"));  // Récupération de la description
+		            domaine.setCriteres(resultSet.getString("criteres"));  // Récupération des critères
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();  // Affichage des erreurs SQL dans la console (à améliorer en production)
+		    } finally {
+		        // Fermeture des ressources (connexions, requêtes, résultats) pour éviter les fuites de mémoire
+		        try {
+		            if (resultSet != null) resultSet.close();
+		            if (preparedStatement != null) preparedStatement.close();
+		            if (connexion != null) connexion.close();
+		        } catch (SQLException e) {
+		            e.printStackTrace();  // Affichage des erreurs lors de la fermeture des ressources
+		        }
+		    }
+
+		    return domaine;  // Retourner le domaine trouvé (ou null si non trouvé)
+		
+
 	}
 
 }

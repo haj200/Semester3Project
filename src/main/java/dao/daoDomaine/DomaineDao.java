@@ -9,4 +9,8 @@ public interface DomaineDao {
  List<Domaine> domaines();
  void updateDomaine(Domaine d);
  void deleteDomaine(int id);
+ Domaine getDomaineById(int id);
+
+
+
 }

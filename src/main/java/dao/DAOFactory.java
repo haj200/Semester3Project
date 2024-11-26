@@ -1,6 +1,8 @@
 package dao;
 
 import java.io.IOException;
+import dao.daoFeedback.FeedbackDaoImp;
+
 
 import java.io.InputStream;
 import java.sql.Connection;
@@ -10,6 +12,7 @@ import java.util.Properties;
 
 import dao.daoDomaine.DomaineDao;
 import dao.daoDomaine.DomaineDaoImp;
+import dao.daoFeedback.FeedbackDao;
 import dao.daoHabitant.HabitantDao;
 import dao.daoHabitant.HabitantDaoImp;
 import dao.daoProjet.ProjetDao;
@@ -97,6 +100,12 @@ public class DAOFactory {
      public DAOAuth getAuthDao() {
     	 return new DAOAuth(this);
      }
+
+	public FeedbackDao getFeedbackDao() {
+		// TODO Auto-generated method stub
+		return new FeedbackDaoImp(this);
+
+	}
 
      
 
