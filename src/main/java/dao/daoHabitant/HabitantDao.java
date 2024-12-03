@@ -16,5 +16,7 @@ public interface HabitantDao {
 	void deleteHabitant(int id );
 	Habitant getHabitantById(int id);
 
+	Habitant getHabitantByusername(String username);
+
 
 }

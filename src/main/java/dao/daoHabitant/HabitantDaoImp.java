@@ -287,6 +287,67 @@ public class HabitantDaoImp implements HabitantDao {
 	    
 	    return habitant;
 	}
+	@Override
+	public Habitant getHabitantByusername(String username) {
+	    Connection connexion = null;
+	    PreparedStatement preparedStatement = null;
+	    ResultSet resultSet = null;
+	    Habitant habitant = null;
+	    
+	    try {
+	        // Récupérer la connexion à la base de données
+	        connexion = daoFactory.getConnection();
+	        
+	        // SQL pour récupérer un habitant par son ID
+	        String sql = "SELECT * FROM habitants WHERE username = ?";
+	        
+	        // Préparer la requête
+	        preparedStatement = connexion.prepareStatement(sql);
+	        
+	        // Remplacer le paramètre de la requête préparée avec l'ID de l'habitant
+	        preparedStatement.setString(1, username);
+	        
+	        // Exécuter la requête et récupérer le résultat
+	        resultSet = preparedStatement.executeQuery();
+	        
+	        // Vérifier si un habitant avec cet ID existe
+	        if (resultSet.next()) {
+	            // Récupérer les données de l'habitant depuis le ResultSet
+	            int habitantId = resultSet.getInt("id");
+	            String nom = resultSet.getString("nom");
+	            String prenom = resultSet.getString("prenom");
+	            String email = resultSet.getString("email");
+	            String password = resultSet.getString("password");
+	            String cin = resultSet.getString("cin");
+	            String addresse = resultSet.getString("addresse");
+	            LocalDate dateDeNaissance = resultSet.getDate("dateDeNaissance").toLocalDate();
+	            String metier = resultSet.getString("metier");
+	            
+	            // Créer un objet Habitant avec les données récupérées
+	            habitant = new Habitant(habitantId, username, nom, prenom, email, password, cin, addresse, dateDeNaissance, metier);
+	        }
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace(); // Gérer l'exception
+	    } finally {
+	        // Fermer les ressources pour éviter les fuites de mémoire
+	        try {
+	            if (resultSet != null) {
+	                resultSet.close();
+	            }
+	            if (preparedStatement != null) {
+	                preparedStatement.close();
+	            }
+	            if (connexion != null) {
+	                connexion.close();
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace(); // Gérer l'exception pendant la fermeture
+	        }
+	    }
+	    
+	    return habitant;
+	}
 
 
 }

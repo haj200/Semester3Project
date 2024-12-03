@@ -129,6 +129,72 @@ public class ProjetDaoImp implements ProjetDao {
     }
 
     @Override
+    public List<Projet> projetsParHabitant(int habitantId) {
+        List<Projet> projets = new ArrayList<>();
+        Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connexion = daoFactory.getConnection();
+            String query = "SELECT * FROM projets WHERE id_habitant = ?";
+            preparedStatement = connexion.prepareStatement(query);
+            preparedStatement.setInt(1, habitantId);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String titre = resultSet.getString("titre");
+                String description = resultSet.getString("description");
+                String objectifs = resultSet.getString("objectifs");
+                double budget = resultSet.getDouble("budget");
+                String localisation = resultSet.getString("localisation");
+                String benefice = resultSet.getString("benefice");
+                boolean estValide = resultSet.getBoolean("estValide");
+                double gain = resultSet.getDouble("gain");
+
+                int domaineId = resultSet.getInt("id_domaine");
+
+                Habitant habitant = habitantDao.getHabitantById(habitantId);
+                Domaine domaine = domaineDao.getDomaineById(domaineId);
+
+                Projet projet = new Projet();
+                projet.setId(id);
+                projet.setTitre(titre);
+                projet.setDescription(description);
+                projet.setObjectifs(objectifs);
+                projet.setBudget(budget);
+                projet.setLocalisation(localisation);
+                projet.setBenefice(benefice);
+                projet.setEstValide(estValide);
+                projet.setGain(gain);
+                projet.setHabitant(habitant);
+                projet.setDomaine(domaine);
+
+                projets.add(projet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connexion != null) {
+                    connexion.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return projets;
+    }
+
+    @Override
     public void updateProjet(Projet projet) {
         Connection connexion = null;
         PreparedStatement preparedStatement = null;

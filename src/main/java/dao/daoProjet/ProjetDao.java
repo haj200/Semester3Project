@@ -10,4 +10,5 @@ public interface ProjetDao {
 	void updateProjet(Projet p);
 	void deleteProjet(int id);
 	Projet getProjetById(int id);
+	List<Projet> projetsParHabitant(int habitantId);
 }

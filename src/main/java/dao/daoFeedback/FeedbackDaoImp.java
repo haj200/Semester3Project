@@ -171,7 +171,10 @@ public class FeedbackDaoImp implements FeedbackDao {
             // Obtenir une connexion depuis le DAOFactory
             connection = daoFactory.getConnection();
             // Préparer la requête SQL
-            String sql = "SELECT f.id, f.message, f.proposition, f.id_projet, p.nom AS projet_nom, h.id AS id_habitant, h.nom AS habitant_nom, h.prenom AS habitant_prenom FROM feedbacks f JOIN projets p ON f.id_projet = p.id JOIN habitants h ON f.id_habitant = h.id WHERE f.id = ?";
+            String sql = "SELECT f.id, f.message, f.proposition, f.id_projet, p.nom AS projet_nom, h.id "
+            		+ "AS id_habitant, h.nom AS habitant_nom, h.prenom AS habitant_prenom FROM feedbacks"
+            		+ " f JOIN projets p ON f.id_projet = p.id JOIN habitants h ON "
+            		+ "f.id_habitant = h.id WHERE f.id = ?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
             // Exécuter la requête

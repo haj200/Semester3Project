@@ -9,20 +9,33 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
+import beans.Administrateur;
+import beans.Gerant;
+import beans.Habitant;
 import beans.User;
 import dao.DAOAuth;
 import dao.DAOFactory;
+import dao.daoAdministrateur.AdministrateurDao;
 import dao.daoDomaine.DomaineDao;
+import dao.daoGerant.GerantDao;
+import dao.daoHabitant.HabitantDao;
 
 
 
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DAOAuth  authDao;
+	private HabitantDao habitantDao;
+	private GerantDao gerantDao;
+	private AdministrateurDao administrateurDao;
 
+   
 	 public void init() throws ServletException {
 	        DAOFactory daoFactory = DAOFactory.getInstance();
 	        this.authDao = daoFactory.getAuthDao();
+	        this.habitantDao = daoFactory.getHabitantDao();
+	        this.gerantDao = daoFactory.getGerantDao();
+	        this.administrateurDao = daoFactory.getAdministrateurDao();
 	    }  
    
    
@@ -56,18 +69,25 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
         // Rediriger en fonction du type d'utilisateur
         switch (user.getTypeUser()) {
             case "habitant":
+            	Habitant habitant = habitantDao.getHabitantByusername(username);
+            	session.setAttribute("habitant", habitant);
                 response.sendRedirect("Habitant/dashboard.jsp");
+                
                 break;
             case "gerant":
-                response.sendRedirect("Gerant/dashboard.jsp");
+            	Gerant gerant = gerantDao.getGerantByUsername(username);
+            	session.setAttribute("gerant", gerant);
+                response.sendRedirect("Gerant/dash.jsp");
                 break;
             case "administrateur":
+            	Administrateur administrateur = administrateurDao.getAdministrateurByUsername(username);
+            	session.setAttribute("administrateur", administrateur);
                 response.sendRedirect("Administrateur/dashboard.jsp");
                 break;
         }
     } else {
         // Authentification échouée
-        response.sendRedirect("Sign.jsp?error=invalid");
+        response.sendRedirect("login.jsp?error=invalid");
     }
 	}
 
