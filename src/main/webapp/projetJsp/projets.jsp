@@ -11,7 +11,7 @@
 <h1>Projets:</h1>
 
 <!-- Affichage de la liste des projets -->
-<c:forEach var="projet" items="${projets}">
+<c:forEach var="projet" items="${projects}">
     <!-- Affichage des informations sur chaque projet -->
     <p>
         <strong>ID:</strong> <c:out value="${projet.id}" /><br>
@@ -31,15 +31,15 @@
         <strong>Domaine:</strong> <c:out value="${projet.domaine.nom}" /><br>
 
         <!-- Bouton pour modifier le projet -->
-        <a href="ProjectServlet?action=modifier&id=${projet.id}" class="button">Modifier</a>
+        <a href="ProjectServlet?action=edit&id=${projet.id}" class="button">Modifier</a>
 
         <!-- Bouton pour supprimer le projet -->
-        <a href="ProjectServlet?action=supprimer&id=${projet.id}" class="button" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce projet ?');">Supprimer</a>
+        <a href="ProjectServlet?action=delete&id=${projet.id}" class="button" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce projet ?');">Supprimer</a>
     </p>
 </c:forEach>
 
 <!-- Lien vers la page d'ajout d'un projet -->
-<a href="ProjectServlet?action=ajouter" class="button">Ajouter un Projet</a>
+<a href="ProjectServlet?action=new" class="button">Ajouter un Projet</a>
 
 
 </body>

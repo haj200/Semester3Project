@@ -8,7 +8,6 @@
 <title>habitants</title>
 </head>
 <body>
-hello
 
 
     <h1>Habitants:</h1>

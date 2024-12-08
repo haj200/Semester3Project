@@ -48,6 +48,12 @@ public class Habitant {
 	}
 	
 	
+	public Habitant(int id, String nom, String prenom) {
+		super();
+		this.id = id;
+		this.nom = nom;
+		this.prenom = prenom;
+	}
 	public Habitant() {
 		// TODO Auto-generated constructor stub
 	}

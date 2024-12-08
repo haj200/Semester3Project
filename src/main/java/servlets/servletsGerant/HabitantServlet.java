@@ -54,18 +54,18 @@ public class HabitantServlet extends HttpServlet {
     protected void listHabitants(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Habitant> habitants = habitantDao.habitants(); // Récupérer la liste des habitants
         request.setAttribute("habitants", habitants); // Ajouter la liste des habitants à la requête
-        request.getRequestDispatcher("/habitantJsp/habitants.jsp").forward(request, response); // Rediriger vers la JSP des habitants
+        request.getRequestDispatcher("/Gerant/habitantJsp/habitants.jsp").forward(request, response); // Rediriger vers la JSP des habitants
     }
 
     protected void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/habitantJsp/habitantAdd.jsp").forward(request, response); // Rediriger vers le formulaire d'ajout
+        request.getRequestDispatcher("/Gerant/habitantJsp/habitantAdd.jsp").forward(request, response); // Rediriger vers le formulaire d'ajout
     }
 
     protected void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Habitant habitant = habitantDao.getHabitantById(id); // Récupérer l'habitant par son ID
         request.setAttribute("habitant", habitant); // Ajouter l'habitant à la requête
-        request.getRequestDispatcher("/habitantJsp/habitantUpdate.jsp").forward(request, response); // Rediriger vers le formulaire de modification
+        request.getRequestDispatcher("/Gerant/habitantJsp/habitantUpdate.jsp").forward(request, response); // Rediriger vers le formulaire de modification
     }
 
     protected void deleteHabitant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

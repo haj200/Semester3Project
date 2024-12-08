@@ -56,10 +56,7 @@
     <script src="${pageContext.request.contextPath}/Dist/assets2/js/todolist.js"></script>
     <script src="${pageContext.request.contextPath}/Dist/assets2/js/hoverable-collapse.js"></script>
     
-     <script src="${pageContext.request.contextPath}/Dist/assets2/js/jquery.cookie.js" type="text/javascript"></script>
-  <!-- End plugin js for this page -->
-  <!-- Custom js for this page-->
-  <script src="${pageContext.request.contextPath}/Dist/assets2/js/dashboard.js"></script>
+     
     <!-- endinject -->
     <!-- Custom js for this page -->
     <!-- End custom js for this page -->

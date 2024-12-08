@@ -20,7 +20,7 @@
     <label for="projet_id">Projet :</label>
     <select id="projet_id" name="projet_id" required>
         <c:forEach var="projet" items="${projets}">
-            <option value="${projet.id}" <c:if test="${projet.id == feedback.projet.id}">selected</c:if>>${projet.nom}</option>
+            <option value="${projet.id}" <c:if test="${projet.id == feedback.projet.id}">selected</c:if>>${projet.titre}</option>
         </c:forEach>
     </select><br><br>
 

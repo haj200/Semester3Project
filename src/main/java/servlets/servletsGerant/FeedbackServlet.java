@@ -65,7 +65,7 @@ public class FeedbackServlet extends HttpServlet {
     protected void listFeedbacks(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Feedback> feedbacks = feedbackDao.feedbacks();
         request.setAttribute("feedbacks", feedbacks);
-        request.getRequestDispatcher("/feedbackJsp/feedbacks.jsp").forward(request, response);
+        request.getRequestDispatcher("/Gerant/feedbackJsp/feedbacks.jsp").forward(request, response);
     }
 
     protected void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -73,7 +73,7 @@ public class FeedbackServlet extends HttpServlet {
         List<Projet> projets = projetDao.projets();
         request.setAttribute("habitants", habitants);
         request.setAttribute("projets", projets);
-        request.getRequestDispatcher("/feedbackJsp/feedbackAdd.jsp").forward(request, response);
+        request.getRequestDispatcher("/Gerant/feedbackJsp/feedbackAdd.jsp").forward(request, response);
     }
 
     protected void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -84,7 +84,7 @@ public class FeedbackServlet extends HttpServlet {
         request.setAttribute("feedback", feedback);
         request.setAttribute("habitants", habitants);
         request.setAttribute("projets", projets);
-        request.getRequestDispatcher("/feedbackJsp/feedbackUpdate.jsp").forward(request, response);
+        request.getRequestDispatcher("/Gerant/feedbackJsp/feedbackUpdate.jsp").forward(request, response);
     }
 
     protected void deleteFeedback(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -105,13 +105,16 @@ public class FeedbackServlet extends HttpServlet {
         String id = request.getParameter("id");
         String message = request.getParameter("message");
         String proposition = request.getParameter("proposition");
-        String projetId = request.getParameter("id_projet");
-        String habitantId = request.getParameter("id_habitant");
+        String projetId = request.getParameter("projet_id");
+        String habitantId = request.getParameter("habitant_id");
 
         Feedback feedback = new Feedback();
-        Projet projet = getProjet(projetId);  // Récupère le projet de manière séparée
-        Habitant habitant = getHabitant(habitantId);  // Récupère l'habitant de manière séparée
-
+         Projet projet = new Projet();
+        Habitant habitant =  new Habitant(); // Récupère l'habitant de manière séparée
+        
+        
+        projet.setId(Integer.parseInt(projetId));
+        habitant.setId(Integer.parseInt(habitantId));
         // Définir les propriétés du feedback
         feedback.setMessage(message);
         feedback.setProposition(proposition);
@@ -120,42 +123,20 @@ public class FeedbackServlet extends HttpServlet {
 
         // Si l'ID est présent, on met à jour le feedback, sinon on crée un nouveau feedback
         if (id != null && !id.isEmpty()) {
-            updateFeedback(id, feedback);
+        	feedback.setId(Integer.parseInt(id));  // Convertir l'ID pour l'update
+            feedbackDao.updateFeedback(feedback);
         } else {
-            createFeedback(feedback);
+        	 feedbackDao.createFeedback(feedback); 
         }
 
         // Redirection après l'enregistrement du feedback
         response.sendRedirect(request.getContextPath() + "/FeedbackServlet");
     }
 
-    // Méthode pour récupérer le projet à partir de son ID
-    private Projet getProjet(String projetId) {
-        if (projetId != null && !projetId.isEmpty()) {
-            int projetIntId = Integer.parseInt(projetId);
-            return projetDao.getProjetById(projetIntId);
-        }
-        return null;  // Si l'ID du projet est nul ou vide, retourne null
-    }
+    
 
-    // Méthode pour récupérer l'habitant à partir de son ID
-    private Habitant getHabitant(String habitantId) {
-        if (habitantId != null && !habitantId.isEmpty()) {
-            int habitantIntId = Integer.parseInt(habitantId);
-            return habitantDao.getHabitantById(habitantIntId);
-        }
-        return null;  // Si l'ID de l'habitant est nul ou vide, retourne null
-    }
+    
 
-    // Méthode pour mettre à jour un feedback
-    private void updateFeedback(String id, Feedback feedback) {
-        feedback.setId(Integer.parseInt(id));  // Convertir l'ID pour l'update
-        feedbackDao.updateFeedback(feedback);  // Mettre à jour le feedback
-    }
-
-    // Méthode pour créer un nouveau feedback
-    private void createFeedback(Feedback feedback) {
-        feedbackDao.createFeedback(feedback);  // Créer le feedback
-    }
+    
 }
 

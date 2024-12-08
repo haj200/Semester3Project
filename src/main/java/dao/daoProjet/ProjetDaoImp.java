@@ -1,8 +1,12 @@
 package dao.daoProjet;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import beans.Projet;
 import beans.Habitant;
@@ -29,11 +33,15 @@ public class ProjetDaoImp implements ProjetDao {
         PreparedStatement preparedStatement = null;
 
         try {
+            // Step 1: Establish connection
             connexion = daoFactory.getConnection();
-            String sql = "INSERT INTO projets (titre, description, objectifs, budget, localisation, benefice, estValide, gain, id_habitant, id_domaine) " +
-                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            // Step 2: Create SQL query
+            String sql = "INSERT INTO projets (titre, description, objectifs, budget, localisation, benefice, estValide, gain, id_habitant, id_domaine, documentsJustif) " +
+                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             preparedStatement = connexion.prepareStatement(sql);
 
+            // Step 3: Set query parameters
             preparedStatement.setString(1, projet.getTitre());
             preparedStatement.setString(2, projet.getDescription());
             preparedStatement.setString(3, projet.getObjectifs());
@@ -45,11 +53,17 @@ public class ProjetDaoImp implements ProjetDao {
             preparedStatement.setInt(9, projet.getHabitant().getId());
             preparedStatement.setInt(10, projet.getDomaine().getId());
 
+            // Step 4: Handle file storage and set the directory path
+            String documentDirectory = storeDocuments(projet);
+            preparedStatement.setString(11, documentDirectory); // Save the directory path in the database
+
+            // Step 5: Execute the query
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
+            // Step 6: Close resources
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
@@ -62,6 +76,47 @@ public class ProjetDaoImp implements ProjetDao {
             }
         }
     }
+
+    // Helper method to store documents on disk and return the directory path
+    private String storeDocuments(Projet projet)  {
+        String rootDirectory = "C:/Projects/";
+        String userDirectory = "user_" + projet.getHabitant().getId();
+        String projectDirectory = "project_" + UUID.randomUUID();
+        String fullPath = rootDirectory + userDirectory + "/" + projectDirectory + "/";
+
+        // Create directories if they don't exist
+        File dir = new File(fullPath);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        // Save each document
+        
+        try {
+			saveFile(projet.getDocumentsJustif().getEtudeFinanciere(), fullPath, "etudeFinanciere");
+			saveFile(projet.getDocumentsJustif().getPlanBusiness(), fullPath, "planBusiness");
+			saveFile(projet.getDocumentsJustif().getPhoto(), fullPath, "photo");
+	        saveFile(projet.getDocumentsJustif().getFullDescriptif(), fullPath, "fullDescriptif");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+
+        // Return the path to be saved in the database
+        return fullPath;
+    }
+
+    // Helper method to save an individual file
+    private void saveFile(String content, String directory, String fileName) throws IOException {
+        if (content != null && !content.isEmpty()) {
+            String filePath = directory + fileName;
+            try (FileWriter fileWriter = new FileWriter(filePath)) {
+                fileWriter.write(content);
+            }
+        }
+    }
+
 
     @Override
     public List<Projet> projets() {
@@ -200,10 +255,14 @@ public class ProjetDaoImp implements ProjetDao {
         PreparedStatement preparedStatement = null;
 
         try {
+            // Step 1: Establish connection
             connexion = daoFactory.getConnection();
+
+            // Step 2: Create SQL query (excluding document paths)
             String sql = "UPDATE projets SET titre = ?, description = ?, objectifs = ?, budget = ?, localisation = ?, benefice = ?, estValide = ?, gain = ?, id_habitant = ?, id_domaine = ? WHERE id = ?";
             preparedStatement = connexion.prepareStatement(sql);
 
+            // Step 3: Set query parameters
             preparedStatement.setString(1, projet.getTitre());
             preparedStatement.setString(2, projet.getDescription());
             preparedStatement.setString(3, projet.getObjectifs());
@@ -216,23 +275,22 @@ public class ProjetDaoImp implements ProjetDao {
             preparedStatement.setInt(10, projet.getDomaine().getId());
             preparedStatement.setInt(11, projet.getId());
 
+            // Step 4: Execute query
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
+            // Step 5: Close resources
             try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-                if (connexion != null) {
-                    connexion.close();
-                }
+                if (preparedStatement != null) preparedStatement.close();
+                if (connexion != null) connexion.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
     }
+
 
     @Override
     public void deleteProjet(int id) {

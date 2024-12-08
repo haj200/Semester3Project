@@ -1586,22 +1586,22 @@
 
     <!-- jquery
 		============================================ -->
-    <script src="js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="${pageContext.request.contextPath}/Dist/assets4/js/vendor/jquery-1.12.4.min.js"></script>
     <!-- bootstrap JS
 		============================================ -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/Dist/assets4/js/bootstrap.min.js"></script>
     <!-- wow JS
 		============================================ -->
-    <script src="js/wow.min.js"></script>
+    <script src="${pageContext.request.contextPath}/Dist/assets4/js/wow.min.js"></script>
     <!-- price-slider JS
 		============================================ -->
-    <script src="js/jquery-price-slider.js"></script>
+    <script src="${pageContext.request.contextPath}/Dist/assets4/js/jquery-price-slider.js"></script>
     <!-- meanmenu JS
 		============================================ -->
-    <script src="js/jquery.meanmenu.js"></script>
+    <script src="${pageContext.request.contextPath}/Dist/assets4/js/jquery.meanmenu.js"></script>
     <!-- owl.carousel JS
 		============================================ -->
-    <script src="js/owl.carousel.min.js"></script>
+    <script src="${pageContext.request.contextPath}/Dist/assets4/js/owl.carousel.min.js"></script>
     <!-- sticky JS
 		============================================ -->
     <script src="js/jquery.sticky.js"></script>

@@ -56,13 +56,13 @@ public class ReclamationServlet extends HttpServlet {
     protected void listReclamations(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Reclamation> reclamations = reclamationDao.reclamations();
         request.setAttribute("reclamations", reclamations);
-        request.getRequestDispatcher("/reclamationJsp/reclamations.jsp").forward(request, response);
+        request.getRequestDispatcher("/Gerant/reclamationJsp/reclamations.jsp").forward(request, response);
     }
 
     protected void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Habitant> habitants = habitantDao.habitants();
         request.setAttribute("habitants", habitants);
-        request.getRequestDispatcher("/reclamationJsp/reclamationAdd.jsp").forward(request, response);
+        request.getRequestDispatcher("/Gerant/reclamationJsp/reclamationAdd.jsp").forward(request, response);
     }
 
     protected void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -71,7 +71,7 @@ public class ReclamationServlet extends HttpServlet {
         List<Habitant> habitants = habitantDao.habitants();
         request.setAttribute("reclamation", reclamation);
         request.setAttribute("habitants", habitants);
-        request.getRequestDispatcher("/reclamationJsp/reclamationUpdate.jsp").forward(request, response);
+        request.getRequestDispatcher("/Gerant/reclamationJsp/reclamationUpdate.jsp").forward(request, response);
     }
 
     protected void deleteReclamation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

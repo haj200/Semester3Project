@@ -1,56 +1,42 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <title>modifier un Projet</title>
 </head>
 <body>
-    <h1>Modifier un Projet</h1>
+    <h2>Modifier un Projet</h2>
+    <form action="ProjectServlet?action=update&id=${projet.id}" method="post" enctype="multipart/form-data">
+        <label for="titre">Titre :</label>
+        <input type="text" name="titre" value="${projet.titre}" required><br><br>
 
-<form action="ProjectServlet?action=save&id=${projet.id}" method="post">
+        <label for="description">Description :</label>
+        <textarea name="description"  required>${projet.titre}</textarea><br><br>
 
-    <label for="titre">Titre :</label>
-    <input type="text" id="titre" name="titre" value="${projet.titre}" required><br><br>
+        <label for="objectifs">Objectifs :</label>
+        <textarea name="objectifs" required>${projet.objectifs}</textarea><br><br>
 
-    <label for="description">Description :</label>
-    <input type="text" id="description" name="description" value="${projet.description}" required><br><br>
+        <label for="budget">Budget :</label>
+        <input type="number" name="budget" step="0.01" value="${projet.budget}" ><br><br>
 
-    <label for="objectifs">Objectifs :</label>
-    <input type="text" id="objectifs" name="objectifs" value="${projet.objectifs}" required><br><br>
+        <label for="localisation">Localisation :</label>
+        <input type="text" name="localisation" value="${projet.localisation}" ><br><br>
 
-    <label for="budget">Budget :</label>
-    <input type="number" step="0.01" id="budget" name="budget" value="${projet.budget}" required><br><br>
+        <label for="benefice">Bénéfice :</label>
+        <input type="text" name="benefice" value="${projet.benefice}" ><br><br>
 
-    <label for="localisation">Localisation :</label>
-    <input type="text" id="localisation" name="localisation" value="${projet.localisation}" required><br><br>
+        <label for="planBusiness">Plan Business :</label>
+        <input type="file" name="planBusiness"  ><br><br>
 
-    <label for="benefice">BÃ©nÃ©fice :</label>
-    <input type="text" id="benefice" name="benefice" value="${projet.benefice}" required><br><br>
+        <label for="etudeFinanciere">Étude Financière :</label>
+        <input type="file" name="etudeFinanciere" ><br><br>
 
-    <label for="gain">Gain :</label>
-    <input type="number" step="0.01" id="gain" name="gain" value="${projet.gain}" required><br><br>
+        <label for="photo">Photo :</label>
+        <input type="file" name="photo" ><br><br>
 
-    <!-- SÃ©lection de l'Habitant -->
-    <label for="habitant_id">Habitant :</label>
-    <select id="habitant_id" name="id_habitant" required>
-        <c:forEach var="habitant" items="${habitants}">
-            <option value="${habitant.id}" <c:if test="${habitant.id == projet.habitant.id}">selected</c:if>>${habitant.nom} ${habitant.prenom}</option>
-        </c:forEach>
-    </select><br><br>
+        <label for="fullDescriptif">Full Descriptif :</label>
+        <input type="file" name="fullDescriptif" ><br><br>
 
-    <!-- SÃ©lection du Domaine -->
-    <label for="domaine_id">Domaine :</label>
-    <select id="domaine_id" name="domaine_id" required>
-        <c:forEach var="domaine" items="${domaines}">
-            <option value="${domaine.id}" <c:if test="${domaine.id == projet.domaine.id}">selected</c:if>>${domaine.nom}</option>
-        </c:forEach>
-    </select><br><br>
-
-    <button type="submit">save</button>
-</form>
-    
+        <button type="submit">Modifier le Projet</button>
+    </form>
 </body>
 </html>

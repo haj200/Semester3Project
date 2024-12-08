@@ -66,12 +66,12 @@ public class FeedbackDaoImp implements FeedbackDao {
             statement = connexion.createStatement();
             
             // Requête SQL pour récupérer les réclamations avec les informations de l'habitant
-            String query = "SELECT f.id, f.message,f.proposition " +
-                           "h.nom AS habitantNom, h.prenom AS habitantPrenom " +
-                           "p.titre AS projetTitre " +
-		                   "FROM feedback f " +
-		                   "JOIN habitants h ON f.id_habitant = h.id " +
-		                   "JOIN projets p ON f.id_projet = p.id;";
+            String query = "SELECT f.id, f.message, f.proposition,  "
+            		+ "       h.nom AS habitantNom, h.prenom AS habitantPrenom,  "
+            		+ "       p.titre AS projetTitre "
+            		+ "FROM feedbacks f "
+            		+ "JOIN habitants h ON f.id_habitant = h.id "
+            		+ "JOIN projets p ON f.id_projet = p.id;";
             
             resultat = statement.executeQuery(query);
             
@@ -166,12 +166,12 @@ public class FeedbackDaoImp implements FeedbackDao {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        Feedback feedback = null;
+        Feedback feedback = new Feedback();
         try {
             // Obtenir une connexion depuis le DAOFactory
             connection = daoFactory.getConnection();
             // Préparer la requête SQL
-            String sql = "SELECT f.id, f.message, f.proposition, f.id_projet, p.nom AS projet_nom, h.id "
+            String sql = "SELECT f.id, f.message, f.proposition, f.id_projet, p.titre , h.id "
             		+ "AS id_habitant, h.nom AS habitant_nom, h.prenom AS habitant_prenom FROM feedbacks"
             		+ " f JOIN projets p ON f.id_projet = p.id JOIN habitants h ON "
             		+ "f.id_habitant = h.id WHERE f.id = ?";
@@ -184,38 +184,24 @@ public class FeedbackDaoImp implements FeedbackDao {
                 if (resultSet.next()) {
                     Habitant habitant = new Habitant(
                         resultSet.getInt("id_habitant"),
-                        resultSet.getString("username"),
-                        resultSet.getString("nom"),
-                        resultSet.getString("prenom"),
-                        resultSet.getString("email"),
-                        resultSet.getString("password"),
-                        resultSet.getString("cin"),
-                        resultSet.getString("addresse"),
-                        resultSet.getDate("dateDeNaissance").toLocalDate(),
-                        resultSet.getString("metier")
+                       
+                        resultSet.getString("habitant_nom"),
+                        resultSet.getString("habitant_prenom")
+                        
                     );
 
                     Projet projet = new Projet(
                         resultSet.getInt("id_projet"),
-                        resultSet.getString("titre"),
-                        resultSet.getString("description"),
-                        resultSet.getString("objectifs"),
-                        resultSet.getDouble("budget"),
-                        resultSet.getBlob("documentsJustif"),
-                        resultSet.getString("localisation"),
-                        resultSet.getString("benefice"),
-                        resultSet.getBoolean("estValide"),
-                        resultSet.getDouble("gain"),
-                        habitant, // Associe l'habitant au projet
-                        new Domaine(
-                            resultSet.getInt("id_domaine"),
-                            resultSet.getString("domaine_nom"),
-                            resultSet.getString("domaine_description"),
-                            resultSet.getString("domaine_criteres")
-                        )
+                        resultSet.getString("titre")
+                        
+                        
+                        
                     );
-
-                    
+                    feedback.setId(resultSet.getInt("id"));
+                    feedback.setProposition(resultSet.getString("proposition"));
+                    feedback.setMessage(resultSet.getString("message"));
+                    feedback.setProjet(projet);
+                    feedback.setHabitant(habitant);
 
                         
                     }

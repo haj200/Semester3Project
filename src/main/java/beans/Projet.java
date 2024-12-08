@@ -2,6 +2,8 @@ package beans;
 
 import java.sql.Blob;
 
+import utils.DocumentsJustif;
+
 public class Projet {
 	// attributs d'un projet
 	private int id;
@@ -9,11 +11,12 @@ public class Projet {
 	private String description;
 	private String objectifs;
 	private double budget;
-	private Blob documentsJustif;
+	private DocumentsJustif documentsJustif;
 	private String localisation;
 	private String benefice;
 	private boolean estValide;
 	private double gain;
+	private String documentsJustifChemin;
 	private Habitant habitant; // Association avec la classe Habitant
 	private Domaine domaine; // Association avec la classe Domaine
 	// constructeurs
@@ -22,8 +25,9 @@ public class Projet {
 		super();
 	}
 	// avec tous les attributs
-	public Projet(int id, String titre, String description, String objectifs, double budget, Blob documentsJustif,
-			String localisation, String benefice, boolean estValide, double gain, Habitant habitant, Domaine domaine) {
+	public Projet(int id, String titre, String description, String objectifs, double budget,
+			DocumentsJustif documentsJustif, String localisation, String benefice, boolean estValide, double gain,
+			String documentsJustifChemin, Habitant habitant, Domaine domaine) {
 		super();
 		this.id = id;
 		this.titre = titre;
@@ -35,15 +39,24 @@ public class Projet {
 		this.benefice = benefice;
 		this.estValide = estValide;
 		this.gain = gain;
+		this.documentsJustifChemin = documentsJustifChemin;
 		this.habitant = habitant;
 		this.domaine = domaine;
 	}
-
+	 
 	
 
+	public Projet(int id, String titre) {
+		super();
+		this.id = id;
+		this.titre = titre;
+		
+		
+	}
 	// avec tous les attributs sans id
-	public Projet(String titre, String description, String objectifs, double budget, Blob documentsJustif,
-			String localisation, String benefice, boolean estValide, double gain, Habitant habitant, Domaine domaine) {
+	public Projet(String titre, String description, String objectifs, double budget, DocumentsJustif documentsJustif,
+			String localisation, String benefice, boolean estValide, double gain, String documentsJustifChemin,
+			Habitant habitant, Domaine domaine) {
 		super();
 		this.titre = titre;
 		this.description = description;
@@ -54,6 +67,7 @@ public class Projet {
 		this.benefice = benefice;
 		this.estValide = estValide;
 		this.gain = gain;
+		this.documentsJustifChemin = documentsJustifChemin;
 		this.habitant = habitant;
 		this.domaine = domaine;
 	}
@@ -88,10 +102,10 @@ public class Projet {
 	public void setBudget(double budget) {
 		this.budget = budget;
 	}
-	public Blob getDocumentsJustif() {
+	public DocumentsJustif getDocumentsJustif() {
 		return documentsJustif;
 	}
-	public void setDocumentsJustif(Blob documentsJustif) {
+	public void setDocumentsJustif(DocumentsJustif documentsJustif) {
 		this.documentsJustif = documentsJustif;
 	}
 	public String getLocalisation() {
@@ -118,6 +132,12 @@ public class Projet {
 	public void setGain(double gain) {
 		this.gain = gain;
 	}
+	public String getDocumentsJustifChemin() {
+		return documentsJustifChemin;
+	}
+	public void setDocumentsJustifChemin(String documentsJustifChemin) {
+		this.documentsJustifChemin = documentsJustifChemin;
+	}
 	public Habitant getHabitant() {
 		return habitant;
 	}
@@ -130,6 +150,9 @@ public class Projet {
 	public void setDomaine(Domaine domaine) {
 		this.domaine = domaine;
 	}
+	
+	
+	
 	
 
 }

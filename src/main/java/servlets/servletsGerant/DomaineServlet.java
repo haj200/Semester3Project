@@ -55,18 +55,18 @@ public class DomaineServlet extends HttpServlet {
     protected void list_Domaine(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Domaine> domaines = domaineDao.domaines();
         request.setAttribute("domaines", domaines);
-        request.getRequestDispatcher("/domaineJsp/domaines.jsp").forward(request, response);
+        request.getRequestDispatcher("/Gerant/domaineJsp/domaines.jsp").forward(request, response);
     }
 
     protected void shownewform(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/domaineJsp/domaineAdd.jsp").forward(request, response);
+        request.getRequestDispatcher("/Gerant/domaineJsp/domaineAdd.jsp").forward(request, response);
     }
 
     protected void showeditform(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Domaine domaine = domaineDao.getDomaineById(id);
         request.setAttribute("domaine", domaine);
-        request.getRequestDispatcher("/domaineJsp/domaineUpdate.jsp").forward(request, response);
+        request.getRequestDispatcher("/Gerant/domaineJsp/domaineUpdate.jsp").forward(request, response);
     }
 
     protected void deleteDomaine(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

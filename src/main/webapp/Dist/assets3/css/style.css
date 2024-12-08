@@ -21670,7 +21670,7 @@ dl li {
 /* Sidebar */
 .sidebar {
   min-height: calc(100vh - 65px);
-  background: #223e9c;
+  background: #503f3f;
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 600;
   padding: 0;
@@ -21750,7 +21750,7 @@ dl li {
   -moz-osx-font-smoothing: grayscale;
   margin-left: auto;
   margin-right: 0.2rem;
-  color: #ffffff;
+  color: rgb(0, 0, 0);
   font-weight: normal;
 }
 
@@ -21790,14 +21790,14 @@ dl li {
 }
 
 .sidebar .nav .nav-item.active > .nav-link {
-  background: #183188;
+  background: #503f3f;
   position: relative;
 }
 
 .sidebar .nav .nav-item.active > .nav-link i,
 .sidebar .nav .nav-item.active > .nav-link .menu-title,
 .sidebar .nav .nav-item.active > .nav-link .menu-arrow {
-  color: #ffffff;
+  color: #000;
 }
 
 .sidebar .nav .nav-item.active > .nav-link i.menu-arrow::before {
@@ -21813,8 +21813,8 @@ dl li {
 }
 
 .sidebar .nav:not(.sub-menu) > .nav-item:hover > .nav-link {
-  background: #183188;
-  color: #ffffff;
+  background: #503f3f;
+  color: rgb(0, 0, 0);
 }
 
 .sidebar .nav.sub-menu {
@@ -21835,11 +21835,11 @@ dl li {
   position: absolute;
   margin-top: 17px;
   border-radius: 50%;
-  background: #ffffff;
+  background: rgb(0, 0, 0);
 }
 
 .sidebar .nav.sub-menu .nav-item .nav-link {
-  color: #ffffff;
+  color: rgb(0, 0, 0);
   padding: 0.75rem 1rem;
   position: relative;
   font-size: 0.937rem;

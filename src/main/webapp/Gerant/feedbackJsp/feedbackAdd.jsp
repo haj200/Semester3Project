@@ -19,16 +19,16 @@
     <textarea id="proposition" name="proposition" required></textarea><br><br>
 
     <!-- Liste des Projets -->
-    <label for="projets">Projet :</label>
-    <select id="projets" name="projets" required>
+    <label for="projet_id">Projet :</label>
+    <select id="projet_id" name="projet_id" required>
         <c:forEach var="projet" items="${projets}">
             <option value="${projet.id}">${projet.titre}</option>
         </c:forEach>
     </select><br><br>
 
     <!-- Liste des Habitants -->
-    <label for="habitants">Habitant :</label>
-    <select id="habitants" name="habitants" required>
+    <label for="habitant_id">Habitant :</label>
+    <select id="habitant_id" name="habitant_id" required>
         <c:forEach var="habitant" items="${habitants}">
             <option value="${habitant.id}">${habitant.nom} ${habitant.prenom}</option>
         </c:forEach>
