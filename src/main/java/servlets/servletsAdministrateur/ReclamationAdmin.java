@@ -8,12 +8,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet("/ProjetAdmin")
-public class ProjetAdmin extends HttpServlet {
+@WebServlet("/ReclamationAdmin")
+public class ReclamationAdmin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    
-    public ProjetAdmin() {
+   
+    public ReclamationAdmin() {
         super();
         // TODO Auto-generated constructor stub
     }

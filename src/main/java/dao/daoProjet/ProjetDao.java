@@ -11,4 +11,5 @@ public interface ProjetDao {
 	void deleteProjet(int id);
 	Projet getProjetById(int id);
 	List<Projet> projetsParHabitant(int habitantId);
+	void validateProjet(Projet projet);
 }

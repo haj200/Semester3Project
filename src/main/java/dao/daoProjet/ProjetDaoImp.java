@@ -290,6 +290,47 @@ public class ProjetDaoImp implements ProjetDao {
             }
         }
     }
+    @Override
+    public void validateProjet(Projet projet) {
+        Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            // Step 1: Establish connection
+            connexion = daoFactory.getConnection();
+
+            // Step 2: Create SQL query (excluding document paths)
+            String sql = "UPDATE projets SET titre = ?, description = ?, objectifs = ?, budget = ?, localisation = ?, benefice = ?, estValide = ?, gain = ?, id_habitant = ?, id_domaine = ? WHERE id = ?";
+            preparedStatement = connexion.prepareStatement(sql);
+
+            // Step 3: Set query parameters
+            preparedStatement.setString(1, projet.getTitre());
+            preparedStatement.setString(2, projet.getDescription());
+            preparedStatement.setString(3, projet.getObjectifs());
+            preparedStatement.setDouble(4, projet.getBudget());
+            preparedStatement.setString(5, projet.getLocalisation());
+            preparedStatement.setString(6, projet.getBenefice());
+            preparedStatement.setBoolean(7, projet.isEstValide());
+            preparedStatement.setDouble(8, projet.getGain());
+            preparedStatement.setInt(9, projet.getHabitant().getId());
+            preparedStatement.setInt(10, projet.getDomaine().getId());
+            preparedStatement.setInt(11, projet.getId());
+
+            // Step 4: Execute query
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Step 5: Close resources
+            try {
+                if (preparedStatement != null) preparedStatement.close();
+                if (connexion != null) connexion.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 
     @Override
