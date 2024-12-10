@@ -13,6 +13,8 @@ public interface ReclamationDao {
 		void deleteReclamation(int id);
 		Reclamation getReclamationById(int id);
 		
+		void respondReclamation(Reclamation r);
+		
 		
 	}
 

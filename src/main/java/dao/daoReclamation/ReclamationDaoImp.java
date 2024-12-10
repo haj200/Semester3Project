@@ -65,7 +65,7 @@ public class ReclamationDaoImp implements ReclamationDao {
             statement = connexion.createStatement();
             
             // Requête SQL pour récupérer les réclamations avec les informations de l'habitant
-            String query = "SELECT r.id, r.message, r.reponse, " +
+            String query = "SELECT r.id, r.message, r.reponse, r.est_repondu, " +
                            "h.nom AS habitantNom, h.prenom AS habitantPrenom " +
                            "FROM reclamations r " +
                            "JOIN habitants h ON r.id_habitant = h.id;";
@@ -76,6 +76,7 @@ public class ReclamationDaoImp implements ReclamationDao {
                 int id = resultat.getInt("id");
                 String message = resultat.getString("message");
                 String reponse = resultat.getString("reponse");
+                int est_repondu = resultat.getInt("est_repondu");
 
                 // Récupérer les informations de l'habitant
                 String habitantNom = resultat.getString("habitantNom");
@@ -92,6 +93,7 @@ public class ReclamationDaoImp implements ReclamationDao {
                 reclamation.setMessage(message);
                 reclamation.setReponse(reponse);
                 reclamation.setHabitant(habitant);
+                reclamation.setEst_repondu(est_repondu);
 
                 // Ajout de l'objet Reclamation à la liste
                 reclamations.add(reclamation);
@@ -153,7 +155,47 @@ public class ReclamationDaoImp implements ReclamationDao {
     	        }
     	    }
     	}
-
+    @Override
+    public void respondReclamation(Reclamation r) {
+        // TODO Auto-generated method stub
+    	
+    	    Connection connexion = null;
+    	    PreparedStatement preparedStatement = null;
+    	    try {
+    	        // Récupérer la connexion à la base de données
+    	        connexion = daoFactory.getConnection();
+    	        
+    	        // SQL pour mettre à jour une réclamation existante dans la base de données
+    	        String sql = "UPDATE reclamations SET  est_repondu= ?, reponse=? WHERE id = ?";
+    	        
+    	        // Préparer la requête
+    	        preparedStatement = connexion.prepareStatement(sql);
+    	        
+    	        // Remplacer les paramètres de la requête préparée
+    	        preparedStatement.setInt(1, 1);
+    	        preparedStatement.setString(2, r.getReponse());
+    	        preparedStatement.setInt(3, r.getId());
+    	        
+    	        
+    	        // Exécuter la mise à jour
+    	        preparedStatement.executeUpdate();
+    	        
+    	    } catch (SQLException e) {
+    	        e.printStackTrace(); // Gérer l'exception
+    	    } finally {
+    	        try {
+    	            // Fermer le PreparedStatement et la connexion pour éviter les fuites de ressources
+    	            if (preparedStatement != null) {
+    	                preparedStatement.close();
+    	            }
+    	            if (connexion != null) {
+    	                connexion.close();
+    	            }
+    	        } catch (SQLException e) {
+    	            e.printStackTrace(); // Gérer l'exception pendant la fermeture
+    	        }
+    	    }
+    	}
     public Reclamation getReclamationById(int id) {
     	Connection connection = null;
     	PreparedStatement preparedStatement = null;
@@ -163,7 +205,7 @@ public class ReclamationDaoImp implements ReclamationDao {
     		// Get a connection from the DAOFactory
     		connection = daoFactory.getConnection(); 
     		// Prepare the SQL query 
-    		String sql = "SELECT r.id, r.message, r.reponse, r.id_habitant, h.username, h.nom, h.prenom, h.email, h.password, h.cin, h.addresse, h.dateDeNaissance, h.metier FROM reclamations r JOIN habitants h ON r.id_habitant = h.id WHERE r.id = ?";
+    		String sql = "SELECT r.id, r.est_repondu,  r.message, r.reponse, r.id_habitant, h.username, h.nom, h.prenom, h.email, h.password, h.cin, h.addresse, h.dateDeNaissance, h.metier FROM reclamations r JOIN habitants h ON r.id_habitant = h.id WHERE r.id = ?";
     		preparedStatement = connection.prepareStatement(sql);
     		preparedStatement.setInt(1, id); 
     		// Execute the query 
@@ -175,7 +217,7 @@ public class ReclamationDaoImp implements ReclamationDao {
     					                          resultSet.getString("cin"), resultSet.getString("addresse"),
     					                          resultSet.getDate("dateDeNaissance").toLocalDate(),
     					                          resultSet.getString("metier") );
-    			reclamation = new Reclamation( resultSet.getInt("id"), resultSet.getString("message"), resultSet.getString("reponse"), habitant ); } } 
+    			reclamation = new Reclamation( resultSet.getInt("id"), resultSet.getString("message"), resultSet.getString("reponse"), habitant,resultSet.getInt("est_repondu") ); } } 
     	catch (SQLException e) { e.printStackTrace();
     	} finally {
     		try { if (resultSet != null) resultSet.close();

@@ -48,7 +48,7 @@ public class ProjetDaoImp implements ProjetDao {
             preparedStatement.setDouble(4, projet.getBudget());
             preparedStatement.setString(5, projet.getLocalisation());
             preparedStatement.setString(6, projet.getBenefice());
-            preparedStatement.setBoolean(7, projet.isEstValide());
+            preparedStatement.setInt(7, projet.isEstValide());
             preparedStatement.setDouble(8, projet.getGain());
             preparedStatement.setInt(9, projet.getHabitant().getId());
             preparedStatement.setInt(10, projet.getDomaine().getId());
@@ -138,7 +138,7 @@ public class ProjetDaoImp implements ProjetDao {
                 double budget = resultSet.getDouble("budget");
                 String localisation = resultSet.getString("localisation");
                 String benefice = resultSet.getString("benefice");
-                boolean estValide = resultSet.getBoolean("estValide");
+                int estValide = resultSet.getInt("estValide");
                 double gain = resultSet.getDouble("gain");
 
                 int habitantId = resultSet.getInt("id_habitant");
@@ -205,7 +205,7 @@ public class ProjetDaoImp implements ProjetDao {
                 double budget = resultSet.getDouble("budget");
                 String localisation = resultSet.getString("localisation");
                 String benefice = resultSet.getString("benefice");
-                boolean estValide = resultSet.getBoolean("estValide");
+                int estValide = resultSet.getInt("estValide");
                 double gain = resultSet.getDouble("gain");
 
                 int domaineId = resultSet.getInt("id_domaine");
@@ -269,7 +269,7 @@ public class ProjetDaoImp implements ProjetDao {
             preparedStatement.setDouble(4, projet.getBudget());
             preparedStatement.setString(5, projet.getLocalisation());
             preparedStatement.setString(6, projet.getBenefice());
-            preparedStatement.setBoolean(7, projet.isEstValide());
+            preparedStatement.setInt(7, projet.isEstValide());
             preparedStatement.setDouble(8, projet.getGain());
             preparedStatement.setInt(9, projet.getHabitant().getId());
             preparedStatement.setInt(10, projet.getDomaine().getId());
@@ -300,21 +300,14 @@ public class ProjetDaoImp implements ProjetDao {
             connexion = daoFactory.getConnection();
 
             // Step 2: Create SQL query (excluding document paths)
-            String sql = "UPDATE projets SET titre = ?, description = ?, objectifs = ?, budget = ?, localisation = ?, benefice = ?, estValide = ?, gain = ?, id_habitant = ?, id_domaine = ? WHERE id = ?";
+            String sql = "UPDATE projets SET  estValide = ? WHERE id = ?";
             preparedStatement = connexion.prepareStatement(sql);
 
             // Step 3: Set query parameters
-            preparedStatement.setString(1, projet.getTitre());
-            preparedStatement.setString(2, projet.getDescription());
-            preparedStatement.setString(3, projet.getObjectifs());
-            preparedStatement.setDouble(4, projet.getBudget());
-            preparedStatement.setString(5, projet.getLocalisation());
-            preparedStatement.setString(6, projet.getBenefice());
-            preparedStatement.setBoolean(7, projet.isEstValide());
-            preparedStatement.setDouble(8, projet.getGain());
-            preparedStatement.setInt(9, projet.getHabitant().getId());
-            preparedStatement.setInt(10, projet.getDomaine().getId());
-            preparedStatement.setInt(11, projet.getId());
+            
+            preparedStatement.setInt(1, projet.isEstValide());
+            
+            preparedStatement.setInt(2, projet.getId());
 
             // Step 4: Execute query
             preparedStatement.executeUpdate();
@@ -384,7 +377,7 @@ public class ProjetDaoImp implements ProjetDao {
                 double budget = resultSet.getDouble("budget");
                 String localisation = resultSet.getString("localisation");
                 String benefice = resultSet.getString("benefice");
-                boolean estValide = resultSet.getBoolean("estValide");
+                int estValide = resultSet.getInt("estValide");
                 double gain = resultSet.getDouble("gain");
 
                 int habitantId = resultSet.getInt("id_habitant");

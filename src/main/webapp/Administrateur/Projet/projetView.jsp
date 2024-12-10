@@ -31,7 +31,7 @@
       <!-- partial:./partials/_navbar.html -->
       <%@ include file="/temos/AdministrateurDashElements/header.jsp" %> 
       <!-- partial -->
-       <%@ include file="/Administrateur/FeedBack/items/list.jsp" %> 
+       <%@ include file="/Administrateur/Projet/items/projet.jsp" %> 
           <!-- row end -->
         
         <!-- content-wrapper ends -->
