@@ -55,15 +55,34 @@
         <servlet-name>ProjectServlet</servlet-name>
         <url-pattern>/projects</url-pattern>
     </servlet-mapping>
+    <servlet>
+    <servlet-name>DomaineHabitant</servlet-name>
+    <servlet-class>servlets.servletsHabitant.DomaineHabitant</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>DomaineHabitant</servlet-name>
+    <url-pattern>/Habitant/DomaineHabitant</url-pattern>
+</servlet-mapping>
+<servlet>
+    <servlet-name>ProjetHabitant</servlet-name>
+    <servlet-class>servlets.servletsHabitant.ProjetHabitant</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>ProjetHabitant</servlet-name>
+    <url-pattern>/Habitant/ProjetHabitant</url-pattern>
+</servlet-mapping>
+
+    
+    
 
     <!-- Liste des fichiers de bienvenue -->
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
         <welcome-file>index.jsp</welcome-file>
-        <welcome-file>index.htm</welcome-file>
+        <welcome-file>index.html</welcome-file>
         <welcome-file>default.html</welcome-file>
         <welcome-file>default.jsp</welcome-file>
-        <welcome-file>default.htm</welcome-file>
+        <welcome-file>default.html</welcome-file>
     </welcome-file-list>
 
 </web-app>

@@ -1,9 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!doctype html>
-<html class="no-js" lang="en">
-
+<!DOCTYPE html>
+<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -66,34 +62,138 @@
 		============================================ -->
     <script src="${pageContext.request.contextPath}/Dist/assets4/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
-
+    <title>modifier un Projet</title>
+</head>
 <body>
-    <%@ include file="/temos/HabitantElements/left-sidebar.jsp" %>
-   <div class="all-content-wrapper">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="logo-pro">
-                        <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
-                    </div>
-                </div>
-            </div>
-        </div>
+<%@ include file="/temos/HabitantElements/left-sidebar.jsp" %>
+    <div class="all-content-wrapper">
     <%@ include file="/temos/HabitantElements/header.jsp" %>
-    
-    
-    
+    <div class="contacts-area mg-b-15">
+            <div class="container-fluid">
+            
+    <h2>Modifier un Projet</h2>
+<form action="ProjetHabitant?action=update&id=${projet.id}" method="post" enctype="multipart/form-data" class="form-container">
+    <div class="form-group">
+        <label for="titre">Titre :</label>
+        <input type="text" name="titre" value="${projet.titre}" required>
+    </div>
 
-<!-- Lien vers la page d'ajout d'un projet -->
-<a href="DomaineHabitant?action=new" class="button">Ajouter un Projet</a>
- </div>
-              
-              
-               
+    <div class="form-group">
+        <label for="description">Description :</label>
+        <textarea name="description" required>${projet.titre}</textarea>
+    </div>
 
-    <!-- jquery
-		============================================ -->
-    <script src="${pageContext.request.contextPath}/Dist/assets4/js/vendor/jquery-1.12.4.min.js"></script>
+    <div class="form-group">
+        <label for="objectifs">Objectifs :</label>
+        <textarea name="objectifs" required>${projet.objectifs}</textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="budget">Budget :</label>
+        <input type="number" name="budget" step="0.01" value="${projet.budget}">
+    </div>
+
+    <div class="form-group">
+        <label for="localisation">Localisation :</label>
+        <input type="text" name="localisation" value="${projet.localisation}">
+    </div>
+
+    <div class="form-group">
+        <label for="benefice">Bénéfice :</label>
+        <input type="text" name="benefice" value="${projet.benefice}">
+    </div>
+
+    <div class="form-group">
+        <label for="planBusiness">Plan Business :</label>
+        <input type="file" name="planBusiness">
+    </div>
+
+    <div class="form-group">
+        <label for="etudeFinanciere">Étude Financière :</label>
+        <input type="file" name="etudeFinanciere">
+    </div>
+
+    <div class="form-group">
+        <label for="photo">Photo :</label>
+        <input type="file" name="photo">
+    </div>
+
+    <div class="form-group">
+        <label for="fullDescriptif">Full Descriptif :</label>
+        <input type="file" name="fullDescriptif">
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="submit-btn">Modifier le Projet</button>
+    </div>
+</form>
+
+<style>
+    /* Style général pour le formulaire */
+    .form-container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style pour chaque champ de formulaire */
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+
+    .form-group textarea {
+        resize: vertical;
+        height: 120px;
+    }
+
+    /* Style pour le bouton de soumission */
+    .submit-btn {
+        padding: 12px 25px;
+        background-color: #4CAF50;
+        color: white;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover {
+        background-color: #45a049;
+    }
+
+    .submit-btn:focus {
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Style pour les champs de type "file" */
+    .form-group input[type="file"] {
+        padding: 5px;
+    }
+</style>
+
+</body>
+<script src="${pageContext.request.contextPath}/Dist/assets4/js/vendor/jquery-1.12.4.min.js"></script>
     <!-- bootstrap JS
 		============================================ -->
     <script src="${pageContext.request.contextPath}/Dist/assets4/js/bootstrap.min.js"></script>
@@ -152,6 +252,4 @@
     <!-- tawk chat JS
 		============================================ -->
     <script src="${pageContext.request.contextPath}/Dist/assets4/js/tawk-chat.js"></script>
-</body>
-
 </html>

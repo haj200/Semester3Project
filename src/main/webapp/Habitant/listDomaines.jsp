@@ -69,26 +69,59 @@
 
 <body>
     <%@ include file="/temos/HabitantElements/left-sidebar.jsp" %>
-   <div class="all-content-wrapper">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="logo-pro">
-                        <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="all-content-wrapper">
     <%@ include file="/temos/HabitantElements/header.jsp" %>
     
-    
-    
+   
 
-<!-- Lien vers la page d'ajout d'un projet -->
-<a href="DomaineHabitant?action=new" class="button">Ajouter un Projet</a>
- </div>
-              
-              
+                            
+<div class="contacts-area mg-b-15">
+            <div class="container-fluid">
+            <table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Critères</th>
+            <th>Projets</th> <!-- Nouvelle colonne pour les projets -->
+        </tr>
+    </thead>
+    <tbody>
+        <c:forEach var="domaine" items="${domaines}">
+            <tr>
+                <!-- ID du domaine -->
+                <td>${domaine.id}</td>
+                <!-- Nom du domaine -->
+                <td>${domaine.nom}</td>
+                <!-- Description du domaine -->
+                <td>${domaine.description}</td>
+                <!-- Critères du domaine -->
+                <td>${domaine.criteres}</td>
+                <!-- Nouvelle colonne avec un lien pour ajouter un projet -->
+                <td>
+                    <a href="ProjetHabitant?action=nouveau" class="btn btn-success">
+                        Ajouter
+                    </a>
+                </td>
+            </tr>
+        </c:forEach>
+    </tbody>
+</table>
+
+
+                
+        </div>
+        </div>
+        </div>
+        
+        
+
+
+                    
+                    
+                    
+ </body>             
                
 
     <!-- jquery
@@ -152,6 +185,7 @@
     <!-- tawk chat JS
 		============================================ -->
     <script src="${pageContext.request.contextPath}/Dist/assets4/js/tawk-chat.js"></script>
-</body>
+
+
 
 </html>
