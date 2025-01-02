@@ -14,7 +14,7 @@ public class Projet {
 	private DocumentsJustif documentsJustif;
 	private String localisation;
 	private String benefice;
-	private boolean estValide;
+	private int estValide;
 	private double gain;
 	private String documentsJustifChemin;
 	private Habitant habitant; // Association avec la classe Habitant
@@ -26,7 +26,7 @@ public class Projet {
 	}
 	// avec tous les attributs
 	public Projet(int id, String titre, String description, String objectifs, double budget,
-			DocumentsJustif documentsJustif, String localisation, String benefice, boolean estValide, double gain,
+			DocumentsJustif documentsJustif, String localisation, String benefice, int estValide, double gain,
 			String documentsJustifChemin, Habitant habitant, Domaine domaine) {
 		super();
 		this.id = id;
@@ -55,7 +55,7 @@ public class Projet {
 	}
 	// avec tous les attributs sans id
 	public Projet(String titre, String description, String objectifs, double budget, DocumentsJustif documentsJustif,
-			String localisation, String benefice, boolean estValide, double gain, String documentsJustifChemin,
+			String localisation, String benefice, int estValide, double gain, String documentsJustifChemin,
 			Habitant habitant, Domaine domaine) {
 		super();
 		this.titre = titre;
@@ -120,10 +120,14 @@ public class Projet {
 	public void setBenefice(String benefice) {
 		this.benefice = benefice;
 	}
-	public boolean isEstValide() {
+	public int isEstValide() {
 		return estValide;
 	}
-	public void setEstValide(boolean estValide) {
+	
+	public int getEstValide() {
+		return estValide;
+	}
+	public void setEstValide(int estValide) {
 		this.estValide = estValide;
 	}
 	public double getGain() {

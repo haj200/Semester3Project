@@ -70,18 +70,18 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
         switch (user.getTypeUser()) {
             case "habitant":
             	Habitant habitant = habitantDao.getHabitantByusername(username);
-            	session.setAttribute("habitant", habitant);
+            	session.setAttribute("user", habitant);
                 response.sendRedirect("Habitant/dashboard.jsp");
                 
                 break;
             case "gerant":
             	Gerant gerant = gerantDao.getGerantByUsername(username);
-            	session.setAttribute("gerant", gerant);
+            	session.setAttribute("user", gerant);
                 response.sendRedirect("Gerant/dash.jsp");
                 break;
             case "administrateur":
             	Administrateur administrateur = administrateurDao.getAdministrateurByUsername(username);
-            	session.setAttribute("administrateur", administrateur);
+            	session.setAttribute("user", administrateur);
                 response.sendRedirect("Administrateur/dashboard.jsp");
                 break;
         }
