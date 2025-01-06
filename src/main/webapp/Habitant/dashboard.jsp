@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -66,34 +67,143 @@
 		============================================ -->
     <script src="${pageContext.request.contextPath}/Dist/assets4/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
-
 <body>
-    <%@ include file="/temos/HabitantElements/left-sidebar.jsp" %>
-   <div class="all-content-wrapper">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="logo-pro">
-                        <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
-                    </div>
-                </div>
-            </div>
-        </div>
+<%@ include file="/temos/HabitantElements/left-sidebar.jsp" %>
+    <div class="all-content-wrapper">
     <%@ include file="/temos/HabitantElements/header.jsp" %>
-    
-    
-    
+ <div class="single-pro-review-area mt-t-30 mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            
+<!-- Ajout du CSS pour la stylisation -->
+
+
+
+
+
+<h1>Projets:</h1>
+
+<div class="project-container">
+    <table class="project-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Objectifs</th>
+                <th>Budget</th>
+                <th>Localisation</th>
+                <th>Bénéfice</th>
+                <th>Est validé</th>
+                <th>Gain</th>
+                <th>Habitant</th>
+                <th>Domaine</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Affichage de la liste des projets -->
+            <c:forEach var="projet" items="${projects}">
+                <tr>
+                    <!-- Affichage des informations sur chaque projet -->
+                    <td><c:out value="${projet.id}" /></td>
+                    <td><c:out value="${projet.titre}" /></td>
+                    <td><c:out value="${projet.description}" /></td>
+                    <td><c:out value="${projet.objectifs}" /></td>
+                    <td><c:out value="${projet.budget}" /></td>
+                    <td><c:out value="${projet.localisation}" /></td>
+                    <td><c:out value="${projet.benefice}" /></td>
+                    <td><c:out value="${projet.estValide}" /></td>
+                    <td><c:out value="${projet.gain}" /></td>
+                    <td><c:out value="${projet.habitant.nom} ${projet.habitant.prenom}" /></td>
+                    <td><c:out value="${projet.domaine.nom}" /></td>
+                    <td>
+                        <!-- Boutons pour modifier et supprimer le projet -->
+                        <a href="ProjetHabitant?action=edit&id=${projet.id}" class="button">Modifier</a>
+                        <a href="ProjetHabitant?action=delete&id=${projet.id}" class="button delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce projet ?');">Supprimer</a>
+                    </td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+    <a href="DomaineHabitant?action=new" class="button">Ajouter un Projet</a>
+</div>
+
+<style>
+    /* Style pour la table des projets */
+    .project-container {
+        margin: 20px;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+    }
+
+    .project-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .project-table th,
+    .project-table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .project-table th {
+        background-color: #4CAF50;
+        color: white;
+        font-weight: bold;
+    }
+
+    .project-table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .project-table tr:hover {
+        background-color: #ddd;
+    }
+
+    .button {
+        padding: 8px 16px;
+        margin: 4px;
+        border: none;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+    }
+
+    .button:hover {
+        background-color: #45a049;
+    }
+
+    .delete {
+        background-color: #f44336;
+    }
+
+    .delete:hover {
+        background-color: #e53935;
+    }
+</style>
+
+</div>
 
 <!-- Lien vers la page d'ajout d'un projet -->
-<a href="DomaineHabitant?action=new" class="button">Ajouter un Projet</a>
- </div>
-              
-              
-               
 
-    <!-- jquery
-		============================================ -->
-    <script src="${pageContext.request.contextPath}/Dist/assets4/js/vendor/jquery-1.12.4.min.js"></script>
+
+
+            
+        </div>
+    </div>
+</div>
+
+        
+</body>
+<script src="${pageContext.request.contextPath}/Dist/assets4/js/vendor/jquery-1.12.4.min.js"></script>
     <!-- bootstrap JS
 		============================================ -->
     <script src="${pageContext.request.contextPath}/Dist/assets4/js/bootstrap.min.js"></script>
@@ -152,6 +262,6 @@
     <!-- tawk chat JS
 		============================================ -->
     <script src="${pageContext.request.contextPath}/Dist/assets4/js/tawk-chat.js"></script>
-</body>
+
 
 </html>
