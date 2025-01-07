@@ -126,6 +126,7 @@
             </c:forEach>
         </tbody>
     </table>
+    <a href="DomaineHabitant?action=new" class="button">Ajouter un Projet</a>
 </div>
 
 <style>

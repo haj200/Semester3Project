@@ -19,6 +19,7 @@ import dao.daoAdministrateur.AdministrateurDao;
 import dao.daoDomaine.DomaineDao;
 import dao.daoGerant.GerantDao;
 import dao.daoHabitant.HabitantDao;
+import dao.daoProjet.ProjetDao;
 
 
 
@@ -28,12 +29,14 @@ public class LoginServlet extends HttpServlet {
 	private HabitantDao habitantDao;
 	private GerantDao gerantDao;
 	private AdministrateurDao administrateurDao;
+	private ProjetDao projetDao;
 
    
 	 public void init() throws ServletException {
 	        DAOFactory daoFactory = DAOFactory.getInstance();
 	        this.authDao = daoFactory.getAuthDao();
 	        this.habitantDao = daoFactory.getHabitantDao();
+	        this.projetDao = daoFactory.getProjetDao();
 	        this.gerantDao = daoFactory.getGerantDao();
 	        this.administrateurDao = daoFactory.getAdministrateurDao();
 	    }  
@@ -71,8 +74,9 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             case "habitant":
             	Habitant habitant = habitantDao.getHabitantByusername(username);
             	session.setAttribute("user", habitant);
-                response.sendRedirect("Habitant/dashboard.jsp");
-                
+            	request.setAttribute("projects", projetDao.projets());
+            	request.getRequestDispatcher("Habitant/dashboard.jsp").forward(request, response);
+
                 break;
             case "gerant":
             	Gerant gerant = gerantDao.getGerantByUsername(username);
