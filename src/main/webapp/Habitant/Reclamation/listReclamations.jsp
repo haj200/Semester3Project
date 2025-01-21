@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -66,75 +67,141 @@
 		============================================ -->
     <script src="${pageContext.request.contextPath}/Dist/assets4/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
-
 <body>
-    <%@ include file="/temos/HabitantElements/left-sidebar.jsp" %>
+<%@ include file="/temos/HabitantElements/left-sidebar.jsp" %>
     <div class="all-content-wrapper">
     <%@ include file="/temos/HabitantElements/header.jsp" %>
-    
-   
+ <div class="single-pro-review-area mt-t-30 mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            
+<!-- Ajout du CSS pour la stylisation -->
 
-                            
-<div class="contacts-area mg-b-15">
-            <div class="container-fluid">
-            <table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nom</th>
-            <th>Description</th>
-            <th>Critères</th>
-            <th>Projets</th>
-            <th>Plus de details</th> <!-- Nouvelle colonne pour les projets -->
-        </tr>
-    </thead>
-    <tbody>
-        <c:forEach var="domaine" items="${domaines}">
+
+
+
+
+  <h1>Reclamations:</h1>
+
+<div class="project-container">
+    <table class="project-table">
+        <thead>
             <tr>
-                <!-- ID du domaine -->
-                <td>${domaine.id}</td>
-                <!-- Nom du domaine -->
-                <td>${domaine.nom}</td>
-                <!-- Description du domaine -->
-                <td>${domaine.description}</td>
-                <!-- Critères du domaine -->
-                <td>${domaine.criteres}</td>
-                <!-- Nouvelle colonne avec un lien pour ajouter un projet -->
-                <td>
-                    <a href="ProjetHabitant?action=nouveau" class="btn btn-success">
-                        Ajouter
-                    </a>
-                </td>
-                <td>
-              <a href="${pageContext.request.contextPath}/DomaineHabitant?action=view&id=${domaine.id}" 
+                <th>ID</th>
+                <th>Message</th>
+                <th>Reponse</th>
+                <th>Habitant</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Affichage de la liste des réclamations -->
+            <c:forEach var="reclamation" items="${reclamations}">
+                <tr>
+                    <!-- Affichage des informations sur chaque réclamation -->
+                    <td><c:out value="${reclamation.id}" /></td>
+                    <td><c:out value="${reclamation.message}" /></td> <!-- Correction de "massage" à "message" -->
+                    <td><c:out value="${reclamation.reponse}" /></td>
+                    <td><c:out value="${reclamation.habitant.nom} ${reclamation.habitant.prenom}" /></td>
+                    <td>
+              <a href="${pageContext.request.contextPath}/ReclamationHabitant?action=view&id=${reclamation.id}" 
                  class="btn btn-primary btn-sm">
                 Voir
               </a>
               
             </td>
-            </tr>
-        </c:forEach>
-    </tbody>
-</table>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+    <a href="ReclamationHabitant?action=new" class="button">Ajouter une réclamation</a>
+    <style>
+    /* Style pour le conteneur de la table des réclamations */
+    .project-container {
+        margin: 20px;
+        padding: 20px;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style général pour la table */
+    .project-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #fff;
+    }
+
+    /* Style des cellules de la table */
+    .project-table th,
+    .project-table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        font-size: 14px;
+    }
+
+    /* Style de l'en-tête de la table */
+    .project-table th {
+        background-color: #4CAF50;
+        color: white;
+        font-weight: bold;
+    }
+
+    /* Style des lignes paires de la table */
+    .project-table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    /* Effet de survol des lignes */
+    .project-table tr:hover {
+        background-color: #ddd;
+    }
+
+    /* Style du bouton d'action */
+    .button {
+        padding: 8px 16px;
+        margin-top: 20px;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    .button:hover {
+        background-color: #45a049;
+    }
+
+    /* Style pour le bouton de suppression */
+    .delete {
+        background-color: #f44336;
+        color: white;
+    }
+
+    .delete:hover {
+        background-color: #e53935;
+    }
+
+</style>
+    
+</div>
 
 
-                
+
+
+
+<!-- Lien vers la page d'ajout d'un projet -->
+
+
+
+            
         </div>
-        </div>
-        </div>
+    </div>
+</div>
+
         
-        
-
-
-                    
-                    
-                    
- </body>             
-               
-
-    <!-- jquery
-		============================================ -->
-    <script src="${pageContext.request.contextPath}/Dist/assets4/js/vendor/jquery-1.12.4.min.js"></script>
+</body>
+<script src="${pageContext.request.contextPath}/Dist/assets4/js/vendor/jquery-1.12.4.min.js"></script>
     <!-- bootstrap JS
 		============================================ -->
     <script src="${pageContext.request.contextPath}/Dist/assets4/js/bootstrap.min.js"></script>
@@ -195,5 +262,6 @@
     <script src="${pageContext.request.contextPath}/Dist/assets4/js/tawk-chat.js"></script>
 
 
-
 </html>
+
+

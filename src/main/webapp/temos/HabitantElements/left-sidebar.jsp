@@ -14,7 +14,7 @@
                         <li class="active">
                             <a class="has-arrow" href="all-professors.html" aria-expanded="false"><span class="educate-icon educate-home icon-wrap"></span> <span class="mini-click-non">Projets</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Professors" href="all-professors.html"><span class="mini-sub-pro">Tous les projets</span></a></li>
+                                <li><a title="All Professors" href="all-professors.html"><span class="mini-sub-pro">Mes feedbacks</span></a></li>
                                 <li><a title="Add Professor" href="add-professor.html"><span class="mini-sub-pro">Mes projets</span></a></li>
                                 
                             </ul>
