@@ -22,36 +22,43 @@ public class FeedbackDaoImp implements FeedbackDao {
         super();
         this.daoFactory = daoFactory;
     }
+    
     public void createFeedback(Feedback f) {
-    	
-    	    Connection connexion = null;
-    	    PreparedStatement preparedStatement = null;
-    	    try {
-    	        connexion = daoFactory.getConnection();
-    	        String sql = "INSERT INTO feedbacks(message, proposition, id_projet, id_habitant) VALUES(?, ?, ?, ?)";
-    	        preparedStatement = connexion.prepareStatement(sql);
-    	        
-    	        preparedStatement.setString(1, f.getMessage());
-    	        preparedStatement.setString(2, f.getProposition());
-    	        preparedStatement.setInt(3, f.getProjet().getId());
-    	        preparedStatement.setInt(4, f.getHabitant().getId());
+        Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connexion = daoFactory.getConnection();
+            
+            // Insertion dans la table feedbacks avec les valeurs fournies
+            String sql = "INSERT INTO feedbacks(message, proposition, id_projet, id_habitant) VALUES(?, ?, ?, ?)";
+            preparedStatement = connexion.prepareStatement(sql);
+            
+            // Récupération des données de Feedback (message, proposition)
+            preparedStatement.setString(1, f.getMessage());
+            preparedStatement.setString(2, f.getProposition());
+            
+            // Récupération de l'ID du projet et de l'habitant
+            preparedStatement.setInt(3, f.getProjet().getId()); // ID du projet
+            preparedStatement.setInt(4, f.getHabitant().getId()); // ID de l'habitant
 
-    	        preparedStatement.executeUpdate();
-    	    } catch (SQLException e) {
-    	        e.printStackTrace();
-    	    } finally {
-    	        try {
-    	            if (preparedStatement != null) {
-    	                preparedStatement.close();
-    	            }
-    	            if (connexion != null) {
-    	                connexion.close();
-    	            }
-    	        } catch (SQLException e) {
-    	            e.printStackTrace();
-    	        }
-    	    }
-    	}
+            // Exécution de l'insertion dans la base de données
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connexion != null) {
+                    connexion.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     
 

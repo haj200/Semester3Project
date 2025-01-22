@@ -16,11 +16,11 @@
                                     <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12">
                                         <div class="header-top-menu tabl-d-n">
                                             <ul class="nav navbar-nav mai-top-nav">
-                                                <li class="nav-item"><a href="Habitant/dashboard.jsp" class="nav-link">Home</a>
+                                                <li class="nav-item"><a href="${pageContext.request.contextPath}/ProjetHabitant" class="nav-link">Home</a>
                                                 </li>
                                                 <li class="nav-item"><a href="DomaineHabitant" class="nav-link">Domaines</a>
                                                 </li>
-                                                <li class="nav-item"><a href="#" class="nav-link">Réclamations</a>
+                                                <li class="nav-item"><a href="${pageContext.request.contextPath}/ReclamationHabitant" class="nav-link">Réclamations</a>
                                                 </li>
                                                 
                                                 
@@ -155,19 +155,15 @@
                                                 <li class="nav-item">
                                                     <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
 															<img src="img/product/pro4.jpg" alt="" />
-															<span class="admin-name">Younoussi Aya</span>
+															<strong><c:out value="${sessionScope.user.getNom()}" /> <c:out value="${sessionScope.user.getPrenom()}" /></strong>
 															<i class="fa fa-angle-down edu-icon edu-down-arrow"></i>
 														</a>
                                                     <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
                                                         <li><a href="#"><span class="edu-icon edu-home-admin author-log-ic"></span>My Account</a>
                                                         </li>
-                                                        <li><a href="#"><span class="edu-icon edu-user-rounded author-log-ic"></span>My Profile</a>
-                                                        </li>
-                                                        <li><a href="#"><span class="edu-icon edu-money author-log-ic"></span>User Billing</a>
-                                                        </li>
-                                                        <li><a href="#"><span class="edu-icon edu-settings author-log-ic"></span>Settings</a>
-                                                        </li>
-                                                        <li><a href="#"><span class="edu-icon edu-locked author-log-ic"></span>Log Out</a>
+                                                        
+                                                       
+                                                        <li><a href="${pageContext.request.contextPath}/LogoutServlet"><span class="edu-icon edu-locked author-log-ic"></span>Log Out</a>
                                                         </li>
                                                     </ul>
                                                 </li>

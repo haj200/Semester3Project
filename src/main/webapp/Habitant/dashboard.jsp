@@ -99,6 +99,7 @@
                 <th>Habitant</th>
                 <th>Domaine</th>
                 <th>Actions</th>
+                <th>Feedback</th> <!-- Nouvelle colonne pour le bouton Feedback -->
             </tr>
         </thead>
         <tbody>
@@ -122,13 +123,44 @@
                         <a href="ProjetHabitant?action=edit&id=${projet.id}" class="button">Modifier</a>
                         <a href="ProjetHabitant?action=delete&id=${projet.id}" class="button delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce projet ?');">Supprimer</a>
                     </td>
+                    <td>
+                        <!-- Bouton pour ajouter un feedback -->
+                        <a href="FeedbackHabitant?action=new&idProjet=${projet.id}" class="button">Feedback</a>
+                    </td>
                 </tr>
             </c:forEach>
         </tbody>
     </table>
     <a href="DomaineHabitant?action=new" class="button">Ajouter un Projet</a>
 </div>
-
+<style>
+.modal {
+            display: none; /* Masqué par défaut */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5); /* Arrière-plan semi-transparent */
+        }
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            text-align: center;
+        }
+        .close-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
 <style>
     /* Style pour la table des projets */
     .project-container {
@@ -189,6 +221,7 @@
         background-color: #e53935;
     }
 </style>
+
 
 </div>
 

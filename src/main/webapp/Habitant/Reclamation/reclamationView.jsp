@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -66,75 +67,25 @@
 		============================================ -->
     <script src="${pageContext.request.contextPath}/Dist/assets4/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
-
 <body>
-    <%@ include file="/temos/HabitantElements/left-sidebar.jsp" %>
+<%@ include file="/temos/HabitantElements/left-sidebar.jsp" %>
     <div class="all-content-wrapper">
     <%@ include file="/temos/HabitantElements/header.jsp" %>
-    
-   
-
-                            
-<div class="contacts-area mg-b-15">
-            <div class="container-fluid">
-            <table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nom</th>
-            <th>Description</th>
-            <th>Critères</th>
-            <th>Projets</th>
-            <th>Plus de details</th> <!-- Nouvelle colonne pour les projets -->
-        </tr>
-    </thead>
-    <tbody>
-        <c:forEach var="domaine" items="${domaines}">
-            <tr>
-                <!-- ID du domaine -->
-                <td>${domaine.id}</td>
-                <!-- Nom du domaine -->
-                <td>${domaine.nom}</td>
-                <!-- Description du domaine -->
-                <td>${domaine.description}</td>
-                <!-- Critères du domaine -->
-                <td>${domaine.criteres}</td>
-                <!-- Nouvelle colonne avec un lien pour ajouter un projet -->
-                <td>
-                    <a href="ProjetHabitant?action=nouveau" class="btn btn-success">
-                        Ajouter
-                    </a>
-                </td>
-                <td>
-              <a href="${pageContext.request.contextPath}/DomaineHabitant?action=view&id=${domaine.id}" 
-                 class="btn btn-primary btn-sm">
-                Voir
-              </a>
-              
-            </td>
-            </tr>
-        </c:forEach>
-    </tbody>
-</table>
+ <div class="single-pro-review-area mt-t-30 mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+             <%@ include file="/Habitant/Reclamation/items/reclamation.jsp" %> 
+<!-- Ajout du CSS pour la stylisation -->
 
 
-                
-        </div>
-        </div>
-        </div>
+
+
+
+
+
         
-        
-
-
-                    
-                    
-                    
- </body>             
-               
-
-    <!-- jquery
-		============================================ -->
-    <script src="${pageContext.request.contextPath}/Dist/assets4/js/vendor/jquery-1.12.4.min.js"></script>
+</body>
+<script src="${pageContext.request.contextPath}/Dist/assets4/js/vendor/jquery-1.12.4.min.js"></script>
     <!-- bootstrap JS
 		============================================ -->
     <script src="${pageContext.request.contextPath}/Dist/assets4/js/bootstrap.min.js"></script>
@@ -193,7 +144,6 @@
     <!-- tawk chat JS
 		============================================ -->
     <script src="${pageContext.request.contextPath}/Dist/assets4/js/tawk-chat.js"></script>
-
 
 
 </html>

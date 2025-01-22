@@ -63,6 +63,7 @@ public class ProjetHabitant extends HttpServlet {
             case "delete":
                 deleteProject(request, response);
                 break;
+            
             default:
                 listProjects(request, response);
                 break;

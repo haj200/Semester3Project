@@ -6,36 +6,159 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
-/**
- * Servlet implementation class FeedbackHabitant
- */
+import beans.Feedback;
+import beans.Habitant;
+import beans.Projet;
+import dao.DAOFactory;
+import dao.daoFeedback.FeedbackDao;
+import dao.daoHabitant.HabitantDao;
+import dao.daoProjet.ProjetDao;
+import dao.daoProjet.ProjetDaoImp; // Assurez-vous que ProjetDaoImp est bien la classe implémentant ProjetDao
+
 @WebServlet("/FeedbackHabitant")
 public class FeedbackHabitant extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    private ProjetDao projetDao;
+    private HabitantDao habitantDao;
+    private FeedbackDao feedbackDao;
+    public void init() throws ServletException {
+        DAOFactory daoFactory = DAOFactory.getInstance();
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+        this.projetDao = daoFactory.getProjetDao();  // Assurez-vous que getProjetDao() existe
+        this.habitantDao = daoFactory.getHabitantDao();
+        this.projetDao = daoFactory.getProjetDao();
+        this.feedbackDao = daoFactory.getFeedbackDao();
+    } 
+
+
     public FeedbackHabitant() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+        if (action == null) {
+            action = "list"; // Action par défaut
+        }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+        switch (action) {
+            case "new":
+                showNewForm(request, response);
+                break;
+            default:
+                listProjects(request, response);
+                break;
+             
+        }
+    }
+    private void listProjects(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("projects", projetDao.projets());
+        request.getRequestDispatcher("/Habitant/dashboard.jsp").forward(request, response);
+    }
+    
 
+    
+   
+	
+
+
+	private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	   int idiProjet = Integer.parseInt(request.getParameter("idProjet"));
+    	try {
+            // Récupérer l'objet habitant depuis la session
+            Habitant habitant = (Habitant) request.getSession().getAttribute("user");
+            
+            if (habitant == null) {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "User not authenticated");
+                return;
+            }
+            
+
+            // Récupérer l'ID de l'habitant
+            Integer habitantId = habitant.getId();
+            System.out.println("id " + habitantId); 
+            // Utilisation de l'implémentation concrète de ProjetDao
+           // Assurez-vous de charger les projets
+            request.setAttribute("habitantId", habitantId);  // Passer l'ID de l'habitant à la vue
+            request.setAttribute("idProjet", idiProjet);
+            request.getRequestDispatcher("Habitant/Feedback/formFeedback.jsp").forward(request, response);  // Redirection vers le formulaire
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erreur lors du chargement des projets et habitants");
+        }
+    }
+
+    	
+
+    
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	String action = request.getParameter("action");
+    	if (action != null && action.equals("add")) {
+    	    createFeedback(request, response);
+    }
+    }
+  
+    private void createFeedback(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	try {
+    	    // Vérifier les paramètres
+    	    String message = request.getParameter("message");
+    	    String proposition = request.getParameter("proposition");
+    	    String projetIdStr = request.getParameter("idProjet");
+    	    System.out.println("action: " + request.getParameter("action"));  // Affiche l'action
+            System.out.println("message: " + message);  // Affiche le message
+            System.out.println("proposition: " + proposition);  // Affiche la proposition
+            System.out.println("projetId: " + projetIdStr);  // Affiche l'ID du projet
+    	    if (message == null || proposition == null || projetIdStr == null) {
+    	        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing required fields");
+    	        return;
+    	    }
+
+    	    // Convertir projetId en entier et vérifier sa validité
+    	    int idiProjet = Integer.parseInt(projetIdStr);
+    	    if (idiProjet <= 0) {
+    	        throw new IllegalArgumentException("Invalid project ID");
+    	    }
+
+    	    // Récupérer l'habitant connecté depuis la session
+    	    Habitant habitant = (Habitant) request.getSession().getAttribute("user");
+    	    if (habitant == null) {
+    	        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "User not authenticated");
+    	        return;
+    	    }
+
+    	    // Créer le projet et l'habitant associés
+    	    Projet projet = new Projet();
+    	    projet.setId(idiProjet);
+
+    	    // Utiliser l'objet habitant récupéré de la session
+    	    habitant.setId(habitant.getId()); // Si nécessaire, vous pouvez faire une vérification ici
+
+    	    // Créer l'objet Feedback
+    	    Feedback feedback = new Feedback();
+    	    feedback.setMessage(message);
+    	    feedback.setProposition(proposition);
+    	    feedback.setProjet(projet);
+    	    feedback.setHabitant(habitant);
+
+    	    // Insérer le feedback en base de données via le DAO
+    	    feedbackDao.createFeedback(feedback);
+    	    
+
+    	    // Redirection vers une autre page (ex. la liste des feedbacks)
+    	    response.sendRedirect(request.getContextPath() + "/FeedbackHabitant?action=list");
+    	} catch (Exception e) {
+    	    e.printStackTrace();
+    	    response.getWriter().println("Error creating feedback: " + e.getMessage());
+    	}
+
+    }
 }
+
+
+

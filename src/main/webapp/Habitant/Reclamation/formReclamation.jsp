@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -66,75 +67,134 @@
 		============================================ -->
     <script src="${pageContext.request.contextPath}/Dist/assets4/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
-
 <body>
-    <%@ include file="/temos/HabitantElements/left-sidebar.jsp" %>
+<%@ include file="/temos/HabitantElements/left-sidebar.jsp" %>
     <div class="all-content-wrapper">
     <%@ include file="/temos/HabitantElements/header.jsp" %>
-    
-   
+ <div class="single-pro-review-area mt-t-30 mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajouter un Projet</title>
+    <style>
+        /* Style général de la page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
 
-                            
-<div class="contacts-area mg-b-15">
-            <div class="container-fluid">
-            <table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nom</th>
-            <th>Description</th>
-            <th>Critères</th>
-            <th>Projets</th>
-            <th>Plus de details</th> <!-- Nouvelle colonne pour les projets -->
-        </tr>
-    </thead>
-    <tbody>
-        <c:forEach var="domaine" items="${domaines}">
-            <tr>
-                <!-- ID du domaine -->
-                <td>${domaine.id}</td>
-                <!-- Nom du domaine -->
-                <td>${domaine.nom}</td>
-                <!-- Description du domaine -->
-                <td>${domaine.description}</td>
-                <!-- Critères du domaine -->
-                <td>${domaine.criteres}</td>
-                <!-- Nouvelle colonne avec un lien pour ajouter un projet -->
-                <td>
-                    <a href="ProjetHabitant?action=nouveau" class="btn btn-success">
-                        Ajouter
-                    </a>
-                </td>
-                <td>
-              <a href="${pageContext.request.contextPath}/DomaineHabitant?action=view&id=${domaine.id}" 
-                 class="btn btn-primary btn-sm">
-                Voir
-              </a>
-              
-            </td>
-            </tr>
-        </c:forEach>
-    </tbody>
-</table>
+        /* Conteneur principal */
+        .form-container {
+            max-width: 800px;
+            margin: 30px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
+        /* Titre du formulaire */
+        h2 {
+            text-align: center;
+            color: #4CAF50;
+        }
 
-                
-        </div>
-        </div>
-        </div>
+        /* Style des labels */
+        label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: inline-block;
+            color: #333;
+        }
+
+        /* Style des champs de texte et textarea */
+        input[type="text"],
+        input[type="number"],
+        input[type="file"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        /* Style pour textarea */
+        textarea {
+            resize: vertical;
+            height: 150px;
+        }
+
+        /* Style pour le bouton de soumission */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Style pour les champs obligatoires */
+        input[required], textarea[required] {
+            border-color: #ff5c5c;
+        }
+
+        /* Ajout d'un espace entre chaque champ */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        /* Style pour les petits titres des sections */
+        .section-title {
+            font-size: 18px;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        /* Pour les champs de fichiers */
+        input[type="file"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Ajouter une reclamation</h2>
+        <form action="ReclamationHabitant?action=add" method="post">
+            
+            <div class="form-group">
+        <label for="message">Message :</label>
+        <textarea name="message" required></textarea>
+    </div>
+
+            
+
+            <button type="submit">Ajouter la reclamation</button>
+        </form>
+    </div>
+</body>
+</html>
+
         
-        
-
-
-                    
-                    
-                    
- </body>             
-               
-
-    <!-- jquery
-		============================================ -->
-    <script src="${pageContext.request.contextPath}/Dist/assets4/js/vendor/jquery-1.12.4.min.js"></script>
+</body>
+<script src="${pageContext.request.contextPath}/Dist/assets4/js/vendor/jquery-1.12.4.min.js"></script>
     <!-- bootstrap JS
 		============================================ -->
     <script src="${pageContext.request.contextPath}/Dist/assets4/js/bootstrap.min.js"></script>
@@ -193,7 +253,6 @@
     <!-- tawk chat JS
 		============================================ -->
     <script src="${pageContext.request.contextPath}/Dist/assets4/js/tawk-chat.js"></script>
-
 
 
 </html>
