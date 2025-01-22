@@ -10,6 +10,8 @@ public interface DomaineDao {
  void updateDomaine(Domaine d);
  void deleteDomaine(int id);
  Domaine getDomaineById(int id);
+ int getDomainesCount();
+ List<Domaine> getDomainesPaginated(int start, int rowsPerPage);
 
 
 

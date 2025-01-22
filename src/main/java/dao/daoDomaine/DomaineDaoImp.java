@@ -18,6 +18,46 @@ public class DomaineDaoImp implements DomaineDao {
 		super();
 		this.daoFactory = daoFactory;
 	}
+	@Override
+	public int getDomainesCount() {
+	    int count = 0;
+	    String query = "SELECT COUNT(*) FROM domaines";
+	    try (Connection conn = daoFactory.getConnection();
+	         PreparedStatement ps = conn.prepareStatement(query);
+	         ResultSet rs = ps.executeQuery()) {
+	        if (rs.next()) {
+	            count = rs.getInt(1);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return count;
+	}
+
+	@Override
+	public List<Domaine> getDomainesPaginated(int start, int rowsPerPage) {
+	    List<Domaine> domaines = new ArrayList<>();
+	    String query = "SELECT * FROM domaines LIMIT ?, ?";
+	    try (Connection conn = daoFactory.getConnection();
+	         PreparedStatement ps = conn.prepareStatement(query)) {
+	        ps.setInt(1, start);
+	        ps.setInt(2, rowsPerPage);
+	        try (ResultSet rs = ps.executeQuery()) {
+	            while (rs.next()) {
+	                Domaine domaine = new Domaine();
+	                domaine.setId(rs.getInt("id"));
+	                domaine.setNom(rs.getString("nom"));
+	                domaine.setDescription(rs.getString("description"));
+	                domaine.setCriteres(rs.getString("criteres"));
+	                domaines.add(domaine);
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return domaines;
+	}
+
 
 
 	@Override

@@ -1,132 +1,65 @@
-<nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-          <div class="navbar-menu-wrapper d-flex align-items-stretch">
-            <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-              <span class="mdi mdi-chevron-double-left"></span>
-            </button>
-            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-              <a class="navbar-brand brand-logo-mini" href="../../index.html"><img src="../${pageContext.request.contextPath}/Dist/assets2/images/logo-mini.svg" alt="logo" /></a>
-            </div>
-            <ul class="navbar-nav">
-              <li class="nav-item dropdown">
-                <a class="nav-link" id="messageDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="mdi mdi-email-outline"></i>
-                </a>
-                <div class="dropdown-menu dropdown-menu-left navbar-dropdown preview-list" aria-labelledby="messageDropdown">
-                  <h6 class="p-3 mb-0 fw-semibold">Messages</h6>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <img src="../${pageContext.request.contextPath}/Dist/assets2/images/faces/face1.jpg" alt="image" class="profile-pic">
-                    </div>
-                    <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                      <h6 class="preview-subject ellipsis mb-1 fw-normal">Mark send you a message</h6>
-                      <p class="text-gray mb-0"> 1 Minutes ago </p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <img src="../${pageContext.request.contextPath}/Dist/assets2/images/faces/face6.jpg" alt="image" class="profile-pic">
-                    </div>
-                    <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                      <h6 class="preview-subject ellipsis mb-1 fw-normal">Cregh send you a message</h6>
-                      <p class="text-gray mb-0"> 15 Minutes ago </p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <img src="../${pageContext.request.contextPath}/Dist/assets2/images/faces/face7.jpg" alt="image" class="profile-pic">
-                    </div>
-                    <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                      <h6 class="preview-subject ellipsis mb-1 fw-normal">Profile picture updated</h6>
-                      <p class="text-gray mb-0"> 18 Minutes ago </p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <h6 class="p-3 mb-0 text-center text-primary font-13">4 new messages</h6>
-                </div>
-              </li>
-              <li class="nav-item dropdown ms-3">
-                <a class="nav-link" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
-                  <i class="mdi mdi-bell-outline"></i>
-                </a>
-                <div class="dropdown-menu dropdown-menu-left navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                  <h6 class="px-3 py-3 fw-semibold mb-0">Notifications</h6>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <div class="preview-icon bg-success">
-                        <i class="mdi mdi-calendar"></i>
-                      </div>
-                    </div>
-                    <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                      <h6 class="preview-subject fw-normal mb-0">New order recieved</h6>
-                      <p class="text-gray ellipsis mb-0"> 45 sec ago </p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <div class="preview-icon bg-warning">
-                        <i class="mdi mdi-image-filter-vintage"></i>
-                      </div>
-                    </div>
-                    <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                      <h6 class="preview-subject fw-normal mb-0">Server limit reached</h6>
-                      <p class="text-gray ellipsis mb-0"> 55 sec ago </p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <div class="preview-icon bg-info">
-                        <i class="mdi mdi-link-variant"></i>
-                      </div>
-                    </div>
-                    <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                      <h6 class="preview-subject fw-normal mb-0">Kevin karvelle</h6>
-                      <p class="text-gray ellipsis mb-0"> 11:09 PM </p>
-                    </div>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <h6 class="p-3 font-13 mb-0 text-primary text-center">View all notifications</h6>
-                </div>
-              </li>
-            </ul>
-            <ul class="navbar-nav navbar-nav-right">
-              <li class="nav-item nav-logout d-none d-md-block me-3">
-                <a class="nav-link" href="#">Status</a>
-              </li>
-              <li class="nav-item nav-logout d-none d-md-block">
-                <button class="btn btn-sm btn-danger">Trailing</button>
-              </li>
-              <li class="nav-item nav-profile dropdown d-none d-md-block">
-                <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                  <div class="nav-profile-text">English </div>
-                </a>
-                <div class="dropdown-menu center navbar-dropdown" aria-labelledby="profileDropdown">
-                  <a class="dropdown-item" href="#">
-                    <i class="flag-icon flag-icon-bl me-3"></i> French </a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">
-                    <i class="flag-icon flag-icon-cn me-3"></i> Chinese </a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">
-                    <i class="flag-icon flag-icon-de me-3"></i> German </a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">
-                    <i class="flag-icon flag-icon-ru me-3"></i>Russian </a>
-                </div>
-              </li>
-              <li class="nav-item nav-logout d-none d-lg-block">
-                <a class="nav-link" href="../../index.html">
-                  <i class="mdi mdi-home-circle"></i>
-                </a>
-              </li>
-            </ul>
-            <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
-              <span class="mdi mdi-menu"></span>
-            </button>
-          </div>
-        </nav>
+<header id="header"
+	class="header d-flex flex-column justify-content-center">
+	<i class="header-toggle d-xl-none bi bi-list"></i>
+
+	<nav id="navmenu" class="navmenu">
+		<ul>
+			<!-- Accueil -->
+			<li><a
+				href="${pageContext.request.contextPath}/DashboardGerantServlet"
+				class="${request.getRequestURI().endsWith('/DashboardGerantServlet') || request.getRequestURI().equals(pageContext.request.contextPath + "/") ? 'active' : ''}">
+					<i class="bi bi-house navicon"></i><span>Accueil</span>
+			</a></li>
+			<!-- Admins -->
+			<li><a
+				href="${pageContext.request.contextPath}/AdministrateurServlet"
+				class="${request.getRequestURI().contains('/AdministrateurServlet') ? 'active' : ''}">
+					<i class="bi bi-person navicon"></i><span>Admins</span>
+			</a></li>
+			<!-- Resume -->
+			<li><a href="${pageContext.request.contextPath}/HabitantServlet"
+				class="${request.getRequestURI().contains('/HabitantServlet') ? 'active' : ''}">
+					<i class="fa-solid fa-users-line"></i> <span>Habitants</span>
+			</a></li>
+			<li><a href="${pageContext.request.contextPath}/DomaineServlet"
+				class="${request.getRequestURI().contains('/DomaineServlet') ? 'active' : ''}">
+					<i class="fa-solid fa-bars"></i> <span>Domaines</span>
+			</a></li>
+			<li><a href="${pageContext.request.contextPath}/ProjectServlet"
+				class="${request.getRequestURI().contains('/ProjectServlet') ? 'active' : ''}">
+					<i class="fa-solid fa-diagram-project"></i> <span>Projets</span>
+			</a></li>
+			<!-- Portfolio -->
+			<li><a href="${pageContext.request.contextPath}/FeedbackServlet"
+				class="${request.getRequestURI().contains('/FeedbackServlet') ? 'active' : ''}"> <i class="fa-solid fa-comment"></i><span>FeedBacks</span>
+			</a></li>
+			<li><a href="${pageContext.request.contextPath}/ReclamationServlet"
+				class="${request.getRequestURI().contains('/ReclamationServlet') ? 'active' : ''}"> <i class="fa-regular fa-message"></i><span>réclamate</span>
+			</a></li>
+			<li><a href="${pageContext.request.contextPath}/logout"
+				> <i class="fa-solid fa-right-from-bracket"></i><span>logout</span>
+			</a></li>
+		</ul>
+	</nav>
+</header>
+
+<script>
+    // JavaScript for activating the correct link
+    document.addEventListener('DOMContentLoaded', () => {
+        const currentPath = window.location.pathname;
+        const currentHash = window.location.hash;
+
+        // Clear all active classes
+        document.querySelectorAll('.navmenu a').forEach(link => {
+            link.classList.remove('active');
+        });
+
+        // Highlight the correct link based on URL
+        document.querySelectorAll('.navmenu a').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPath || href === currentHash) {
+                link.classList.add('active');
+            }
+        });
+    });
+</script>

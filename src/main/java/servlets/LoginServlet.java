@@ -79,9 +79,9 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 
                 break;
             case "gerant":
-            	Gerant gerant = gerantDao.getGerantByUsername(username);
-            	session.setAttribute("user", gerant);
-                response.sendRedirect("Gerant/dash.jsp");
+                Gerant gerant = gerantDao.getGerantByUsername(username);
+                session.setAttribute("user", gerant);
+                response.sendRedirect("DashboardGerantServlet");
                 break;
             case "administrateur":
             	Administrateur administrateur = administrateurDao.getAdministrateurByUsername(username);

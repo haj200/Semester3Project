@@ -64,21 +64,46 @@ public class AdministrateurServlet extends HttpServlet {
 		
 	}
 	private void shownewform(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/Gerant/AdministrateurJsp/administrateurAdd.jsp").forward(request, response);
+		request.getRequestDispatcher("/Gerant/Administrateur/addAdministrateur.jsp").forward(request, response);
 		
 	}
 	private void showeditform(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
         Administrateur admin = adminDao.getAdministrateurById(id);
         request.setAttribute("admin", admin);
-        request.getRequestDispatcher("/Gerant/AdministrateurJsp/administrateurUpdate.jsp").forward(request, response);
+        request.getRequestDispatcher("/Gerant/Administrateur/updateAdministrateur.jsp").forward(request, response);
 		
 	}
 	private void list_Administrateurs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Administrateur> admins = adminDao.getAdministrateurs();
-        request.setAttribute("admins", admins);
-        request.getRequestDispatcher("/Gerant/AdministrateurJsp/administrateurs.jsp").forward(request, response);
-		
+	    // Get the current page from the request; default to 1 if not provided
+	    int currentPage = 1;
+	    String pageParam = request.getParameter("page");
+	    if (pageParam != null && !pageParam.isEmpty()) {
+	        currentPage = Integer.parseInt(pageParam);
+	    }
+
+	    // Define the number of rows per page
+	    int rowsPerPage = 6;
+
+	    // Get the total number of admins from the database
+	    int totalAdmins = adminDao.getAdministrateursCount();
+
+	    // Calculate the starting row for the current page
+	    int start = (currentPage - 1) * rowsPerPage;
+
+	    // Fetch the admins for the current page
+	    List<Administrateur> admins = adminDao.getAdministrateursPaginated(start, rowsPerPage);
+
+	    // Calculate the total number of pages
+	    int totalPages = (int) Math.ceil((double) totalAdmins / rowsPerPage);
+
+	    // Set attributes for the request
+	    request.setAttribute("admins", admins);
+	    request.setAttribute("currentPage", currentPage);
+	    request.setAttribute("totalPages", totalPages);
+
+	    // Forward to the JSP
+	    request.getRequestDispatcher("/Gerant/Administrateur/administrateurs.jsp").forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");

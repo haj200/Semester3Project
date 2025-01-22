@@ -1,10 +1,19 @@
-<footer class="footer">
-          <div class="card">
-            <div class="card-body">
-              <div class="d-sm-flex justify-content-center justify-content-sm-between py-2">
-                <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © <a href="${pageContext.request.contextPath}/Dist/assets3/https://www.bootstrapdash.com/" target="_blank">bootstrapdash.com </a>2021</span>
-                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Only the best <a href="${pageContext.request.contextPath}/Dist/assets3/https://www.bootstrapdash.com/" target="_blank"> Bootstrap dashboard </a> templates</span>
-              </div>
-            </div>
-          </div>
-        </footer>
+<footer id="footer" class="footer position-relative light-background py-4">
+    <div class="container text-center">
+        <h1 class="mb-3">
+            Projet <span style="font-size: 2em; color: #007bff;">Unité</span>
+        </h1>
+        <p class="mb-4">
+            A unified project built with passion and dedication to provide excellence.
+        </p>
+        <div class="social-links mb-4">
+            <a href="#" class="mx-2"><i class="bi bi-twitter"></i></a>
+            <a href="#" class="mx-2"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="mx-2"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="mx-2"><i class="bi bi-linkedin"></i></a>
+        </div>
+        <div class="copyright">
+            <span>&copy; <strong>2024</strong> Projet Unité. All Rights Reserved.</span>
+        </div>
+    </div>
+</footer>

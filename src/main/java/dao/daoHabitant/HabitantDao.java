@@ -18,5 +18,9 @@ public interface HabitantDao {
 
 	Habitant getHabitantByusername(String username);
 
+	int getHabitantsCount();
+
+	List<Habitant> getHabitantsPaginated(int start, int rowsPerPage);
+
 
 }
