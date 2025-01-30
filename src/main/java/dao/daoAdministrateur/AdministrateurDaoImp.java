@@ -18,7 +18,13 @@ public class AdministrateurDaoImp implements AdministrateurDao {
     public AdministrateurDaoImp(DAOFactory daoFactory) {
         this.daoFactory = daoFactory;
     }
+   
+    public class AdministrateurDao {
+    	
+        
+      
 
+    }
     @Override
     public void createAdministrateur(Administrateur a) {
         Connection connexion = null;
@@ -225,4 +231,47 @@ public class AdministrateurDaoImp implements AdministrateurDao {
 
         return admin;
     }
-}
+
+	@Override
+	public int getAdministrateursCount() {
+		int count = 0;
+        String query = "SELECT COUNT(*) FROM administrateurs";
+        try (Connection conn = daoFactory.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+	}
+
+	@Override
+	public List<Administrateur> getAdministrateursPaginated(int start, int rowsPerPage) {
+		List<Administrateur> admins = new ArrayList<>();
+        String query = "SELECT * FROM administrateurs LIMIT ?, ?";
+        try (Connection conn = daoFactory.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, start);
+            ps.setInt(2, rowsPerPage);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Administrateur admin = new Administrateur();
+                    admin.setId(rs.getInt("id"));
+                    admin.setNom(rs.getString("nom"));
+                    admin.setPrenom(rs.getString("prenom"));
+                    admin.setUsername(rs.getString("username"));
+                    admin.setEmail(rs.getString("email"));
+                    admin.setPassword(rs.getString("password"));
+                    admins.add(admin);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return admins;
+    } } 
+	
+

@@ -51,21 +51,49 @@ public class HabitantServlet extends HttpServlet {
         }
     }
 
-    protected void listHabitants(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Habitant> habitants = habitantDao.habitants(); // Récupérer la liste des habitants
-        request.setAttribute("habitants", habitants); // Ajouter la liste des habitants à la requête
-        request.getRequestDispatcher("/Gerant/habitantJsp/habitants.jsp").forward(request, response); // Rediriger vers la JSP des habitants
+    private void listHabitants(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Get the current page from the request; default to 1 if not provided
+        int currentPage = 1;
+        String pageParam = request.getParameter("page");
+        if (pageParam != null && !pageParam.isEmpty()) {
+            currentPage = Integer.parseInt(pageParam);
+        }
+
+        // Define the number of rows per page
+        int rowsPerPage = 6;
+
+        // Get the total number of habitants from the database
+        int totalHabitants = habitantDao.getHabitantsCount();
+
+        // Calculate the starting row for the current page
+        int start = (currentPage - 1) * rowsPerPage;
+
+        // Fetch the habitants for the current page
+        List<Habitant> habitants = habitantDao.getHabitantsPaginated(start, rowsPerPage);
+
+        // Calculate the total number of pages
+        int totalPages = (int) Math.ceil((double) totalHabitants / rowsPerPage);
+
+        // Set attributes for the request
+        request.setAttribute("habitants", habitants);
+        request.setAttribute("currentPage", currentPage);
+        request.setAttribute("totalPages", totalPages);
+
+        // Forward to the JSP
+        request.getRequestDispatcher("/Gerant/Habitant/habitants.jsp").forward(request, response);
     }
 
+
     protected void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/Gerant/habitantJsp/habitantAdd.jsp").forward(request, response); // Rediriger vers le formulaire d'ajout
+    	System.out.println("hi");
+    	request.getRequestDispatcher("/Gerant/Habitant/addHabitant.jsp").forward(request, response); // Rediriger vers le formulaire d'ajout
     }
 
     protected void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Habitant habitant = habitantDao.getHabitantById(id); // Récupérer l'habitant par son ID
-        request.setAttribute("habitant", habitant); // Ajouter l'habitant à la requête
-        request.getRequestDispatcher("/Gerant/habitantJsp/habitantUpdate.jsp").forward(request, response); // Rediriger vers le formulaire de modification
+        request.setAttribute("h", habitant); // Ajouter l'habitant à la requête
+        request.getRequestDispatcher("/Gerant/Habitant/updateHabitant.jsp").forward(request, response); // Rediriger vers le formulaire de modification
     }
 
     protected void deleteHabitant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -75,14 +103,16 @@ public class HabitantServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action");
+    	System.out.println("hi");
+    	String action = request.getParameter("action");
         if (action != null && action.equals("save")) {
             saveHabitant(request,response);
         }
     }
 
     private void saveHabitant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String id = request.getParameter("id");
+    	System.out.println("hi");
+    	String id = request.getParameter("id");
         String username = request.getParameter("username");
         String nom = request.getParameter("nom");
         String prenom = request.getParameter("prenom");
@@ -92,7 +122,6 @@ public class HabitantServlet extends HttpServlet {
         String adresse = request.getParameter("addresse");
         LocalDate dateDeNaissance = LocalDate.parse(request.getParameter("dateDeNaissance"));
         String metier = request.getParameter("metier");
-
         Habitant habitant = new Habitant();
         habitant.setUsername(username);
         habitant.setNom(nom);
@@ -103,9 +132,12 @@ public class HabitantServlet extends HttpServlet {
         habitant.setAddresse(adresse);
         habitant.setDateDeNaissance(dateDeNaissance);
         habitant.setMetier(metier);
+        
 
         if (id == null || id.isEmpty()) {
+        	 System.out.println("sav");
             habitantDao.createHabitant(habitant); // Créer un nouvel habitant
+            System.out.println("save");
         } else {
         	habitant.setId(Integer.parseInt(id));
             habitantDao.updateHabitant(habitant); // Mettre à jour l'habitant existant

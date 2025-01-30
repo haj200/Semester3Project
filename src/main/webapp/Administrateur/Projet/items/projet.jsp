@@ -1,5 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<div class="card">
+ <!-- Hero Section -->
+    <section id="hero" class="hero section dark-background">
+
+      <img src="${pageContext.request.contextPath}/Dist/assetsAdministrateur/img/hero-bg.jpeg" alt="" data-aos="fade-in" class="">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="card">
   <div class="card-header">
     <h4 class="card-title">Détails du Projet</h4>
   </div>
@@ -36,3 +42,8 @@
     </div>
   </div>
 </div>
+      </div>
+      </div>
+
+    </section>
+

@@ -76,21 +76,8 @@ public class HabitantDaoImp implements HabitantDao {
 
 	    } catch (SQLException e) {
 	        e.printStackTrace();
-	    } finally {
-	        
-	        try {
-	            if (preparedStatement != null) {
-	                preparedStatement.close();
-	            }
-	            if (connexion != null) {
-	                connexion.close();
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }
-	}
-
+	    }      }
+	
 
 	
 
@@ -138,21 +125,6 @@ public class HabitantDaoImp implements HabitantDao {
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
-	    } finally {
-	        // Close resources
-	        try {
-	            if (resultat != null) {
-	                resultat.close();
-	            }
-	            if (statement != null) {
-	                statement.close();
-	            }
-	            if (connexion != null) {
-	                connexion.close();
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
 	    }
 
 	    return habitants;
@@ -191,19 +163,7 @@ public class HabitantDaoImp implements HabitantDao {
 		        
 		    } catch (SQLException e) {
 		        e.printStackTrace(); // Gérer l'exception
-		    } finally {
-		        try {
-		            // Fermer le PreparedStatement et la connexion pour éviter les fuites de ressources
-		            if (preparedStatement != null) {
-		                preparedStatement.close();
-		            }
-		            if (connexion != null) {
-		                connexion.close();
-		            }
-		        } catch (SQLException e) {
-		            e.printStackTrace(); // Gérer l'exception pendant la fermeture
-		        }
-		    }
+		    } 
 		}
 
 	
@@ -232,20 +192,9 @@ public class HabitantDaoImp implements HabitantDao {
 		        
 		    } catch (SQLException e) {
 		        e.printStackTrace(); // Gérer l'exception
-		    } finally {
-		        try {
-		            // Fermer le PreparedStatement et la connexion pour éviter les fuites de ressources
-		            if (preparedStatement != null) {
-		                preparedStatement.close();
-		            }
-		            if (connexion != null) {
-		                connexion.close();
-		            }
-		        } catch (SQLException e) {
-		            e.printStackTrace(); // Gérer l'exception pendant la fermeture
-		        }
+		    } 
 		    }
-		}
+		
 
 	
 
@@ -292,22 +241,8 @@ public class HabitantDaoImp implements HabitantDao {
 	        
 	    } catch (SQLException e) {
 	        e.printStackTrace(); // Gérer l'exception
-	    } finally {
-	        // Fermer les ressources pour éviter les fuites de mémoire
-	        try {
-	            if (resultSet != null) {
-	                resultSet.close();
-	            }
-	            if (preparedStatement != null) {
-	                preparedStatement.close();
-	            }
-	            if (connexion != null) {
-	                connexion.close();
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace(); // Gérer l'exception pendant la fermeture
-	        }
-	    }
+	    } 
+	   
 	    
 	    return habitant;
 	}
@@ -353,25 +288,55 @@ public class HabitantDaoImp implements HabitantDao {
 	        
 	    } catch (SQLException e) {
 	        e.printStackTrace(); // Gérer l'exception
-	    } finally {
-	        // Fermer les ressources pour éviter les fuites de mémoire
-	        try {
-	            if (resultSet != null) {
-	                resultSet.close();
-	            }
-	            if (preparedStatement != null) {
-	                preparedStatement.close();
-	            }
-	            if (connexion != null) {
-	                connexion.close();
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace(); // Gérer l'exception pendant la fermeture
-	        }
-	    }
+	    } 
+	   
 	    
 	    return habitant;
 	}
+	@Override
+	public int getHabitantsCount() {
+	    int count = 0;
+	    String query = "SELECT COUNT(*) FROM habitants";
+	    try (Connection conn = daoFactory.getConnection();
+	         PreparedStatement ps = conn.prepareStatement(query);
+	         ResultSet rs = ps.executeQuery()) {
+	        if (rs.next()) {
+	            count = rs.getInt(1);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return count;
+	}
+	@Override
+	public List<Habitant> getHabitantsPaginated(int start, int rowsPerPage) {
+	    List<Habitant> habitants = new ArrayList<>();
+	    String query = "SELECT * FROM habitants LIMIT ?, ?";
+	    try (Connection conn = daoFactory.getConnection();
+	         PreparedStatement ps = conn.prepareStatement(query)) {
+	        ps.setInt(1, start);
+	        ps.setInt(2, rowsPerPage);
+	        try (ResultSet rs = ps.executeQuery()) {
+	            while (rs.next()) {
+	                Habitant habitant = new Habitant();
+	                habitant.setId(rs.getInt("id"));
+	                habitant.setNom(rs.getString("nom"));
+	                habitant.setPrenom(rs.getString("prenom"));
+	                habitant.setUsername(rs.getString("username"));
+	                habitant.setEmail(rs.getString("email"));
+	                habitant.setCin(rs.getString("cin"));
+	                habitant.setAddresse(rs.getString("addresse"));
+	                habitant.setDateDeNaissance(rs.getDate("dateDeNaissance").toLocalDate());
+	                habitant.setMetier(rs.getString("metier"));
+	                habitants.add(habitant);
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return habitants;
+	}
+
 
 	@Override
 	public Habitant getUserById(Integer userId) {

@@ -1,11 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="fr">
-<head>
+<html lang="en">
 
-<meta charset="UTF-8">
+<head>
+  <meta charset="UTF-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Projet UnitÃ©-Espace Administrateur</title>
+<title>Projet Unité</title>
 <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -13,56 +12,65 @@
   <link href="${pageContext.request.contextPath}/Dist/assets1/img/favicon.ico" rel="icon">
   <link href="${pageContext.request.contextPath}/Dist/assets1/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- base:css -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/Dist/assets3/vendors/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/Dist/assets3/vendors/css/vendor.bundle.base.css">
-  <!-- endinject -->
-  <!-- plugin css for this page -->
-  <!-- End plugin css for this page -->
-  <!-- inject:css -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/Dist/assets3/css/style.css">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="${pageContext.request.contextPath}/Dist/assetsAdministrateur/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath}/Dist/assetsAdministrateur/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath}/Dist/assetsAdministrateur/vendor/aos/aos.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath}/Dist/assetsAdministrateur/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath}/Dist/assetsAdministrateur/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="${pageContext.request.contextPath}/Dist/assetsAdministrateur/css/main.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: iPortfolio
+  * Template URL: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/
+  * Updated: Jun 29 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
 </head>
-<body>
-  <div class="container-scroller d-flex">
-    <!-- partial:./partials/_sidebar.html -->
-     <%@ include file="/temos/AdministrateurDashElements/leftNav.jsp" %> 
-    <!-- partial -->
-    <div class="container-fluid page-body-wrapper">
-      <!-- partial:./partials/_navbar.html -->
-      <%@ include file="/temos/AdministrateurDashElements/header.jsp" %> 
-      <!-- partial -->
-      <%@ include file="/Administrateur/Reclamation/items/reponse.jsp" %>
-          <!-- row end -->
-        
-        <!-- content-wrapper ends -->
-        <!-- partial:./partials/_footer.html -->
-       
-        <!-- partial -->
-     </div>
-      <!-- main-panel ends -->
-    
-    <!-- page-body-wrapper ends -->
-  
-  <!-- container-scroller -->
-</div>
-  <!-- base:js -->
-  <script src="${pageContext.request.contextPath}/Dist/assets3/vendors/js/vendor.bundle.base.js"></script>
-  <!-- endinject -->
-  <!-- Plugin js for this page-->
-  <script src="${pageContext.request.contextPath}/Dist/assets3/vendors/chart.js/Chart.min.js"></script>
-  <script src="${pageContext.request.contextPath}/Dist/assets3/js/jquery.cookie.js" type="text/javascript"></script>
-  <!-- End plugin js for this page-->
-  <!-- inject:js -->
-  <script src="${pageContext.request.contextPath}/Dist/assets3/js/off-canvas.js"></script>
-  <script src="${pageContext.request.contextPath}/Dist/assets3/js/hoverable-collapse.js"></script>
-  <script src="${pageContext.request.contextPath}/Dist/assets3/js/template.js"></script>
-  <!-- endinject -->
-  <!-- plugin js for this page -->
-    <script src="${pageContext.request.contextPath}/Dist/assets3/js/jquery.cookie.js" type="text/javascript"></script>
-  <!-- End plugin js for this page -->
-  <!-- Custom js for this page-->
-  <script src="${pageContext.request.contextPath}/Dist/assets3/js/dashboard.js"></script>
-  <!-- End custom js for this page-->
+
+<body class="index-page">
+
+  <%@ include file="/temos/AdministrateurDashElements/header.jsp" %>
+
+  <main class="main">
+
+     
+
+      
+
+  </main>
+
+  <%@ include file="/temos/AdministrateurDashElements/footer.jsp" %>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="${pageContext.request.contextPath}/Dist/assetsAdministrateur/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="${pageContext.request.contextPath}/Dist/assetsAdministrateur/vendor/php-email-form/validate.js"></script>
+  <script src="${pageContext.request.contextPath}/Dist/assetsAdministrateur/vendor/aos/aos.js"></script>
+  <script src="${pageContext.request.contextPath}/Dist/assetsAdministrateur/vendor/typed.js/typed.umd.js"></script>
+  <script src="${pageContext.request.contextPath}/Dist/assetsAdministrateur/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="${pageContext.request.contextPath}/Dist/assetsAdministrateur/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="${pageContext.request.contextPath}/Dist/assetsAdministrateur/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="${pageContext.request.contextPath}/Dist/assetsAdministrateur/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="${pageContext.request.contextPath}/Dist/assetsAdministrateur/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="${pageContext.request.contextPath}/Dist/assetsAdministrateur/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="${pageContext.request.contextPath}/Dist/assetsAdministrateur/js/main.js"></script>
+
 </body>
 
 </html>

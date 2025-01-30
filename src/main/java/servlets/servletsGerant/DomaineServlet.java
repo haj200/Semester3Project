@@ -44,6 +44,9 @@ public class DomaineServlet extends HttpServlet {
                 case "supprimer":
                     deleteDomaine(request, response);
                     break;
+                case "view":
+                    viewDomaine(request, response);
+                    break;
 
                 default:
                     list_Domaine(request, response);
@@ -52,21 +55,56 @@ public class DomaineServlet extends HttpServlet {
         }
     }
 
-    protected void list_Domaine(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Domaine> domaines = domaineDao.domaines();
+    private void viewDomaine(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	int id = Integer.parseInt(request.getParameter("id"));
+        Domaine domaine = domaineDao.getDomaineById(id);
+        request.setAttribute("domaine", domaine);
+        request.getRequestDispatcher("/Gerant/Domaine/viewDomaine.jsp").forward(request, response);
+		
+	}
+
+	private void list_Domaine(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Page actuelle (par défaut : 1)
+        int currentPage = 1;
+        String pageParam = request.getParameter("page");
+        if (pageParam != null && !pageParam.isEmpty()) {
+            currentPage = Integer.parseInt(pageParam);
+        }
+
+        // Nombre d'éléments par page
+        int rowsPerPage = 6;
+
+        // Total des domaines
+        int totalDomaines = domaineDao.getDomainesCount();
+
+        // Calcul de la ligne de départ pour la pagination
+        int start = (currentPage - 1) * rowsPerPage;
+
+        // Récupération des domaines pour la page actuelle
+        List<Domaine> domaines = domaineDao.getDomainesPaginated(start, rowsPerPage);
+
+        // Calcul du nombre total de pages
+        int totalPages = (int) Math.ceil((double) totalDomaines / rowsPerPage);
+
+        // Définir les attributs pour la requête
         request.setAttribute("domaines", domaines);
-        request.getRequestDispatcher("/Gerant/domaineJsp/domaines.jsp").forward(request, response);
+        request.setAttribute("currentPage", currentPage);
+        request.setAttribute("totalPages", totalPages);
+
+        // Redirection vers la JSP
+        request.getRequestDispatcher("/Gerant/Domaine/domaines.jsp").forward(request, response);
     }
 
+
     protected void shownewform(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/Gerant/domaineJsp/domaineAdd.jsp").forward(request, response);
+        request.getRequestDispatcher("/Gerant/Domaine/addDomaine.jsp").forward(request, response);
     }
 
     protected void showeditform(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Domaine domaine = domaineDao.getDomaineById(id);
         request.setAttribute("domaine", domaine);
-        request.getRequestDispatcher("/Gerant/domaineJsp/domaineUpdate.jsp").forward(request, response);
+        request.getRequestDispatcher("/Gerant/Domaine/updateDomaine.jsp").forward(request, response);
     }
 
     protected void deleteDomaine(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
