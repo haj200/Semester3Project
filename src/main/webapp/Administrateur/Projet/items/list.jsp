@@ -31,25 +31,42 @@
 				<c:forEach var="projet" items="${projets}">
 					<div class="swiper-slide">
 						<!-- Project Card -->
-						<div class="card">
 
+						<div class="card text-black shadow-lg"
+							style="background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), 
+             url('${pageContext.request.contextPath}/Dist/domaine/${projet.domaine.nom.toLowerCase()}.jpg') no-repeat center/cover; 
+            background-blend-mode: lighten; 
+            position: relative; 
+            overflow: hidden; 
+            border: none;">
 							<div class="card-body">
-								<p class="card-text" style="margin:10px; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); border: 1px solid #E0E0E0;">
-    Le projet <strong style="color: #8B0000;">"<c:out value="${projet.titre}" />"</strong> 
-    (ID: <span style="color: #4D4D4D;"><c:out value="${projet.id}" /></span>) 
-    est un effort ambitieux visant à 
-    <strong style="color: #2E2E2E;"><c:out value="${projet.objectifs}" /></strong>. 
-    Situé à <strong style="color: #7A3D3D;"><c:out value="${projet.localisation}" /></strong>, ce projet se concentre sur 
-    <strong style="color: #4D4D4D;"><c:out value="${projet.description}" /></strong>, 
-    avec un budget alloué de <strong style="color: #5A5A5A;"><c:out value="${projet.budget}" /> dirhams</strong>. 
-    Une fois réalisé, il devrait générer un bénéfice estimé à 
-    <strong style="color: #6A1B1B;"><c:out value="${projet.benefice}" /> dirhams</strong>, 
-    avec un gain direct de <strong style="color: #A52A2A;"><c:out value="${projet.gain}" /> dirhams</strong>. 
-    Ce projet, actuellement <strong style="color: #990000;"><c:out value="${projet.estValide}" /></strong>, 
-    est associé à l'habitant <strong style="color: #5C5C5C;"><c:out value="${projet.habitant.nom} ${projet.habitant.prenom}" /></strong>, 
-    et opère dans le domaine <strong style="color: #8B0000;"><c:out value="${projet.domaine.nom}" /></strong>. 
-    Ces éléments combinés font de ce projet une initiative clé pour le développement local.
-</p>
+								<p class="card-text"
+									style="margin: 10px; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); border: 1px solid #E0E0E0;">
+									Le projet <strong style="color: #8B0000;">"<c:out
+											value="${projet.titre}" />"
+									</strong> (ID: <span style="color: #4D4D4D;"><c:out
+											value="${projet.id}" /></span>) est un effort ambitieux visant à <strong
+										style="color: #2E2E2E;"><c:out
+											value="${projet.objectifs}" /></strong>. Situé à <strong
+										style="color: #7A3D3D;"><c:out
+											value="${projet.localisation}" /></strong>, ce projet se concentre
+									sur <strong style="color: #4D4D4D;"><c:out
+											value="${projet.description}" /></strong>, avec un budget alloué de <strong
+										style="color: #5A5A5A;"><c:out
+											value="${projet.budget}" /> dirhams</strong>. Une fois réalisé, il
+									devrait générer un bénéfice estimé à <strong
+										style="color: #6A1B1B;"><c:out
+											value="${projet.benefice}" /> dirhams</strong>, avec un gain direct
+									de <strong style="color: #A52A2A;"><c:out
+											value="${projet.gain}" /> dirhams</strong>. Ce projet, actuellement <strong
+										style="color: #990000;"><c:out
+											value="${projet.estValide}" /></strong>, est associé à l'habitant <strong
+										style="color: #5C5C5C;"><c:out
+											value="${projet.habitant.nom} ${projet.habitant.prenom}" /></strong>,
+									et opère dans le domaine <strong style="color: #8B0000;"><c:out
+											value="${projet.domaine.nom}" /></strong>. Ces éléments combinés font
+									de ce projet une initiative clé pour le développement local.
+								</p>
 
 								<div class="d-flex justify-content-end">
 									<a href="#" class="btn btn-success btn-sm mx-2">Télécharger
@@ -76,6 +93,7 @@
 							</div>
 						</div>
 					</div>
+
 				</c:forEach>
 
 			</div>
@@ -89,7 +107,8 @@
 
 	<div class="container" data-aos="fade-up" data-aos-delay="100">
 		<div class="card-body">
-			<h4 class="card-title">Projets</h4>
+			<h4 class="card-title"
+				style='font-size: 1.5rem; font-weight: bold; color: #ffffff; text-transform: uppercase; text-align: center; padding: 10px; margin: 20px 0; border-bottom: 3px solid #1E90FF; display: inline-block; background: #2874a6 ; border-radius: 5px;'>Projets</h4>
 			<p class="card-description">
 				<code></code>
 			</p>

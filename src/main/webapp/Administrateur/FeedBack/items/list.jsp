@@ -6,7 +6,7 @@
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
        <div class="card-body">
-  <h4 class="card-title">FeedBacks</h4>
+  <h4 class="card-title" style='font-size: 1.5rem; font-weight: bold; color: #ffffff; text-transform: uppercase; text-align: center; padding: 10px; margin: 20px 0; border-bottom: 3px solid #1E90FF; display: inline-block; background: #2874a6 ; border-radius: 5px;'>FeedBacks</h4>
   <p class="card-description"></p>
   <div class="table-responsive">
     <table class="table table-striped">

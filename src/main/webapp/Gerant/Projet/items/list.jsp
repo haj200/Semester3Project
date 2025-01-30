@@ -37,44 +37,49 @@
 							<div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card text-black shadow-lg" style="background: rgba(0, 0, 0, 0.8) url('${pageContext.request.contextPath}/Dist/assetsGerant/img/back.jpg') no-repeat center/cover; position: relative; overflow: hidden; border: none;">
-                
-                
-                <div class="card-body" style="z-index: 1;">
-                   <p class="card-text" style="margin:10px; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); border: 1px solid #E0E0E0;">
-    Le projet <strong style="color: #8B0000;">"<c:out value="${projet.titre}" />"</strong> 
-    (ID: <span style="color: #4D4D4D;"><c:out value="${projet.id}" /></span>) 
-    est un effort ambitieux visant à 
-    <strong style="color: #2E2E2E;"><c:out value="${projet.objectifs}" /></strong>. 
-    Situé à <strong style="color: #7A3D3D;"><c:out value="${projet.localisation}" /></strong>, ce projet se concentre sur 
-    <strong style="color: #4D4D4D;"><c:out value="${projet.description}" /></strong>, 
-    avec un budget alloué de <strong style="color: #5A5A5A;"><c:out value="${projet.budget}" /> dirhams</strong>. 
-    Une fois réalisé, il devrait générer un bénéfice estimé à 
-    <strong style="color: #6A1B1B;"><c:out value="${projet.benefice}" /> dirhams</strong>, 
-    avec un gain direct de <strong style="color: #A52A2A;"><c:out value="${projet.gain}" /> dirhams</strong>. 
-    Ce projet, actuellement <strong style="color: #990000;"><c:out value="${projet.estValide}" /></strong>, 
-    est associé à l'habitant <strong style="color: #5C5C5C;"><c:out value="${projet.habitant.nom} ${projet.habitant.prenom}" /></strong>, 
-    et opère dans le domaine <strong style="color: #8B0000;"><c:out value="${projet.domaine.nom}" /></strong>. 
-    Ces éléments combinés font de ce projet une initiative clé pour le développement local.
-</p>
-                <div class="card-footer d-flex justify-content-between" style="z-index: 1;">
-                    
-                    
-                    <a href="ProjectServlet?action=view&id=${projet.id}" class="btn btn-dark " 
-                       >
-                        voir
-                    </a>
-                    </div>
-                </div>
+    <div class="card text-black shadow-lg" 
+     style="background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), 
+             url('${pageContext.request.contextPath}/Dist/domaine/${projet.domaine.nom.toLowerCase()}.jpg') no-repeat center/cover; 
+            background-blend-mode: lighten; 
+            position: relative; 
+            overflow: hidden; 
+            border: none;">
+
+
+        
+        <div class="card-body" style="z-index: 1;">
+            <p class="card-text" style="margin:10px; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); border: 1px solid #E0E0E0;">
+                Le projet <strong style="color: #8B0000;">"<c:out value="${projet.titre}" />"</strong> 
+                (ID: <span style="color: #4D4D4D;"><c:out value="${projet.id}" /></span>) 
+                est un effort ambitieux visant à 
+                <strong style="color: #2E2E2E;"><c:out value="${projet.objectifs}" /></strong>. 
+                Situé à <strong style="color: #7A3D3D;"><c:out value="${projet.localisation}" /></strong>, ce projet se concentre sur 
+                <strong style="color: #4D4D4D;"><c:out value="${projet.description}" /></strong>, 
+                avec un budget alloué de <strong style="color: #5A5A5A;"><c:out value="${projet.budget}" /> dirhams</strong>. 
+                Une fois réalisé, il devrait générer un bénéfice estimé à 
+                <strong style="color: #6A1B1B;"><c:out value="${projet.benefice}" /> dirhams</strong>, 
+                avec un gain direct de <strong style="color: #A52A2A;"><c:out value="${projet.gain}" /> dirhams</strong>. 
+                Ce projet, actuellement <strong style="color: #990000;"><c:out value="${projet.estValide}" /></strong>, 
+                est associé à l'habitant <strong style="color: #5C5C5C;"><c:out value="${projet.habitant.nom} ${projet.habitant.prenom}" /></strong>, 
+                et opère dans le domaine <strong style="color: #8B0000;"><c:out value="${projet.domaine.nom}" /></strong>. 
+                Ces éléments combinés font de ce projet une initiative clé pour le développement local.
+            </p>
+            <div class="card-footer d-flex justify-content-between" style="z-index: 1;">
+                <a href="ProjectServlet?action=view&id=${projet.id}" class="btn btn-dark">
+                    Voir
+                </a>
             </div>
         </div>
     </div>
 </div>
+                
+</div>
 
-							
+		</div>					
 						</div>
 					</c:forEach>
 					</div>
+					
 <div class="swiper-button-prev"></div>
           <div class="swiper-button-next"></div>
           <div class="swiper-pagination"></div>

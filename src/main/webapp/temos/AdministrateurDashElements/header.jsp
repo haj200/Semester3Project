@@ -9,7 +9,7 @@
 
 	<a href="index.html"
 		class="logo d-flex align-items-center justify-content-center">
-		<h1 class="sitename">${user.nom}${user.prenom}</h1>
+		<h1 class="sitename"> ${user.nom} ${user.prenom}</h1>
 	</a>
 
 	<div class="social-links text-center">
