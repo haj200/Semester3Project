@@ -18,5 +18,7 @@ public interface HabitantDao {
 
 	Habitant getHabitantByusername(String username);
 
+	Habitant getUserById(Integer userId);
+
 
 }

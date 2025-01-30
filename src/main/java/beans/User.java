@@ -1,6 +1,7 @@
 package beans;
 
 public class User {
+	
 	private String username;
     private String typeUser;
 
@@ -16,5 +17,7 @@ public class User {
     public String getTypeUser() {
         return typeUser;
     }
+
+    
 
 }

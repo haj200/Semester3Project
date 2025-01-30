@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import beans.Habitant;
 import beans.Reclamation;
+import dao.DAOException;
 import dao.DAOFactory;
 
 public class ReclamationDaoImp implements ReclamationDao {
@@ -17,6 +18,35 @@ public class ReclamationDaoImp implements ReclamationDao {
     public ReclamationDaoImp(DAOFactory daoFactory) {
         super();
         this.daoFactory = daoFactory;
+    }
+    public List<Reclamation> reclamationsParHabitant(int habitantId) {
+        List<Reclamation> reclamations = new ArrayList<>();
+        String query = "SELECT * FROM reclamations WHERE id_habitant = ?";
+
+        try (Connection connection = daoFactory.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            // Assigner l'identifiant de l'habitant à la requête
+            preparedStatement.setInt(1, habitantId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                // Parcourir les résultats et les ajouter à la liste
+                while (resultSet.next()) {
+                    Reclamation reclamation = new Reclamation();
+                    reclamation.setId(resultSet.getInt("id"));
+                    reclamation.setMessage(resultSet.getString("message"));
+                    reclamation.setReponse(resultSet.getString("reponse"));
+                    
+                    
+                    reclamations.add(reclamation);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DAOException("Erreur lors de la récupération des réclamations", e);
+        }
+
+        return reclamations;
     }
 
     @Override

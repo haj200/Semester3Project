@@ -66,8 +66,24 @@
     <!-- modernizr JS
 		============================================ -->
     <script src="${pageContext.request.contextPath}/Dist/assets4/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Vérifie si l'utilisateur a déjà accepté les conditions
+            if (!localStorage.getItem("conditionsAccepted")) {
+                var modal = new bootstrap.Modal(document.getElementById("termsModal"));
+                modal.show();
+            }
+        });
+
+        function acceptTerms() {
+            localStorage.setItem("conditionsAccepted", "true");
+            var modal = bootstrap.Modal.getInstance(document.getElementById("termsModal"));
+            modal.hide();
+        }
+    </script>
 </head>
 <body>
+<div>
 <%@ include file="/temos/HabitantElements/left-sidebar.jsp" %>
     <div class="all-content-wrapper">
     <%@ include file="/temos/HabitantElements/header.jsp" %>
@@ -81,25 +97,26 @@
 
 
 
-<h1>Projets:</h1>
-
+<a href="DomaineHabitant?action=new" class="add-project-btn">
+    <button class="add-project-button">+</button>
+</a>
 <div class="project-container">
     <table class="project-table">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Titre</th>
+                <th>Projet</th>
                 <th>Description</th>
                 <th>Objectifs</th>
                 <th>Budget</th>
                 <th>Localisation</th>
                 <th>Bénéfice</th>
                 <th>Est validé</th>
-                <th>Gain</th>
+                
                 <th>Habitant</th>
                 <th>Domaine</th>
                 <th>Actions</th>
-                <th>Feedback</th> <!-- Nouvelle colonne pour le bouton Feedback -->
+                 <!-- Nouvelle colonne pour le bouton Feedback -->
             </tr>
         </thead>
         <tbody>
@@ -115,52 +132,150 @@
                     <td><c:out value="${projet.localisation}" /></td>
                     <td><c:out value="${projet.benefice}" /></td>
                     <td><c:out value="${projet.estValide}" /></td>
-                    <td><c:out value="${projet.gain}" /></td>
+                    
                     <td><c:out value="${projet.habitant.nom} ${projet.habitant.prenom}" /></td>
                     <td><c:out value="${projet.domaine.nom}" /></td>
-                    <td>
-                        <!-- Boutons pour modifier et supprimer le projet -->
-                        <a href="ProjetHabitant?action=edit&id=${projet.id}" class="button">Modifier</a>
-                        <a href="ProjetHabitant?action=delete&id=${projet.id}" class="button delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce projet ?');">Supprimer</a>
-                    </td>
+                    
                     <td>
                         <!-- Bouton pour ajouter un feedback -->
-                        <a href="FeedbackHabitant?action=new&idProjet=${projet.id}" class="button">Feedback</a>
+                        <a href="FeedbackHabitant?action=every&idProjet=${projet.id}" class="button">Feedbacks</a>
                     </td>
                 </tr>
             </c:forEach>
         </tbody>
     </table>
-    <a href="DomaineHabitant?action=new" class="button">Ajouter un Projet</a>
+    
+    
 </div>
+
+
+
 <style>
-.modal {
-            display: none; /* Masqué par défaut */
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5); /* Arrière-plan semi-transparent */
-        }
-        .modal-content {
-            background-color: white;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 50%;
-            text-align: center;
-        }
-        .close-btn {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-        }
-    </style>
+.fancy-border-radius-1 {
+  border-radius: 29% 71% 56% 44% / 43% 67% 33% 57%;
+
+  width: 330px;
+  height: 230px;
+  background: #f6c102;
+  background: -webkit-linear-gradient(to bottom right,
+      #f6c102,
+      #ffe496);
+  background: linear-gradient(to bottom right,
+      #f6c102,
+      #ffe496);
+}
+
+.fancy-border-radius-2 {
+  border-radius: 70% 30% 33% 67% / 27% 66% 34% 73%;
+
+  width: 250px;
+  height: 400px;
+  background: #f793b3;
+  background: -webkit-linear-gradient(to bottom right,
+      #f793b3,
+      #fcbfd1);
+  background: linear-gradient(to bottom right,
+      #f793b3,
+      #fcbfd1);
+}
+
+.fancy-border-radius-3 {
+  border-radius: 27% 73% 42% 58% / 71% 74% 26% 29%;
+
+  width: 300px;
+  height: 330px;
+  background: #76b8cd;
+  background: -webkit-linear-gradient(to bottom right,
+      #76b8cd,
+      #b5def2);
+  background: linear-gradient(to bottom right,
+      #76b8cd,
+      #b5def2);
+}
+@media (min-width: 1200px) {
+  .display-2 {
+    font-size: 6.5rem;
+  }
+}
+@media (min-width: 767px) and (max-width: 1199px) {
+  .display-2 {
+    font-size: 4.5rem;
+  }
+}
+/* Style du bouton circulaire */
+.add-project-btn {
+    position: relative;
+    display: flex;
+    justify-content: flex-start; /* Toujours aligné à gauche */
+    margin-top: 20px; /* Espace entre la table et le bouton */
+    margin-left: 20px; /* Ajouter un léger décalage vers la droite */
+}
+
+.add-project-button {
+    width: 50px;  /* Largeur du bouton */
+    height: 50px; /* Hauteur du bouton */
+    border-radius: 50%; /* Bordures arrondies pour créer un cercle */
+    background-color: #2196F3; /* Couleur bleue */
+    color: white;
+    font-size: 30px; /* Taille du "+" */
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    line-height: 50px; /* Centrer le "+" dans le cercle */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-project-button:hover {
+    background-color: #1976D2; /* Bleu foncé au survol */
+}
+
+
+/* Style pour la table des projets */
+.project-container {
+    margin: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    position: relative; /* Nécessaire pour positionner correctement le bouton */
+}
+
+
+    .modal {
+        display: none; /* Masqué par défaut */
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 255, 0.5); /* Arrière-plan semi-transparent bleu */
+    }
+
+    .modal-content {
+        background-color: white;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%;
+        text-align: center;
+    }
+
+    .close-btn {
+        background-color: #2196F3; /* Bleu */
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .close-btn:hover {
+        background-color: #1976D2; /* Bleu foncé au survol */
+    }
+</style>
+
 <style>
     /* Style pour la table des projets */
     .project-container {
@@ -186,41 +301,43 @@
     }
 
     .project-table th {
-        background-color: #4CAF50;
+        background-color: #2196F3; /* Bleu */
         color: white;
         font-weight: bold;
     }
 
     .project-table tr:nth-child(even) {
-        background-color: #f2f2f2;
+        background-color: #e3f2fd; /* Bleu clair */
     }
 
     .project-table tr:hover {
-        background-color: #ddd;
+        background-color: #bbdefb; /* Bleu au survol */
     }
 
     .button {
         padding: 8px 16px;
         margin: 4px;
         border: none;
-        background-color: #4CAF50;
+        background-color: #2196F3; /* Bleu */
         color: white;
         text-decoration: none;
         border-radius: 4px;
     }
 
     .button:hover {
-        background-color: #45a049;
+        background-color: #1976D2; /* Bleu foncé au survol */
     }
 
     .delete {
-        background-color: #f44336;
+        background-color: #f44336; /* Rouge */
     }
 
     .delete:hover {
-        background-color: #e53935;
+        background-color: #e53935; /* Rouge foncé */
     }
 </style>
+
+
 
 
 </div>
@@ -233,8 +350,27 @@
         </div>
     </div>
 </div>
-
-        
+</div>
+ <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="termsModalLabel">Conditions d'Utilisation</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Avant d'accéder à votre tableau de bord, veuillez accepter nos conditions d'utilisation :</p>
+                    <ul>
+                        <li>Vous acceptez de ne pas partager vos informations personnelles.</li>
+                        <li>Vous acceptez de respecter la confidentialité des autres utilisateurs.</li>
+                        <li>Toute violation des règles entraînera des sanctions.</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="acceptTerms()">J'accepte</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 <script src="${pageContext.request.contextPath}/Dist/assets4/js/vendor/jquery-1.12.4.min.js"></script>
     <!-- bootstrap JS

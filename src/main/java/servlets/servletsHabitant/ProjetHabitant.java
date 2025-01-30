@@ -63,15 +63,17 @@ public class ProjetHabitant extends HttpServlet {
             case "delete":
                 deleteProject(request, response);
                 break;
-            
+            case "myprojet":
+            	myprojects(request, response);
+            break;
             default:
                 listProjects(request, response);
-                break;
+               break;
         }
     }
 
     private void showNouvForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	request.getRequestDispatcher("Projets/formProjet.jsp").forward(request, response);
+    	request.getRequestDispatcher("Habitant/Projets/formProjet.jsp").forward(request, response);
 		
 	}
 
@@ -110,6 +112,12 @@ public class ProjetHabitant extends HttpServlet {
             habitant.setId(habitantId);
             
             String projectDirectory = projet.getDocumentsJustifChemin();
+            DocumentsJustif documentsJustif = projet.getDocumentsJustif();
+            if (documentsJustif == null) {
+                documentsJustif = new DocumentsJustif();
+                projet.setDocumentsJustif(documentsJustif);
+            }
+
             if (projectDirectory == null || projectDirectory.isEmpty()) {
                 projectDirectory = ROOT_DIRECTORY + "project_" + projectId + "/";
                 File dir = new File(projectDirectory);
@@ -118,15 +126,15 @@ public class ProjetHabitant extends HttpServlet {
                 }
             }
 
-            DocumentsJustif documentsJustif = projet.getDocumentsJustif();
-            if (documentsJustif == null) {
-                documentsJustif = new DocumentsJustif();
+            DocumentsJustif documentsJustif1 = projet.getDocumentsJustif();
+            if (documentsJustif1 == null) {
+                documentsJustif1 = new DocumentsJustif();
             }
 
-            documentsJustif.setPlanBusiness(saveFileIfUpdated(request.getPart("planBusiness"), projectDirectory, "planBusiness", documentsJustif.getPlanBusiness()));
-            documentsJustif.setEtudeFinanciere(saveFileIfUpdated(request.getPart("etudeFinanciere"), projectDirectory, "etudeFinanciere", documentsJustif.getEtudeFinanciere()));
-            documentsJustif.setPhoto(saveFileIfUpdated(request.getPart("photo"), projectDirectory, "photo", documentsJustif.getPhoto()));
-            documentsJustif.setFullDescriptif(saveFileIfUpdated(request.getPart("fullDescriptif"), projectDirectory, "fullDescriptif", documentsJustif.getFullDescriptif()));
+            documentsJustif1.setPlanBusiness(saveFileIfUpdated(request.getPart("planBusiness"), projectDirectory, "planBusiness", documentsJustif1.getPlanBusiness()));
+            documentsJustif1.setEtudeFinanciere(saveFileIfUpdated(request.getPart("etudeFinanciere"), projectDirectory, "etudeFinanciere", documentsJustif1.getEtudeFinanciere()));
+            documentsJustif1.setPhoto(saveFileIfUpdated(request.getPart("photo"), projectDirectory, "photo", documentsJustif1.getPhoto()));
+            documentsJustif1.setFullDescriptif(saveFileIfUpdated(request.getPart("fullDescriptif"), projectDirectory, "fullDescriptif", documentsJustif1.getFullDescriptif()));
 
             projet.setTitre(titre);
             projet.setDescription(description);
@@ -136,7 +144,7 @@ public class ProjetHabitant extends HttpServlet {
             projet.setBenefice(benefice);
             projet.setDomaine(domaine);
             projet.setHabitant(habitant);
-            projet.setDocumentsJustif(documentsJustif);
+            projet.setDocumentsJustif(documentsJustif1);
 
             projetDao.updateProjet(projet);
             response.sendRedirect(request.getContextPath() + "/ProjetHabitant");
@@ -144,23 +152,45 @@ public class ProjetHabitant extends HttpServlet {
             e.printStackTrace();
             response.getWriter().println("Error updating project: " + e.getMessage());
         }}
-	private void createProject(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void createProject(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            // Récupérer les paramètres du formulaire
             String titre = request.getParameter("titre");
             String description = request.getParameter("description");
             double budget = Double.parseDouble(request.getParameter("budget"));
             String objectifs = request.getParameter("objectifs");
             String localisation = request.getParameter("localisation");
             String benefice = request.getParameter("benefice");
-            int habitantId = 3;
-            int domaineId = 1;
 
+            // Récupérer l'utilisateur authentifié depuis la session
+            Habitant habitant = (Habitant) request.getSession().getAttribute("user");
+
+            // Vérifier si l'utilisateur est authentifié
+            if (habitant == null) {
+                // L'utilisateur n'est pas authentifié, renvoyer une erreur ou rediriger
+                response.sendRedirect("login.jsp");
+                return;
+            }
+
+            // Récupérer le paramètre "id" et le convertir en entier
+            String idParam = request.getParameter("id");
+            int domaineId = 0;
+
+            if (idParam != null) {
+                try {
+                    domaineId = Integer.parseInt(idParam); // Conversion de la chaîne en int
+                } catch (NumberFormatException e) {
+                    System.out.println("L'ID n'est pas un nombre valide.");
+                    response.getWriter().println("L'ID du domaine est invalide.");
+                    return;
+                }
+            }
+
+            // Créer l'objet Domaine
             Domaine domaine = new Domaine();
             domaine.setId(domaineId);
 
-            Habitant habitant = new Habitant();
-            habitant.setId(habitantId);
-
+            // Créer l'objet Projet
             Projet projet = new Projet();
             projet.setTitre(titre);
             projet.setDescription(description);
@@ -169,15 +199,16 @@ public class ProjetHabitant extends HttpServlet {
             projet.setLocalisation(localisation);
             projet.setBenefice(benefice);
             projet.setDomaine(domaine);
-            projet.setHabitant(habitant);
-            
+            projet.setHabitant(habitant); // Associer l'habitant au projet
 
+            // Créer un répertoire pour le projet
             String projectDirectory = ROOT_DIRECTORY + "project_" + System.currentTimeMillis() + "/";
             File dir = new File(projectDirectory);
             if (!dir.exists()) {
                 dir.mkdirs();
             }
 
+            // Gérer les documents associés au projet
             DocumentsJustif documentsJustif = new DocumentsJustif();
             documentsJustif.setPlanBusiness(saveFile(request.getPart("planBusiness"), projectDirectory, "planBusiness"));
             documentsJustif.setEtudeFinanciere(saveFile(request.getPart("etudeFinanciere"), projectDirectory, "etudeFinanciere"));
@@ -185,14 +216,19 @@ public class ProjetHabitant extends HttpServlet {
             documentsJustif.setFullDescriptif(saveFile(request.getPart("fullDescriptif"), projectDirectory, "fullDescriptif"));
 
             projet.setDocumentsJustif(documentsJustif);
+
+            // Enregistrer le projet dans la base de données
             projetDao.createProjet(projet);
 
+            // Rediriger l'utilisateur vers la page de projets de l'habitant
             response.sendRedirect(request.getContextPath() + "/ProjetHabitant");
+
         } catch (Exception e) {
             e.printStackTrace();
             response.getWriter().println("Error creating project: " + e.getMessage());
         }
     }
+
 
     private String saveFile(Part part, String directory, String fileNamePrefix) throws IOException {
         if (part != null && part.getSize() > 0) {
@@ -234,8 +270,38 @@ public class ProjetHabitant extends HttpServlet {
 
     private void listProjects(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("projects", projetDao.projets());
-        request.getRequestDispatcher("/Habitant/dashboard.jsp").forward(request, response);
+        request.getRequestDispatcher("/Habitant/dashboard.jsp");
     }
+   
+            // Récupérer et convertir l'identifiant en entier
+        	private void myprojects(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        	    String idParam = request.getParameter("id"); // Récupérer le paramètre "id" de la requête
+
+        	    if (idParam != null && !idParam.isEmpty()) {
+        	        try {
+        	            // Convertir l'ID en entier
+        	            int habitantId = Integer.parseInt(idParam);
+
+        	            // Récupérer les projets associés à cet habitant
+        	            request.setAttribute("projects", projetDao.projetsParHabitant(habitantId));
+
+        	            // Rediriger vers la page JSP pour afficher les projets
+        	            request.getRequestDispatcher("/Habitant/Projets/mesprojets.jsp").forward(request, response);
+        	        } catch (NumberFormatException e) {
+        	            // Si l'ID n'est pas un entier valide, rediriger vers la page dashboard
+        	            response.sendRedirect(request.getContextPath() + "/Habitant/dashboard.jsp");
+        	        }
+        	    } else {
+        	        // Si le paramètre "id" est manquant ou vide, rediriger vers la page dashboard
+        	        response.sendRedirect(request.getContextPath() + "/Habitant/dashboard.jsp");
+        	    }
+        	}
+
+       
+     
+
+
+
     private void deleteProject(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         projetDao.deleteProjet(id);

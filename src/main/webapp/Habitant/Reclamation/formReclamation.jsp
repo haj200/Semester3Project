@@ -80,99 +80,99 @@
 <head>
     <meta charset="UTF-8">
     <title>Ajouter un Projet</title>
-    <style>
-        /* Style général de la page */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
-        }
+<style>
+    /* Style général de la page */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+    }
 
-        /* Conteneur principal */
-        .form-container {
-            max-width: 800px;
-            margin: 30px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+    /* Conteneur principal */
+    .form-container {
+        max-width: 800px;
+        margin: 30px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-        /* Titre du formulaire */
-        h2 {
-            text-align: center;
-            color: #4CAF50;
-        }
+    /* Titre du formulaire */
+    h2 {
+        text-align: center;
+        color: #007BFF; /* Bleu */
+    }
 
-        /* Style des labels */
-        label {
-            font-weight: bold;
-            margin-bottom: 8px;
-            display: inline-block;
-            color: #333;
-        }
+    /* Style des labels */
+    label {
+        font-weight: bold;
+        margin-bottom: 8px;
+        display: inline-block;
+        color: #333;
+    }
 
-        /* Style des champs de texte et textarea */
-        input[type="text"],
-        input[type="number"],
-        input[type="file"],
-        textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-        }
+    /* Style des champs de texte et textarea */
+    input[type="text"],
+    input[type="number"],
+    input[type="file"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+    }
 
-        /* Style pour textarea */
-        textarea {
-            resize: vertical;
-            height: 150px;
-        }
+    /* Style pour textarea */
+    textarea {
+        resize: vertical;
+        height: 150px;
+    }
 
-        /* Style pour le bouton de soumission */
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            width: 100%;
-        }
+    /* Style pour le bouton de soumission */
+    button {
+        background-color: #007BFF; /* Bleu */
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        width: 100%;
+    }
 
-        button:hover {
-            background-color: #45a049;
-        }
+    button:hover {
+        background-color: #0056b3; /* Bleu foncé */
+    }
 
-        /* Style pour les champs obligatoires */
-        input[required], textarea[required] {
-            border-color: #ff5c5c;
-        }
+    /* Style pour les champs obligatoires */
+    input[required], textarea[required] {
+        border-color: #ff5c5c;
+    }
 
-        /* Ajout d'un espace entre chaque champ */
-        .form-group {
-            margin-bottom: 20px;
-        }
+    /* Ajout d'un espace entre chaque champ */
+    .form-group {
+        margin-bottom: 20px;
+    }
 
-        /* Style pour les petits titres des sections */
-        .section-title {
-            font-size: 18px;
-            color: #333;
-            margin-top: 20px;
-        }
+    /* Style pour les petits titres des sections */
+    .section-title {
+        font-size: 18px;
+        color: #333;
+        margin-top: 20px;
+    }
 
-        /* Pour les champs de fichiers */
-        input[type="file"] {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
+    /* Pour les champs de fichiers */
+    input[type="file"] {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+</style>
 
-    </style>
 </head>
 <body>
     <div class="form-container">

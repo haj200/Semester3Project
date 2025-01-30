@@ -22,6 +22,69 @@ public class FeedbackDaoImp implements FeedbackDao {
         super();
         this.daoFactory = daoFactory;
     }
+    public List<Feedback> getFeedbackByProject(int projectId) {
+        List<Feedback> feedbacks = new ArrayList<>();
+        Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            // Récupérer la connexion depuis le DAOFactory
+            connexion = daoFactory.getConnection();
+
+            // Préparer la requête SQL
+            String sql = "SELECT f.id, f.message, f.proposition, " +
+                         "h.id AS id_habitant, h.nom AS habitant_nom, h.prenom AS habitant_prenom, " +
+                         "p.id AS id_projet, p.titre AS projet_titre " +
+                         "FROM feedbacks f " +
+                         "JOIN habitants h ON f.id_habitant = h.id " +
+                         "JOIN projets p ON f.id_projet = p.id " +
+                         "WHERE f.id_projet = ?";
+            preparedStatement = connexion.prepareStatement(sql);
+            preparedStatement.setInt(1, projectId);
+
+            // Exécuter la requête
+            resultSet = preparedStatement.executeQuery();
+
+            // Parcourir les résultats et construire les objets Feedback
+            while (resultSet.next()) {
+                // Création de l'objet Habitant
+                Habitant habitant = new Habitant();
+                habitant.setId(resultSet.getInt("id_habitant"));
+                habitant.setNom(resultSet.getString("habitant_nom"));
+                habitant.setPrenom(resultSet.getString("habitant_prenom"));
+
+                // Création de l'objet Projet
+                Projet projet = new Projet();
+                projet.setId(resultSet.getInt("id_projet"));
+                projet.setTitre(resultSet.getString("projet_titre"));
+
+                // Création de l'objet Feedback
+                Feedback feedback = new Feedback();
+                feedback.setId(resultSet.getInt("id"));
+                feedback.setMessage(resultSet.getString("message"));
+                feedback.setProposition(resultSet.getString("proposition"));
+                feedback.setHabitant(habitant);
+                feedback.setProjet(projet);
+
+                // Ajout du feedback à la liste
+                feedbacks.add(feedback);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (connexion != null) connexion.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return feedbacks;
+    }
+
     
     public void createFeedback(Feedback f) {
         Connection connexion = null;

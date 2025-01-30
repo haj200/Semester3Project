@@ -12,5 +12,7 @@ public interface FeedbackDao {
 		void updateFeedback(Feedback f);
 		void deleteFeedback(int id);
 		Feedback getFeedbackById(int id);
+		List<Feedback> getFeedbackByProject(int projectId);
+		
 	}
 

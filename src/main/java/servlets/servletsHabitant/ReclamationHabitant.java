@@ -51,11 +51,43 @@ public class ReclamationHabitant extends HttpServlet {
         case "view":
         	viewReclamation(request, response);
             break;
+        case "myreclam":
+        	myreclam(request, response);
+        break;
         default:
         listReclamations(request, response); // Par défaut, afficher la liste
         break;
 		
 	}}
+	protected void myreclam(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    // Récupérer le paramètre "id" de la requête
+	    String idParam = request.getParameter("id");
+
+	    if (idParam != null && !idParam.isEmpty()) {
+	        try {
+	            // Convertir l'ID en entier
+	            int habitantId = Integer.parseInt(idParam);
+
+	            // Récupérer les réclamations associées à cet habitant
+	            List<Reclamation> reclamations = reclamationDao.reclamationsParHabitant(habitantId);
+	            request.setAttribute("reclamations", reclamations);
+
+	            // Rediriger vers la page JSP pour afficher les réclamations
+	            request.getRequestDispatcher("/Habitant/Reclamation/mesreclamations.jsp").forward(request, response);
+	        } catch (NumberFormatException e) {
+	            // Si l'ID n'est pas un entier valide, rediriger vers la page dashboard
+	            response.sendRedirect(request.getContextPath() + "/Habitant/dashboard.jsp");
+	        }
+	    } else {
+	        // Si le paramètre "id" est manquant ou vide, rediriger vers la page dashboard
+	        response.sendRedirect(request.getContextPath() + "/Habitant/dashboard.jsp");
+	    }
+	}
+
+
+
+
+
 	 private void viewReclamation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			int id = Integer.parseInt(request.getParameter("id"));
 			request.setAttribute("reclamation", reclamationDao.getReclamationById(id));
@@ -87,11 +119,22 @@ public class ReclamationHabitant extends HttpServlet {
 	    }
 	}
 
-        protected void listReclamations(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            List<Reclamation> reclamations = reclamationDao.reclamations();
-            request.setAttribute("reclamations", reclamations);
-            request.getRequestDispatcher("/Habitant/Reclamation/listReclamations.jsp").forward(request, response);
-        }
+	protected void listReclamations(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    try {
+	        // Récupérer les réclamations via la DAO
+	        List<Reclamation> reclamations = reclamationDao.reclamations();
+	        request.setAttribute("reclamations", reclamations);
+
+	        // Transférer la requête et la réponse à la JSP
+	        request.getRequestDispatcher("/Habitant/Reclamation/listReclamations.jsp").forward(request, response);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+
+	        // Gérer les erreurs et afficher un message approprié
+	        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erreur lors de l'affichage des réclamations.");
+	    }
+	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

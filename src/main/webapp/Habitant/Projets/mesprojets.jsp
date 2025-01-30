@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -80,182 +79,133 @@
 
 
 
-
-
-
-<a href="${pageContext.request.contextPath}/FeedbackHabitant?action=new&id=${projet.id}" class="add-project-btn">
-    <button class="add-project-button">+</button>
-</a>
-<div class="project-container">
-    <table class="project-table">
-        <thead>
-            <tr>
-                
-                <th>habitant</th>
-                <th>message</th>
-                <th>Proposition</th>
-                
-                 <!-- Nouvelle colonne pour le bouton Feedback -->
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Affichage de la liste des projets -->
-            <c:forEach var="feedback" items="${feedbacks}">
-                <tr>
-                    <!-- Affichage des informations sur chaque projet -->
-                    
-                    <td><c:out value="${feedback.habitant.nom} ${feedback.habitant.prenom}" /></td>
-                    <td><c:out value="${feedback.message}" /></td>
-                    <td><c:out value="${feedback.proposition}" /></td>
-                    
-                    
-                    
-                </tr>
-            </c:forEach>
-        </tbody>
-    </table>
+    <header>
     
-</div>
+</header>
+
 <style>
-.add-project-btn {
-    position: relative;
-    display: flex;
-    justify-content: flex-start; /* Toujours aligné à gauche */
-    margin-top: 20px; /* Espace entre la table et le bouton */
-    margin-left: 20px; /* Ajouter un léger décalage vers la droite */
-}
-
-.add-project-button {
-    width: 50px;  /* Largeur du bouton */
-    height: 50px; /* Hauteur du bouton */
-    border-radius: 50%; /* Bordures arrondies pour créer un cercle */
-    background-color: #2196F3; /* Couleur bleue */
-    color: white;
-    font-size: 30px; /* Taille du "+" */
-    border: none;
-    cursor: pointer;
-    text-align: center;
-    line-height: 50px; /* Centrer le "+" dans le cercle */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.add-project-button:hover {
-    background-color: #1976D2; /* Bleu foncé au survol */
-}
-    /* Style pour la fenêtre modale */
-    .modal {
-        display: none; /* Masqué par défaut */
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0.5); /* Arrière-plan semi-transparent */
-    }
-
-    .modal-content {
-        background-color: white;
-        margin: 15% auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 50%;
+    .page-title {
         text-align: center;
-    }
-
-    .close-btn {
-        background-color: #007BFF; /* Bleu */
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        cursor: pointer;
-    }
-
-    .close-btn:hover {
-        background-color: #0056b3; /* Bleu foncé */
-    }
-</style>
-
-<style>
-    /* Style pour la table des projets */
-    .project-container {
-        margin: 20px;
-        padding: 10px;
-        border-radius: 8px;
-        background-color: #f9f9f9;
-    }
-
-    .project-table {
-        width: 100%;
-        border-collapse: collapse;
+        font-size: 32px; /* Taille de police plus grande */
+        color: #2196F3; /* Couleur bleue */
+        font-weight: bold; /* Texte en gras */
         margin-top: 20px;
-        background-color: #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .project-table th,
-    .project-table td {
-        padding: 12px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-    }
-
-    .project-table th {
-        background-color: #007BFF; /* Bleu */
-        color: white;
-        font-weight: bold;
-    }
-
-    .project-table tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-
-    .project-table tr:hover {
-        background-color: #ddd;
-    }
-
-    .button {
-        padding: 8px 16px;
-        margin: 4px;
-        border: none;
-        background-color: #007BFF; /* Bleu */
-        color: white;
-        text-decoration: none;
-        border-radius: 4px;
-    }
-
-    .button:hover {
-        background-color: #0056b3; /* Bleu foncé */
-    }
-
-    .delete {
-        background-color: #DC3545; /* Rouge */
-    }
-
-    .delete:hover {
-        background-color: #C82333; /* Rouge foncé */
+        margin-bottom: 20px;
+        text-transform: uppercase; /* Majuscules */
+        letter-spacing: 2px; /* Espacement entre les lettres */
+        border-bottom: 3px solid #2196F3; /* Ligne sous le titre */
+        display: inline-block; /* Permet de centrer avec bordure */
+        padding-bottom: 10px; /* Espace sous le texte pour la bordure */
     }
 </style>
-
-
-
-</div>
-
-<!-- Lien vers la page d'ajout d'un projet -->
-
-
-
-            
-        </div>
-    </div>
-</div>
-</div>
+    
+    <main>
+        <c:if test="${not empty projects}">
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Titre</th>
+                        <th>Description</th>
+                        <th>Objectifs</th>
+                        <th>Budget</th>
+                        <th>Localisation</th>
+                        <th>Bénéfice</th>
+                        <th>Validé</th>
+                        
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="projet" items="${projects}">
+                        <!-- Vérification si le projet appartient à l'habitant connecté -->
+                        <c:if test="${projet.habitant.id == user.id}">
+                            <tr>
+                                <td>${projet.id}</td>
+                                <td>${projet.titre}</td>
+                                <td>${projet.description}</td>
+                                <td>${projet.objectifs}</td>
+                                <td>${projet.budget}</td>
+                                <td>${projet.localisation}</td>
+                                <td>${projet.benefice}</td>
+                                <td>${projet.estValide == 1 ? 'Oui' : 'Non'}</td>
+                                
+                                
+                                
+                                <td>
+                                    <a href="ProjetHabitant?action=edit&id=${projet.id}">Modifier</a>
+                                    <a href="ProjetHabitant?action=delete&id=${projet.id}" 
+                                       onclick="return confirm('Voulez-vous vraiment supprimer ce projet ?');">
+                                        Supprimer
+                                    </a>
+                                </td>
+                            </tr>
+                        </c:if>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </c:if>
         
-</body>
-<script src="${pageContext.request.contextPath}/Dist/assets4/js/vendor/jquery-1.12.4.min.js"></script>
+        
+    </main>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </body>
+    <style>
+   
+    /* Style pour le tableau */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+}
+
+table thead tr {
+    background-color: #2196F3; /* Bleu */
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table tbody tr:hover {
+    background-color: #ddd;
+}
+
+/* Style des liens dans le tableau */
+table a {
+    color: #2196F3; /* Bleu */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+table a:hover {
+    text-decoration: underline;
+}
+
+/* Style du header */
+header h1 {
+    text-align: center;
+    font-size: 24px;
+    color: #2196F3; /* Bleu au lieu de vert */
+    margin-top: 20px;
+}
+
+    
+    <script src="${pageContext.request.contextPath}/Dist/assets4/js/vendor/jquery-1.12.4.min.js"></script>
     <!-- bootstrap JS
 		============================================ -->
     <script src="${pageContext.request.contextPath}/Dist/assets4/js/bootstrap.min.js"></script>
@@ -315,5 +265,5 @@
 		============================================ -->
     <script src="${pageContext.request.contextPath}/Dist/assets4/js/tawk-chat.js"></script>
 
-
-</html>
+    
+    </html>

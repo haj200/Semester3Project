@@ -81,16 +81,19 @@
 
 
 
-  <h1>Reclamations:</h1>
-
+  
+<a href="ReclamationHabitant?action=new" class="add-project-btn">
+    <button class="add-project-button">+</button>
+</a>
 <div class="project-container">
     <table class="project-table">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Message</th>
-                <th>Reponse</th>
+                <th>Réponse</th>
                 <th>Habitant</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -99,88 +102,108 @@
                 <tr>
                     <!-- Affichage des informations sur chaque réclamation -->
                     <td><c:out value="${reclamation.id}" /></td>
-                    <td><c:out value="${reclamation.message}" /></td> <!-- Correction de "massage" à "message" -->
+                    <td><c:out value="${reclamation.message}" /></td>
                     <td><c:out value="${reclamation.reponse}" /></td>
                     <td><c:out value="${reclamation.habitant.nom} ${reclamation.habitant.prenom}" /></td>
                     <td>
-              <a href="${pageContext.request.contextPath}/ReclamationHabitant?action=view&id=${reclamation.id}" 
-                 class="btn btn-primary btn-sm">
-                Voir
-              </a>
-              
-            </td>
+                        <a href="${pageContext.request.contextPath}/ReclamationHabitant?action=view&id=${reclamation.id}" class="button">Voir</a>
+                    </td>
                 </tr>
             </c:forEach>
         </tbody>
     </table>
-    <a href="ReclamationHabitant?action=new" class="button">Ajouter une réclamation</a>
+</div>
+
+
+
     <style>
-    /* Style pour le conteneur de la table des réclamations */
-    .project-container {
-        margin: 20px;
-        padding: 20px;
-        border-radius: 8px;
-        background-color: #f9f9f9;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
+    /* Style du bouton circulaire */
+.add-project-btn {
+    position: relative;
+    display: flex;
+    justify-content: flex-start; /* Toujours aligné à gauche */
+    margin-top: 20px; /* Espace entre la table et le bouton */
+    margin-left: 20px; /* Ajouter un léger décalage vers la droite */
+}
 
-    /* Style général pour la table */
-    .project-table {
-        width: 100%;
-        border-collapse: collapse;
-        background-color: #fff;
-    }
+.add-project-button {
+    width: 50px;  /* Largeur du bouton */
+    height: 50px; /* Hauteur du bouton */
+    border-radius: 50%; /* Bordures arrondies pour créer un cercle */
+    background-color: #2196F3; /* Couleur bleue */
+    color: white;
+    font-size: 30px; /* Taille du "+" */
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    line-height: 50px; /* Centrer le "+" dans le cercle */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-    /* Style des cellules de la table */
-    .project-table th,
-    .project-table td {
-        padding: 12px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-        font-size: 14px;
-    }
+.add-project-button:hover {
+    background-color: #1976D2; /* Bleu foncé au survol */
+}
+/* Style pour la table des réclamations */
+.project-container {
+    margin: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    position: relative; /* Nécessaire pour positionner correctement le bouton */
+}
 
-    /* Style de l'en-tête de la table */
-    .project-table th {
-        background-color: #4CAF50;
-        color: white;
-        font-weight: bold;
-    }
+.project-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-    /* Style des lignes paires de la table */
-    .project-table tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
+.project-table th,
+.project-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
 
-    /* Effet de survol des lignes */
-    .project-table tr:hover {
-        background-color: #ddd;
-    }
+.project-table th {
+    background-color: #2196F3; /* Bleu */
+    color: white;
+    font-weight: bold;
+}
 
-    /* Style du bouton d'action */
-    .button {
-        padding: 8px 16px;
-        margin-top: 20px;
-        background-color: #4CAF50;
-        color: white;
-        text-decoration: none;
-        border-radius: 4px;
-        font-size: 16px;
-    }
+.project-table tr:nth-child(even) {
+    background-color: #e3f2fd; /* Bleu clair */
+}
 
-    .button:hover {
-        background-color: #45a049;
-    }
+.project-table tr:hover {
+    background-color: #bbdefb; /* Bleu au survol */
+}
 
-    /* Style pour le bouton de suppression */
-    .delete {
-        background-color: #f44336;
-        color: white;
-    }
+/* Style pour les boutons */
+.button {
+    padding: 8px 16px;
+    margin: 4px;
+    border: none;
+    background-color: #2196F3; /* Bleu */
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
 
-    .delete:hover {
-        background-color: #e53935;
-    }
+.button:hover {
+    background-color: #1976D2; /* Bleu foncé au survol */
+}
+
+.add-project-btn {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
 
 </style>
     

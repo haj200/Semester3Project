@@ -22,7 +22,31 @@ public class HabitantDaoImp implements HabitantDao {
 	public HabitantDaoImp(DAOFactory daoFactory) {
 		this.daoFactory=daoFactory;
 	}
-
+    
+	public Habitant getUserById(int userId) throws SQLException {
+        Habitant habitant = null;
+        String query = "SELECT * FROM habitants WHERE id = ?";
+        try (Connection connection = daoFactory.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, userId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    habitant = new Habitant();
+                    habitant.setUsername(resultSet.getString("username"));
+                    habitant.setPassword(resultSet.getString("password"));
+                    habitant.setNom(resultSet.getString("name"));
+                    habitant.setPrenom(resultSet.getString("prenom"));
+                    habitant.setEmail(resultSet.getString("email"));
+                    habitant.setAddresse(resultSet.getString("addresse"));
+                    habitant.setCin(resultSet.getString("cin"));
+                    habitant.setMetier(resultSet.getString("metier"));
+                    
+                    // Ajoutez d'autres attributs si nécessaires
+                }
+            }
+        }
+        return habitant;
+    }
 	@Override
 	public void createHabitant(Habitant h) {
 	    Connection connexion = null;
@@ -347,6 +371,12 @@ public class HabitantDaoImp implements HabitantDao {
 	    }
 	    
 	    return habitant;
+	}
+
+	@Override
+	public Habitant getUserById(Integer userId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

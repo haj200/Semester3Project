@@ -12,17 +12,15 @@
                     
                     
                         <li class="active">
-                            <a class="has-arrow" href="all-professors.html" aria-expanded="false"><span class="educate-icon educate-home icon-wrap"></span> <span class="mini-click-non">Projets</span></a>
+                            <a class="has-arrow" href="all-professors.html" aria-expanded="false"><i class="fa fa-users icon"></i> <span class="mini-click-non">Projets</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Professors" href="all-professors.html"><span class="mini-sub-pro">Mes feedbacks</span></a></li>
-                                <li><a title="Add Professor" href="add-professor.html"><span class="mini-sub-pro">Mes projets</span></a></li>
+                                
+                                <li><a title="Add Professor" href="${pageContext.request.contextPath}/ProjetHabitant?action=myprojet&id=${user.id}"><span class="mini-sub-pro">Mes projets</span></a></li>
+                                
                                 
                             </ul>
                         </li>
-                        <li>
-                            <a title="Landing Page" href="events.html" aria-expanded="false"><span class="educate-icon educate-event icon-wrap sub-icon-mg" aria-hidden="true"></span> <span class="mini-click-non">Event</span></a>
-                        </li>
-                        
+        <li><a  href="${pageContext.request.contextPath}/ReclamationHabitant?action=myreclam&id=${user.id}" aria-expanded="false"><i class="fa fa-calendar icon"></i> <span class="mini-click-non">Mes reclamations</span></a></li>                        
                         
                         
                     </ul>

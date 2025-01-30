@@ -49,6 +49,8 @@ public class FeedbackHabitant extends HttpServlet {
             case "new":
                 showNewForm(request, response);
                 break;
+            case "every" :
+            	listFeedbacks(request, response);
             default:
                 listProjects(request, response);
                 break;
@@ -59,6 +61,12 @@ public class FeedbackHabitant extends HttpServlet {
         request.setAttribute("projects", projetDao.projets());
         request.getRequestDispatcher("/Habitant/dashboard.jsp").forward(request, response);
     }
+    private void listFeedbacks(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	int idiiProjet = Integer.parseInt(request.getParameter("idProjet"));
+        request.setAttribute("feedbacks", feedbackDao.getFeedbackByProject(idiiProjet));
+        request.getRequestDispatcher("/Habitant/Feedback/listFeedback.jsp").forward(request, response);
+    }
+    
     
 
     
@@ -66,31 +74,48 @@ public class FeedbackHabitant extends HttpServlet {
 	
 
 
-	private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	   int idiProjet = Integer.parseInt(request.getParameter("idProjet"));
-    	try {
+    private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            // Vérifier si le paramètre "id" est présent et non vide
+            String idProjetStr = request.getParameter("id");
+            int idiiProjet = 0; // Valeur par défaut
+
+            if (idProjetStr != null && !idProjetStr.isEmpty()) {
+                try {
+                    idiiProjet = Integer.parseInt(idProjetStr);
+                } catch (NumberFormatException e) {
+                    response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID du projet invalide");
+                    return;
+                }
+            } else {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID du projet manquant");
+                return;
+            }
+
             // Récupérer l'objet habitant depuis la session
             Habitant habitant = (Habitant) request.getSession().getAttribute("user");
-            
+
             if (habitant == null) {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "User not authenticated");
                 return;
             }
-            
 
             // Récupérer l'ID de l'habitant
             Integer habitantId = habitant.getId();
             System.out.println("id " + habitantId); 
-            // Utilisation de l'implémentation concrète de ProjetDao
-           // Assurez-vous de charger les projets
-            request.setAttribute("habitantId", habitantId);  // Passer l'ID de l'habitant à la vue
-            request.setAttribute("idProjet", idiProjet);
-            request.getRequestDispatcher("Habitant/Feedback/formFeedback.jsp").forward(request, response);  // Redirection vers le formulaire
+
+            // Passer les données à la vue
+            request.setAttribute("habitantId", habitantId);
+            request.setAttribute("id", idiiProjet);
+            
+            // Redirection vers le formulaire
+            request.getRequestDispatcher("Habitant/Feedback/formFeedback.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erreur lors du chargement des projets et habitants");
         }
     }
+
 
     	
 

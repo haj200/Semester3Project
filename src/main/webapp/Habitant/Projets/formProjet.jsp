@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -81,7 +80,7 @@
     <meta charset="UTF-8">
     <title>Ajouter un Projet</title>
     <style>
-        /* Style général de la page */
+                /* Style général de la page */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
@@ -102,7 +101,7 @@
         /* Titre du formulaire */
         h2 {
             text-align: center;
-            color: #4CAF50;
+            color: #007bff; /* Bleu */
         }
 
         /* Style des labels */
@@ -134,7 +133,7 @@
 
         /* Style pour le bouton de soumission */
         button {
-            background-color: #4CAF50;
+            background-color: #007bff; /* Bleu */
             color: white;
             padding: 12px 20px;
             border: none;
@@ -145,7 +144,7 @@
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #0056b3; /* Bleu plus foncé */
         }
 
         /* Style pour les champs obligatoires */
@@ -172,12 +171,13 @@
             border-radius: 4px;
         }
 
+
     </style>
 </head>
 <body>
     <div class="form-container">
         <h2>Ajouter un Projet</h2>
-        <form action="ProjetHabitant?action=add" method="post" enctype="multipart/form-data">
+        <form action="ProjetHabitant?action=add&id=${domaine.id}" method="post" enctype="multipart/form-data">
             
             <div class="form-group">
                 <label for="titre">Titre :</label>
@@ -298,4 +298,4 @@
     <script src="${pageContext.request.contextPath}/Dist/assets4/js/tawk-chat.js"></script>
 
 
-</html>
+</html> 

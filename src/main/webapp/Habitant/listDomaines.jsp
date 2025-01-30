@@ -75,53 +75,36 @@
    
 
                             
-<div class="contacts-area mg-b-15">
-            <div class="container-fluid">
-            <table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nom</th>
-            <th>Description</th>
-            <th>Critères</th>
-            <th>Projets</th>
-            <th>Plus de details</th> <!-- Nouvelle colonne pour les projets -->
-        </tr>
-    </thead>
-    <tbody>
+<div class="container">
+    <ul class="list-group">
         <c:forEach var="domaine" items="${domaines}">
-            <tr>
-                <!-- ID du domaine -->
-                <td>${domaine.id}</td>
-                <!-- Nom du domaine -->
-                <td>${domaine.nom}</td>
-                <!-- Description du domaine -->
-                <td>${domaine.description}</td>
-                <!-- Critères du domaine -->
-                <td>${domaine.criteres}</td>
-                <!-- Nouvelle colonne avec un lien pour ajouter un projet -->
-                <td>
-                    <a href="ProjetHabitant?action=nouveau" class="btn btn-success">
-                        Ajouter
-                    </a>
-                </td>
-                <td>
-              <a href="${pageContext.request.contextPath}/DomaineHabitant?action=view&id=${domaine.id}" 
-                 class="btn btn-primary btn-sm">
-                Voir
-              </a>
-              
-            </td>
-            </tr>
-        </c:forEach>
-    </tbody>
-</table>
-
-
+            <li class="list-group-item clearfix">
+                <!-- Image (ici vous pouvez ajouter l'image pour chaque domaine si nécessaire) -->
                 
-        </div>
-        </div>
-        </div>
+                
+                <!-- Titre du domaine -->
+                <h3 class="list-group-item-heading">
+                    ${domaine.nom}
+                </h3>
+                
+                <!-- Description du domaine -->
+                <p class="list-group-item-text lead">
+                    ${domaine.description}
+                </p>
+                
+                <!-- Critères du domaine (vous pouvez ajouter ici selon vos besoins) -->
+                
+                
+                <!-- Lien vers les détails du domaine -->
+                <a href="${pageContext.request.contextPath}/DomaineHabitant?action=view&id=${domaine.id}" class="btn btn-default btn-sm">Details</a>
+                <a href="${pageContext.request.contextPath}/ProjetHabitant?action=nouveau&id=${domaine.id}" class="btn btn-default btn-sm">Ajouter un projet</a>
+                <!-- Lien pour ajouter un projet -->
+                
+            </li>
+        </c:forEach>
+    </ul>
+</div>
+
         
         
 
@@ -130,7 +113,18 @@
                     
                     
  </body>             
-               
+ <style>
+ body 
+
+.list-group {box-shadow: 0px 11px 23px 5px rgba(0,0,0,0.34);}
+
+.list-group-item {background-color: rgba(255,255,255,0.7); border:0;}
+
+.btn-toolbar {margin-top:10px;}
+
+
+</style>
+        
 
     <!-- jquery
 		============================================ -->

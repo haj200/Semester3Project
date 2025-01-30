@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -75,185 +74,66 @@
  <div class="single-pro-review-area mt-t-30 mg-b-15">
     <div class="container-fluid">
         <div class="row">
-            
-<!-- Ajout du CSS pour la stylisation -->
+<head>
+    <meta charset="UTF-8">
+    <title>Mes Réclamations</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Lien vers votre fichier CSS -->
+   
+</head>
 
-
-
-
-
-
-<a href="${pageContext.request.contextPath}/FeedbackHabitant?action=new&id=${projet.id}" class="add-project-btn">
-    <button class="add-project-button">+</button>
-</a>
-<div class="project-container">
-    <table class="project-table">
-        <thead>
-            <tr>
-                
-                <th>habitant</th>
-                <th>message</th>
-                <th>Proposition</th>
-                
-                 <!-- Nouvelle colonne pour le bouton Feedback -->
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Affichage de la liste des projets -->
-            <c:forEach var="feedback" items="${feedbacks}">
+<body>
+    <header>
+    <h1>Mes Réclamations</h1>
+</header>
+<main>
+    <c:if test="${not empty reclamations}">
+        <table border="1">
+            <thead>
                 <tr>
-                    <!-- Affichage des informations sur chaque projet -->
-                    
-                    <td><c:out value="${feedback.habitant.nom} ${feedback.habitant.prenom}" /></td>
-                    <td><c:out value="${feedback.message}" /></td>
-                    <td><c:out value="${feedback.proposition}" /></td>
-                    
-                    
-                    
+                    <th>ID</th>
+                    <th>Message</th>
+                    <th>Réponse</th>
+                    <th>Statut</th>
+                    <th>Actions</th>
                 </tr>
-            </c:forEach>
-        </tbody>
-    </table>
-    
-</div>
-<style>
-.add-project-btn {
-    position: relative;
-    display: flex;
-    justify-content: flex-start; /* Toujours aligné à gauche */
-    margin-top: 20px; /* Espace entre la table et le bouton */
-    margin-left: 20px; /* Ajouter un léger décalage vers la droite */
-}
+            </thead>
+            <tbody>
+                <c:forEach var="reclamation" items="${reclamations}">
+                    <!-- Vérification si la réclamation appartient à l'habitant connecté -->
+                    <c:if test="${reclamation.habitant.id == user.id}">
+                        <tr>
+                            <td>${reclamation.id}</td>
+                            <td>${reclamation.message}</td>
+                            <td>${reclamation.reponse != null ? reclamation.reponse : "Pas de réponse"}</td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${reclamation.est_repondu == 1}">Répondu</c:when>
+                                    <c:otherwise>Non Répondu</c:otherwise>
+                                </c:choose>
+                            </td>
+                            <td>
+                                <a href="ReclamationHabitant?id=${reclamation.id}">Voir détails</a> |
+                                <a href="ReclamationHabitant?id=${reclamation.id}">Modifier</a> |
+                                <a href="ReclamationHabitant?id=${reclamation.id}" 
+                                   onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette réclamation ?');">
+                                    Supprimer
+                                </a>
+                            </td>
+                        </tr>
+                    </c:if>
+                </c:forEach>
+            </tbody>
+        </table>
+    </c:if>
 
-.add-project-button {
-    width: 50px;  /* Largeur du bouton */
-    height: 50px; /* Hauteur du bouton */
-    border-radius: 50%; /* Bordures arrondies pour créer un cercle */
-    background-color: #2196F3; /* Couleur bleue */
-    color: white;
-    font-size: 30px; /* Taille du "+" */
-    border: none;
-    cursor: pointer;
-    text-align: center;
-    line-height: 50px; /* Centrer le "+" dans le cercle */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+    <c:if test="${empty reclamations}">
+        <p>Aucune réclamation trouvée.</p>
+    </c:if>
+</main>
 
-.add-project-button:hover {
-    background-color: #1976D2; /* Bleu foncé au survol */
-}
-    /* Style pour la fenêtre modale */
-    .modal {
-        display: none; /* Masqué par défaut */
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0.5); /* Arrière-plan semi-transparent */
-    }
-
-    .modal-content {
-        background-color: white;
-        margin: 15% auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 50%;
-        text-align: center;
-    }
-
-    .close-btn {
-        background-color: #007BFF; /* Bleu */
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        cursor: pointer;
-    }
-
-    .close-btn:hover {
-        background-color: #0056b3; /* Bleu foncé */
-    }
-</style>
-
-<style>
-    /* Style pour la table des projets */
-    .project-container {
-        margin: 20px;
-        padding: 10px;
-        border-radius: 8px;
-        background-color: #f9f9f9;
-    }
-
-    .project-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-        background-color: #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .project-table th,
-    .project-table td {
-        padding: 12px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-    }
-
-    .project-table th {
-        background-color: #007BFF; /* Bleu */
-        color: white;
-        font-weight: bold;
-    }
-
-    .project-table tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-
-    .project-table tr:hover {
-        background-color: #ddd;
-    }
-
-    .button {
-        padding: 8px 16px;
-        margin: 4px;
-        border: none;
-        background-color: #007BFF; /* Bleu */
-        color: white;
-        text-decoration: none;
-        border-radius: 4px;
-    }
-
-    .button:hover {
-        background-color: #0056b3; /* Bleu foncé */
-    }
-
-    .delete {
-        background-color: #DC3545; /* Rouge */
-    }
-
-    .delete:hover {
-        background-color: #C82333; /* Rouge foncé */
-    }
-</style>
-
-
-
-</div>
-
-<!-- Lien vers la page d'ajout d'un projet -->
-
-
-
-            
-        </div>
-    </div>
-</div>
-</div>
-        
+        <!-- Bouton pour ajouter une nouvelle réclamation -->
+        <a href="Reclamation?action=new" class="btn">Ajouter une nouvelle réclamation</a>
+    </main>
 </body>
 <script src="${pageContext.request.contextPath}/Dist/assets4/js/vendor/jquery-1.12.4.min.js"></script>
     <!-- bootstrap JS

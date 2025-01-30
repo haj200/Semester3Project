@@ -207,6 +207,7 @@ public class ProjetDaoImp implements ProjetDao {
                 String benefice = resultSet.getString("benefice");
                 int estValide = resultSet.getInt("estValide");
                 double gain = resultSet.getDouble("gain");
+                
 
                 int domaineId = resultSet.getInt("id_domaine");
 

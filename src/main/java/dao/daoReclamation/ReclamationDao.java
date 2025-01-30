@@ -14,6 +14,7 @@ public interface ReclamationDao {
 		Reclamation getReclamationById(int id);
 		
 		void respondReclamation(Reclamation r);
+		List<Reclamation> reclamationsParHabitant(int habitantId);
 		
 		
 	}
